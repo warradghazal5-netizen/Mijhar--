@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مِجهر | اكتشف ما لا تراه</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+  --bg:#071311;--panel:#0e201c;--panel2:#122923;
+  --mint:#73f5c5;--mint2:#b1ffe2;--text:#edf9f3;
+  --muted:#a0b9ae;--line:#24483d;--gold:#e8d39b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;line-height:1.9}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+header{position:sticky;top:0;z-index:20;background:rgba(7,19,17,.94);backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}
+.nav{max-width:1180px;margin:auto;padding:12px 22px;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.logo{font-size:24px;font-weight:900;color:var(--mint);line-height:1.3}
+.logo small{display:block;font-size:10px;color:var(--muted);font-weight:500}
+.navlinks{display:flex;gap:17px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.navlinks a:hover{color:var(--mint)}
+.hero{max-width:1180px;margin:auto;padding:78px 24px;display:grid;grid-template-columns:1.2fr .8fr;gap:35px;align-items:center}
+.eyebrow,.kicker{color:var(--mint);font-size:12px;font-weight:800;letter-spacing:.5px}
+h1{font-size:clamp(38px,6vw,70px);line-height:1.25;margin:15px 0}
+h1 span{color:var(--mint)}
+.hero p{max-width:620px;color:var(--muted);font-size:17px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;justify-content:center;align-items:center;padding:10px 20px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-weight:800}
+.btn.primary{background:var(--mint);color:#062119;border-color:var(--mint)}
+.btn:hover{filter:brightness(1.08)}
+.hero-art{min-height:300px;border:1px solid var(--line);border-radius:28px;background:radial-gradient(ellipse at center,#1b5141 0,#102b24 42%,#091714 78%);display:grid;place-items:center;overflow:hidden}
+.orbit{width:220px;height:220px;border:1px solid #73f5c566;border-radius:50%;display:grid;place-items:center;position:relative;animation:spin 24s linear infinite}
+.orbit:before{content:"";position:absolute;width:165px;height:165px;border:1px dashed #73f5c588;border-radius:50%}
+.orbit:after{content:"";width:13px;height:13px;background:var(--mint);border-radius:50%;position:absolute;top:18px;right:35px;box-shadow:0 0 22px var(--mint)}
+.core{font-size:76px;animation:counter 24s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes counter{to{transform:rotate(-360deg)}}
+section{padding:60px 22px;scroll-margin-top:80px}
+.inner{max-width:1180px;margin:auto}
+.section-head{margin-bottom:25px}
+h2{font-size:clamp(27px,4vw,42px);margin:4px 0 8px;line-height:1.4}
+.section-head p{color:var(--muted);margin:0;max-width:780px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px;overflow:hidden}
+.embed-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.embed-title{font-size:18px;font-weight:800;color:var(--mint2);margin:0 0 12px}
+.embed-frame{width:100%;border:0;display:block;border-radius:12px;background:#fff}
+.cell-frame{aspect-ratio:1152/1170}
+.dna-frame{aspect-ratio:290/477}
+.rna-frame{aspect-ratio:1920/1536}
+.hint{font-size:12px;color:var(--muted);margin:10px 0 0}
+.note{padding:15px 18px;border-right:3px solid var(--mint);background:#10251f;border-radius:10px;color:#d9eee4;margin-top:18px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.info-card{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:21px;transition:.2s}
+.info-card:hover{border-color:var(--mint);transform:translateY(-3px)}
+.card-icon{font-size:29px}
+.info-card h3{margin:5px 0;color:var(--mint2);font-size:19px}
+.info-card p{color:var(--muted);font-size:14px;margin:0}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+.tag{display:inline-block;color:var(--mint);border:1px solid var(--line);padding:2px 10px;border-radius:20px;font-size:12px;margin-bottom:8px}
+.quiz-question{font-size:20px;font-weight:800;margin:18px 0}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.answer{text-align:right;padding:13px;border:1px solid var(--line);border-radius:12px;background:#10241e;color:var(--text)}
+.answer:hover:not(:disabled){border-color:var(--mint)}
+.answer:disabled{cursor:default;opacity:1}
+.answer.correct{border-color:#73f5c5;background:#163d30}
+.answer.wrong{border-color:#ff9c9c;background:#3a2020}
+.feedback{min-height:45px;color:var(--mint2);margin-top:15px}
+.quiz-bottom{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+#score{color:var(--gold);font-weight:800}
+footer{border-top:1px solid var(--line);padding:30px 22px;text-align:center;color:var(--muted);font-size:13px}
+
+/* فيديوهات مِجهر */
+.video-library{margin-top:28px;padding:24px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#102923,#0b1a16)}
+.library-heading{margin-bottom:20px}
+.library-heading h3{color:var(--mint2);font-size:23px;margin:4px 0}
+.library-heading p{color:var(--muted);margin:0;font-size:14px}
+.video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.video-card{min-width:0;overflow:hidden;border:1px solid var(--line);border-radius:17px;background:#091713}
+.video-frame{width:100%;aspect-ratio:16/9;background:#030907}
+.video-frame iframe{display:block;width:100%;height:100%;border:0}
+.video-short{aspect-ratio:9/16;max-height:470px}
+.video-info{padding:15px 17px}
+.video-info span{font-size:12px;color:var(--mint)}
+.video-info h4{font-size:17px;margin:4px 0;color:var(--mint2)}
+.video-info p{font-size:13px;color:var(--muted);margin:0}
+.video-link{display:inline-block;margin-top:10px;font-size:12px;color:var(--mint);text-decoration:underline}
+.video-link:hover{color:var(--mint2)}
+.library-button{margin-top:20px}
+#video-library{scroll-margin-top:110px}
+
+@media(max-width:760px){
+  .nav{align-items:flex-start;flex-direction:column;gap:5px}
+  .navlinks{gap:12px}
+  .hero{grid-template-columns:1fr;padding-top:48px}
+  .hero-art{min-height:230px}
+  .embed-grid,.cards,.split{grid-template-columns:1fr}
+  .answers{grid-template-columns:1fr}
+  section{padding:42px 15px}
+  .panel{padding:13px}
+  .video-library{padding:15px}
+  .video-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <nav class="nav">
+    <a class="logo" href="#home">مِجهر<small>اكتشف ما لا تراه</small></a>
+    <div class="navlinks">
+      <a href="#cell">الخلية</a>
+      <a href="#organelles">العضيّات</a>
+      <a href="#genetics">المادة الوراثية</a>
+      <a href="#video-library">مكتبة الفيديوهات</a>
+      <a href="#quiz">اختبر نفسك</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div>
+    <div class="eyebrow">مختبر العلوم التفاعلي · BIOLOGY LAB</div>
+    <h1>ما لا تراه العين،<br><span>يكشفه مِجهر.</span></h1>
+    <p>رحلة تفاعلية إلى عالم الخلية؛ اكتشف مكوّناتها، وافهم أسرار المادة الوراثية، واختبر معلوماتك بطريقة تجمع بين العلم والاستكشاف.</p>
+    <div class="actions">
+      <a class="btn primary" href="#cell">ابدأ الاستكشاف ↙</a>
+      <a class="btn" href="#genetics">اكتشف المادة الوراثية</a>
+      <a class="btn" href="#video-library">شاهد الفيديوهات 🎬</a>
+    </div>
+  </div>
+  <div class="hero-art"><div class="orbit"><div class="core">🧬</div></div></div>
+</section>
+
+<section id="cell">
+  <div class="inner">
+    <div class="section-head">
+      <div class="kicker">01 / CELL EXPLORER</div>
+      <h2>داخل الخلية النباتية</h2>
+      <p>اضغط على العلامات التفاعلية في النموذج لاستكشاف أجزاء الخلية ووظائفها.</p>
+    </div>
+    <div class="panel">
+      <iframe class="embed-frame cell-frame"
+        src="https://interactiveimage.com/embed/b9108b8e-d4ce-475d-8b79-e53918293d55"
+        title="الخلية النباتية التفاعلية" scrolling="no" loading="lazy" allow="fullscreen" allowfullscreen>
+      </iframe>
+      <p class="hint">خريطة الخلية النباتية التفاعلية.</p>
+    </div>
+
+    <!-- فيديوهات الخلية النباتية -->
+    <div class="video-library">
+      <div class="library-heading">
+        <div class="kicker">WATCH & DISCOVER</div>
+        <h3>🎬 شاهدي الخلية النباتية</h3>
+        <p>شاهدي الفيديوهات ثم استكشفي النموذج التفاعلي أعلاه.</p>
+      </div>
+      <div class="video-grid">
+        <article class="video-card">
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/uHuazhI0WjI"
+              title="الخلية النباتية - الفيديو الأول"
+              loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <div class="video-info">
+            <span>علم الخلية</span>
+            <h4>الخلية النباتية — الفيديو الأول</h4>
+            <p>فيديو تعليمي عن الخلية النباتية.</p>
+            <a class="video-link" href="https://youtu.be/uHuazhI0WjI" target="_blank" rel="noopener">فتح على YouTube ↗</a>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/wXaFN8VQPj0"
+              title="الخلية النباتية - الفيديو الثاني"
+              loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <div class="video-info">
+            <span>علم الخلية</span>
+            <h4>الخلية النباتية — الفيديو الثاني</h4>
+            <p>مراجعة مرئية للخلية النباتية.</p>
+            <a class="video-link" href="https://youtu.be/wXaFN8VQPj0" target="_blank" rel="noopener">فتح على YouTube ↗</a>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <div class="video-frame video-short">
+            <iframe src="https://www.youtube.com/embed/wMGEBfP5PRc"
+              title="الخلية النباتية ثلاثية الأبعاد"
+              loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <div class="video-info">
+            <span>استكشاف ثلاثي الأبعاد</span>
+            <h4>الخلية النباتية من منظور ثلاثي الأبعاد</h4>
+            <p>استكشاف بصري للخلية النباتية.</p>
+            <a class="video-link" href="https://youtube.com/shorts/wMGEBfP5PRc" target="_blank" rel="noopener">فتح الفيديو الأصلي ↗</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="organelles">
+  <div class="inner">
+    <div class="section-head">
+      <div class="kicker">02 / CELL STRUCTURE</div>
+      <h2>أجزاء صغيرة، وظائف عظيمة</h2>
+      <p>لكل عضيّة دور يساعد الخلية على أداء وظائفها الحيوية.</p>
+    </div>
+    <div class="cards">
+      <article class="info-card"><div class="card-icon">🧠</div><h3>النواة</h3><p>تحتوي على معظم المادة الوراثية في الخلية، وتشارك في تنظيم أنشطتها.</p></article>
+      <article class="info-card"><div class="card-icon">⚡</div><h3>الميتوكوندريا</h3><p>تنتج معظم الطاقة القابلة للاستخدام في الخلية عن طريق التنفس الخلوي.</p></article>
+      <article class="info-card"><div class="card-icon">🌿</div><h3>البلاستيدات الخضراء</h3><p>تحتوي على الكلوروفيل، وتتم فيها عملية البناء الضوئي في الخلايا النباتية.</p></article>
+      <article class="info-card"><div class="card-icon">🧱</div><h3>الجدار الخلوي</h3><p>يوفر الدعم والحماية ويساعد الخلية النباتية على المحافظة على شكلها.</p></article>
+      <article class="info-card"><div class="card-icon">💧</div><h3>الفجوة العصارية</h3><p>تخزن الماء ومواد مختلفة، وتساهم في المحافظة على ضغط الامتلاء في الخلية النباتية.</p></article>
+      <article class="info-card"><div class="card-icon">🔬</div><h3>الريبوسومات</h3><p>تشارك في تصنيع البروتينات وفق التعليمات التي تحملها جزيئات RNA.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="genetics">
+  <div class="inner">
+    <div class="section-head">
+      <div class="kicker">03 / GENETIC MATERIAL</div>
+      <h2>المادة الوراثية</h2>
+      <p>استكشف بنية DNA، ثم تعرّف إلى DNA وRNA من خلال خريطة تعليمية تفاعلية.</p>
+    </div>
+    <div class="note">النموذج ثلاثي الأبعاد والشرح التفاعلي موجودان هنا في الصفحة نفسها. يمكنك التفاعل مع كل واحد منهما بشكل مستقل.</div>
+
+    <div class="embed-grid" style="margin-top:20px">
+      <article class="panel">
+        <h3 class="embed-title">🧬 نموذج DNA ثلاثي الأبعاد</h3>
+        <iframe class="embed-frame dna-frame"
+          src="https://interactiveimage.com/embed/8b98a1ba-bf85-4b6e-83f0-901241700f62"
+          title="نموذج DNA ثلاثي الأبعاد" scrolling="no" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
+        <p class="hint">استكشف النموذج ثلاثي الأبعاد وتفاصيله التفاعلية.</p>
+      </article>
+      <article class="panel">
+        <h3 class="embed-title">🔎 شرح DNA وRNA</h3>
+        <iframe class="embed-frame rna-frame"
+          src="https://interactiveimage.com/embed/7ddc1b8d-ffb9-4203-8d02-33195439c2f9"
+          title="شرح DNA وRNA التفاعلي" scrolling="no" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
+        <p class="hint">اضغط على العلامات داخل الخريطة لقراءة الشروحات.</p>
+      </article>
+    </div>
+
+    <!-- فيديو DNA تحت موضوع المادة الوراثية -->
+    <div class="video-library">
+      <div class="library-heading">
+        <div class="kicker">GENETIC MATERIAL</div>
+        <h3>🧬 شاهدي: عالم DNA</h3>
+        <p>فيديو مخصص للتعرّف إلى المادة الوراثية.</p>
+      </div>
+      <div class="video-grid">
+        <article class="video-card">
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/NPVGrdA3kmI"
+              title="فيديو DNA"
+              loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <div class="video-info">
+            <span>المادة الوراثية</span>
+            <h4>اكتشفي عالم DNA</h4>
+            <p>شاهدي الفيديو ثم استكشفي نموذج DNA التفاعلي.</p>
+            <a class="video-link" href="https://youtu.be/NPVGrdA3kmI" target="_blank" rel="noopener">فتح على YouTube ↗</a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="split">
+      <article class="info-card">
+        <span class="tag">DNA</span>
+        <h3>الحمض النووي الريبوزي منقوص الأكسجين</h3>
+        <p>يتكوّن عادةً من سلسلتين ملتفتين في شكل لولب مزدوج. قواعده النيتروجينية A وT وG وC، وتتقابل A مع T وG مع C.</p>
+      </article>
+      <article class="info-card">
+        <span class="tag">RNA</span>
+        <h3>الحمض النووي الريبوزي</h3>
+        <p>يتكوّن غالبًا من سلسلة واحدة، ويحتوي على القواعد A وU وG وC. تساعد أنواعه المختلفة في استخدام المعلومات الوراثية وصنع البروتينات.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- مكتبة تجمع الفيديوهات الأربعة -->
+<section id="video-library">
+  <div class="inner">
+    <div class="section-head">
+      <div class="kicker">05 / VIDEO LIBRARY</div>
+      <h2>مكتبة فيديوهات مِجهر</h2>
+      <p>كل الفيديوهات التعليمية في مكان واحد — اختاري الموضوع وابدئي المشاهدة.</p>
+    </div>
+
+    <div class="video-library">
+      <div class="library-heading">
+        <h3>🎬 شاهدي واكتشفي</h3>
+        <p>الخلية النباتية، الاستكشاف ثلاثي الأبعاد، والمادة الوراثية.</p>
+      </div>
+      <div class="video-grid">
+        <article class="video-card">
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/uHuazhI0WjI" title="الخلية النباتية - الفيديو الأول" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-info"><span>علم الخلية</span><h4>الخلية النباتية</h4><p>الفيديو الأول.</p><a class="video-link" href="https://youtu.be/uHuazhI0WjI" target="_blank" rel="noopener">فتح على YouTube ↗</a></div>
+        </article>
+        <article class="video-card">
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/wXaFN8VQPj0" title="الخلية النباتية - الفيديو الثاني" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-info"><span>علم الخلية</span><h4>الخلية النباتية</h4><p>الفيديو الثاني.</p><a class="video-link" href="https://youtu.be/wXaFN8VQPj0" target="_blank" rel="noopener">فتح على YouTube ↗</a></div>
+        </article>
+        <article class="video-card">
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/NPVGrdA3kmI" title="DNA" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-info"><span>المادة الوراثية</span><h4>عالم DNA</h4><p>فيديو عن المادة الوراثية.</p><a class="video-link" href="https://youtu.be/NPVGrdA3kmI" target="_blank" rel="noopener">فتح على YouTube ↗</a></div>
+        </article>
+        <article class="video-card">
+          <div class="video-frame video-short">
+            <iframe src="https://www.youtube.com/embed/wMGEBfP5PRc" title="الخلية النباتية ثلاثية الأبعاد" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-info"><span>استكشاف ثلاثي الأبعاد</span><h4>الخلية النباتية ثلاثية الأبعاد</h4><p>فيديو قصير لاستكشاف الخلية.</p><a class="video-link" href="https://youtube.com/shorts/wMGEBfP5PRc" target="_blank" rel="noopener">فتح الفيديو الأصلي ↗</a></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="inner">
+    <div class="section-head">
+      <div class="kicker">06 / KNOWLEDGE CHECK</div>
+      <h2>اختبر نفسك</h2>
+      <p>اختر إجابة واحدة لكل سؤال، وستظهر لك النتيجة والتفسير مباشرة.</p>
+    </div>
+    <div class="panel">
+      <div class="quiz-bottom">
+        <span class="tag" id="progress">السؤال 1 من 5</span>
+        <span id="score">النتيجة: 0 / 5</span>
+      </div>
+      <p class="quiz-question" id="question"></p>
+      <div class="answers" id="answers"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <div class="quiz-bottom">
+        <button class="btn primary" id="next" disabled>السؤال التالي ←</button>
+        <button class="btn" id="restart" hidden>إعادة الاختبار ↻</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="logo">مِجهر</div>
+  <p>نتعلّم لنفهم، ونستكشف لنكتشف.</p>
+  <p>مشروع تعليمي تفاعلي في العلوم والأحياء.</p>
+</footer>
+
+<script>
+const questions = [
+  {
+    q:"أي عضيّة تُعد الموقع الأساسي للبناء الضوئي في الخلية النباتية؟",
+    a:["الميتوكوندريا","البلاستيدات الخضراء","الريبوسومات","النواة"],
+    correct:1,
+    explain:"البلاستيدات الخضراء تحتوي على الكلوروفيل وتتم فيها عملية البناء الضوئي."
+  },
+  {
+    q:"ما الشكل الشائع لجزيء DNA؟",
+    a:["سلسلة أحماض أمينية","لولب مزدوج","طبقة دهنية","سكريات فقط"],
+    correct:1,
+    explain:"يتكون DNA عادةً من سلسلتين ملتفتين في شكل لولب مزدوج."
+  },
+  {
+    q:"أي قاعدة توجد في RNA بدلًا من الثايمين T؟",
+    a:["اليوراسيل U","السيتوسين C","الجوانين G","الأدينين A"],
+    correct:0,
+    explain:"يحتوي RNA على اليوراسيل U، بينما يحتوي DNA على الثايمين T."
+  },
+  {
+    q:"ما الوظيفة الأساسية للريبوسومات؟",
+    a:["تخزين الماء","تصنيع البروتينات","إنتاج الضوء","حماية الخلية"],
+    correct:1,
+    explain:"الريبوسومات هي مواقع تصنيع البروتينات في الخلية."
+  },
+  {
+    q:"أي قاعدة في DNA تتقابل مع الجوانين G؟",
+    a:["الأدينين A","الثايمين T","السيتوسين C","اليوراسيل U"],
+    correct:2,
+    explain:"في DNA تتقابل قاعدة الجوانين G مع السيتوسين C."
+  }
+];
+
+let index=0,score=0,locked=false;
+const questionEl=document.getElementById("question");
+const answersEl=document.getElementById("answers");
+const feedbackEl=document.getElementById("feedback");
+const progressEl=document.getElementById("progress");
+const scoreEl=document.getElementById("score");
+const nextBtn=document.getElementById("next");
+const restartBtn=document.getElementById("restart");
+
+function renderQuestion(){
+  locked=false;
+  const item=questions[index];
+  questionEl.textContent=item.q;
+  progressEl.textContent=`السؤال ${index+1} من ${questions.length}`;
+  scoreEl.textContent=`النتيجة: ${score} / ${questions.length}`;
+  feedbackEl.textContent="";
+  answersEl.innerHTML="";
+  nextBtn.disabled=true;
+  nextBtn.hidden=false;
+  nextBtn.textContent="السؤال التالي ←";
+  restartBtn.hidden=true;
+
+  item.a.forEach((answer,i)=>{
+    const btn=document.createElement("button");
+    btn.className="answer";
+    btn.textContent=answer;
+    btn.addEventListener("click",()=>chooseAnswer(i,btn));
+    answersEl.appendChild(btn);
+  });
+}
+
+function chooseAnswer(choice,button){
+  if(locked)return;
+  locked=true;
+  const item=questions[index];
+  const buttons=[...answersEl.querySelectorAll("button")];
+  buttons.forEach(btn=>btn.disabled=true);
+
+  if(choice===item.correct){
+    score++;
+    button.classList.add("correct");
+    feedbackEl.textContent="إجابة صحيحة! "+item.explain;
+  }else{
+    button.classList.add("wrong");
+    buttons[item.correct].classList.add("correct");
+    feedbackEl.textContent="ليست الإجابة الصحيحة. "+item.explain;
+  }
+
+  scoreEl.textContent=`النتيجة: ${score} / ${questions.length}`;
+  nextBtn.disabled=false;
+  nextBtn.textContent=index===questions.length-1?"عرض النتيجة":"السؤال التالي ←";
+}
+
+nextBtn.addEventListener("click",()=>{
+  if(!locked)return;
+  if(index<questions.length-1){
+    index++;
+    renderQuestion();
+  }else{
+    questionEl.textContent=`انتهى الاختبار! نتيجتك ${score} من ${questions.length}.`;
+    answersEl.innerHTML="";
+    feedbackEl.textContent=score===questions.length
+      ?"ممتاز! أتقنت جميع الأسئلة."
+      :score>=3
+      ?"أحسنت! راجع الإجابات ثم جرّب مرة أخرى."
+      :"بداية جيدة! راجع أقسام الموقع وأعد المحاولة.";
+    progressEl.textContent="اكتمل الاختبار";
+    nextBtn.hidden=true;
+    restartBtn.hidden=false;
+  }
+});
+
+restartBtn.addEventListener("click",()=>{
+  index=0;score=0;renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
