@@ -57,75 +57,109 @@ footer{border-top:1px solid var(--line);padding:30px 22px;text-align:center;colo
 @media(max-width:600px){.cell-frame{width:100%;height:620px;min-height:620px;aspect-ratio:auto}.nav{padding:10px 15px}.navlinks{font-size:11px}.hero{padding:42px 16px;gap:22px}.hero-art{min-height:225px}.orbit{transform:scale(.85)}section{padding:43px 15px}.panel,.tool-panel{padding:14px}.cards,.split,.video-grid,.cell-game{grid-template-columns:1fr}.answers{grid-template-columns:1fr}.video-library{padding:14px}.lab-controls{grid-template-columns:1fr}.cell-frame{min-height:280px}.dna-frame{aspect-ratio:4/5}.rna-frame{aspect-ratio:1/1}.section-head h2{font-size:29px}.tool-panel h3{font-size:19px}.hero-stat{font-size:9px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 
-/* Mijhar premium visual refinement */
+/* Mijhar Studio — stronger premium redesign */
 :root{
- --bg:#07100f;--panel:#0d1a18;--panel2:#122521;--mint:#9ce7c9;--mint2:#d6f5e7;
- --text:#f4f4ec;--muted:#a7b8b0;--line:#2b4038;--gold:#d9bd83;
- --shadow:0 24px 70px rgba(0,0,0,.28)
+ --bg:#07110f;--panel:#0d1d18;--panel2:#122820;--mint:#a6e8ca;--mint2:#dff7e9;
+ --text:#f4f5ed;--muted:#b0beb5;--line:#2b4539;--gold:#d8bc80;--shadow:0 22px 65px rgba(0,0,0,.32)
 }
 body{
  background:
-  radial-gradient(ellipse at 88% 3%,rgba(91,151,119,.16),transparent 34rem),
-  radial-gradient(ellipse at 0% 38%,rgba(190,161,105,.055),transparent 28rem),
-  var(--bg);
- letter-spacing:.01em
+ radial-gradient(ellipse at 82% 0%,rgba(95,151,117,.22),transparent 34rem),
+ radial-gradient(ellipse at 2% 28%,rgba(216,188,128,.07),transparent 30rem),
+ linear-gradient(180deg,#07110f 0%,#091713 46%,#07100e 100%);
+ color:var(--text);line-height:1.9
 }
-header{background:rgba(7,16,15,.88);border-bottom-color:rgba(156,231,201,.13)}
-.nav{padding-top:15px;padding-bottom:15px}
-.logo{color:#c0ead6;letter-spacing:.2px}
-.logo small{letter-spacing:1.2px;text-transform:uppercase}
-.navlinks{gap:18px}
-.navlinks a{padding:7px 0;position:relative}
-.navlinks a:hover{color:#d6f5e7}
-.hero{padding-top:96px;padding-bottom:90px;gap:54px}
-.eyebrow,.kicker{color:var(--gold);letter-spacing:2px;font-size:10px}
-h1{font-weight:800;letter-spacing:-1.8px}
-h1 span{color:#b8e8d0;text-shadow:none}
-.hero p{font-size:15px;line-height:2.05;color:#b1c0b8}
-.hero-art{
- border-color:rgba(217,189,131,.24);
- border-radius:26px;
- background:
-  radial-gradient(ellipse at 50% 42%,rgba(82,139,105,.3),transparent 48%),
-  linear-gradient(145deg,#142923,#0b1714 72%);
- box-shadow:0 25px 80px rgba(0,0,0,.32),inset 0 1px rgba(255,255,255,.04)
+header{background:rgba(5,14,12,.91);border-bottom:1px solid rgba(216,188,128,.23);box-shadow:0 8px 30px #0002}
+.nav{max-width:1320px;padding:15px 28px}
+.logo{color:#c2efd9;font-size:28px;letter-spacing:.2px}
+.logo small{color:#d8bc80;font-size:10px;letter-spacing:1.5px}
+.navlinks{gap:19px;font-size:12px;color:#bdc9c1}
+.navlinks a{transition:color .2s,transform .2s}
+.navlinks a:hover{color:#f0d9a4;transform:translateY(-1px)}
+.hero{max-width:1320px;padding:95px 30px 90px;gap:60px}
+.eyebrow,.kicker{color:var(--gold);font-size:10px;letter-spacing:2.2px}
+h1{font-size:clamp(42px,6.2vw,82px);line-height:1.19;letter-spacing:-2px;font-weight:900}
+h1 span{color:#bdebd4;text-shadow:0 0 34px #a6e8ca22}
+.hero p{color:#bdc9c1;font-size:16px;line-height:2.1}
+.hero-art{min-height:390px;border:1px solid #c4a56d55;border-radius:30px;background:radial-gradient(ellipse at 50% 42%,#244b3b 0,#142d23 46%,#0a1712 82%);box-shadow:0 32px 90px #0005,inset 0 1px #ffffff12}
+.hero-art:before,.hero-art:after{border-color:#d8bc8024}
+.orbit{border-color:#b6e8ce88}
+.orbit:before{border-color:#d8bc8055}
+.orbit:after{background:var(--gold);box-shadow:0 0 24px #d8bc8066}
+.core{filter:saturate(.7)}
+.hero-stat span{background:#07130fdd;border-color:#d8bc8044;color:#f1ead6;padding:8px 12px}
+.btn{border:1px solid #40594b;border-radius:11px;background:linear-gradient(145deg,#173328,#10221a);padding:11px 19px;box-shadow:0 7px 20px #0002;letter-spacing:.1px}
+.btn.primary{background:linear-gradient(135deg,#e3d1a1,#b8e8cf);color:#102219;border:0;box-shadow:0 10px 28px #b8e8cf20}
+.btn:hover{border-color:#d8bc80;transform:translateY(-2px);filter:brightness(1.06)}
+section{padding:78px 26px;scroll-margin-top:95px}
+.inner{max-width:1320px}
+.section-head{margin-bottom:32px}
+.section-head h2{font-size:clamp(30px,4vw,45px);letter-spacing:-.8px;font-weight:900}
+.section-head p{color:#b6c3ba;max-width:850px;line-height:2}
+.panel,.tool-panel,.video-library{background:linear-gradient(145deg,rgba(18,39,30,.97),rgba(9,22,17,.98));border:1px solid #314d3e;border-radius:23px;box-shadow:var(--shadow);padding:24px}
+.embed-grid,.tool-grid{gap:22px}
+.embed-title,.tool-panel h3{color:#d7f3e3}
+.cell-frame{height:clamp(520px,62vw,760px);min-height:520px;background:#f8f8f3}
+.dna-frame{min-height:480px}
+.rna-frame{min-height:400px}
+.note{background:linear-gradient(100deg,#142e23,#10221b);border-right:3px solid var(--gold);color:#dfe9df;padding:16px 19px}
+.cards{gap:18px}
+.info-card{background:linear-gradient(150deg,#152f24,#0c1b15);border:1px solid #2c4839;border-radius:19px;padding:24px;box-shadow:0 10px 30px #00015;transition:transform .22s,border-color .22s,box-shadow .22s}
+.info-card:hover{border-color:#d8bc8066;transform:translateY(-4px);box-shadow:0 20px 42px #0003}
+.info-card h3{color:#d6f3e3}
+.info-card p{color:#b3c1b7;line-height:1.95}
+.video-library{margin-top:32px}
+.video-card{border:1px solid #2d4839;border-radius:18px;background:#08140f;box-shadow:0 12px 30px #0002}
+.video-card:hover{border-color:#b99d68}
+.video-info h4{color:#d9f1e2}
+.video-info p{color:#b5c2b9;line-height:1.9}
+.tool-panel{padding:26px}
+.tool-desc{color:#b4c2b9;line-height:1.9}
+.control-label{color:#d8bc80}
+select,input[type="search"]{background:#081510;color:#f4f5ed;border:1px solid #3a5747;border-radius:11px;min-height:47px}
+select option{background:#081510;color:#fff}
+.result-box{background:linear-gradient(130deg,#0a1711,#10271c);border:1px solid #345342;border-radius:14px;color:#d9eadf;padding:16px;line-height:1.95}
+.microscope-view{width:min(100%,450px);aspect-ratio:4/3;border-radius:20px;border:1px solid #d8bc8077;outline:0;background:#020503;box-shadow:0 18px 40px #0005;overflow:hidden}
+.micro-sample{width:100%;height:100%;display:block;object-fit:cover;transition:transform .35s;transform-origin:center}
+.micro-photo{filter:contrast(1.04) saturate(1.06)}
+.micro-label{bottom:0;background:linear-gradient(transparent,#020806ee);font-size:12px;padding:22px 10px 10px;color:#f5f1e5}
+.cell-map,.lab-control{background:#091711;border-color:#34503f;border-radius:16px}
+.organelle-choice,.base-btn{background:linear-gradient(145deg,#173327,#10221a);border-color:#355341;border-radius:11px}
+.organelle-choice:hover,.base-btn:hover{border-color:#d8bc80}
+.organelle-choice.selected{background:#254a36;border-color:#b9e8ce}
+.dna-base{background:#091711;border-color:#3b5947;color:#e0f4e7;border-radius:13px}
+.plant-scene{border-color:#35503e;border-radius:18px}
+.quiz-question{font-size:21px;font-weight:800;line-height:1.8}
+.answer{border:1px solid #34503f!important;border-radius:13px!important;background:#10251b!important;color:#eaf2eb!important;padding:13px 16px!important}
+.answer:hover{border-color:#d8bc80!important}
+.answer.correct{border-color:#8ed9b0!important;background:#163d2a!important}
+.answer.wrong{border-color:#dc8888!important;background:#3b2020!important}
+.progress-track{background:#1b3024}
+.progress-fill{background:linear-gradient(90deg,#d8bc80,#a6e8ca)}
+footer{background:#050d0b;border-top:1px solid #d8bc8030;padding:45px 24px;color:#aebbb2}
+footer .logo{font-size:27px}
+a{transition:color .2s}
+::selection{background:#c2efd9;color:#07110f}
+@media(max-width:900px){
+ .hero{grid-template-columns:1fr;padding:58px 20px 52px;gap:30px}
+ .hero-art{min-height:300px}
+ .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .embed-grid,.tool-grid{grid-template-columns:1fr}
+ .cell-frame{height:600px;min-height:500px}
 }
-.hero-art:before,.hero-art:after{border-color:rgba(217,189,131,.12)}
-.orbit{border-color:rgba(184,232,208,.58)}
-.orbit:before{border-color:rgba(217,189,131,.38)}
-.orbit:after{background:var(--gold);box-shadow:0 0 22px rgba(217,189,131,.4)}
-.core{filter:saturate(.72)}
-.hero-stat span{background:rgba(7,16,15,.78);border-color:rgba(217,189,131,.22);color:#e5e6d9}
-.btn{border-radius:10px;border-color:#354b41;background:linear-gradient(180deg,#142721,#0f1e19);box-shadow:0 5px 18px rgba(0,0,0,.12)}
-.btn.primary{background:linear-gradient(135deg,#d6eadb,#9ce7c9);color:#10231b;box-shadow:0 8px 24px rgba(156,231,201,.12)}
-.btn.primary:hover{filter:brightness(1.04);border-color:transparent}
-section{padding-top:74px;padding-bottom:74px}
-.section-head{margin-bottom:30px;max-width:780px}
-h2{letter-spacing:-.5px;font-weight:800}
-.section-head p{color:#aabbb2;line-height:2}
-.panel,.tool-panel,.card,.organ-card,.video-library,.quiz-card,.lab-card,.game-panel,.note,.result-box{
- border-color:rgba(156,231,201,.14)!important;
- box-shadow:0 16px 45px rgba(0,0,0,.13)
+@media(max-width:600px){
+ .nav{align-items:flex-start;flex-direction:column;padding:12px 17px;gap:9px}
+ .navlinks{gap:9px 14px}
+ section{padding:52px 16px}
+ .hero{padding:42px 17px}
+ .cards,.video-grid,.split{grid-template-columns:1fr}
+ .cell-game{grid-template-columns:1fr}
+ .lab-controls{grid-template-columns:1fr}
+ .panel,.tool-panel,.video-library{padding:16px;border-radius:17px}
+ .cell-frame{height:520px;min-height:450px}
+ .microscope-view{width:100%}
 }
-.panel,.tool-panel,.video-library{background:linear-gradient(145deg,rgba(17,37,30,.96),rgba(10,23,19,.96))}
-.card,.organ-card{background:linear-gradient(155deg,rgba(20,42,33,.88),rgba(12,25,21,.96));border-radius:17px;transition:transform .22s,border-color .22s,box-shadow .22s}
-.card:hover,.organ-card:hover{transform:translateY(-3px);border-color:rgba(217,189,131,.38)!important;box-shadow:0 18px 45px rgba(0,0,0,.23)}
-input,select,textarea{background:#091613!important;border:1px solid #354b41!important;border-radius:10px!important;color:#f4f4ec!important}
-input:focus,select:focus,textarea:focus{border-color:#9ce7c9!important;box-shadow:0 0 0 3px rgba(156,231,201,.09)}
-.tag,.badge,.pill{border-color:rgba(217,189,131,.25)!important}
-.result-box{background:rgba(156,231,201,.055)!important;border-radius:12px}
-iframe{border-radius:15px}
-footer{border-top:1px solid rgba(156,231,201,.13);color:#9fb0a7}
-::selection{background:#b8e8d0;color:#0b1913}
-@media(max-width:800px){
- .hero{padding-top:55px;padding-bottom:48px;gap:26px}
- section{padding:48px 17px}
- .nav{padding:11px 16px}
- .navlinks{gap:10px}
-}
-@media(prefers-reduced-motion:reduce){
- *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
-}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 
 </style>
 </head>
@@ -167,7 +201,7 @@ footer{border-top:1px solid rgba(156,231,201,.13);color:#9fb0a7}
 <div class="tool-grid"><div class="tool-panel"><h3>🔬 جهّز الشريحة</h3><p class="tool-desc">اختَر العيّنة وقوة التكبير، ثم لاحظ تغيّر العرض.</p>
 <label class="control-label" for="sampleSelect">العينة</label><select id="sampleSelect"><option value="onion">خلايا بشرة البصل</option><option value="cheek">خلايا الخد</option><option value="leaf">بشرة الورقة والثغور</option></select>
 <label class="control-label" for="magnification">قوة التكبير</label><select id="magnification"><option value="40">40× — تكبير منخفض</option><option value="100">100× — تكبير متوسط</option><option value="400">400× — تكبير مرتفع</option></select>
-<div class="microscope-view"><svg id="microSample" class="micro-sample" viewBox="0 0 300 300" role="img" aria-label="رسم توضيحي للعينة"></svg><div class="micro-label" id="microLabel">خلايا بشرة البصل · 40×</div></div>
+<div class="microscope-view"><img id="microSample" class="micro-sample micro-photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Onion_Epidermis_Cells_W.M._40x_-_250.jpg" alt="صورة مجهرية حقيقية لخلايا بشرة البصل" loading="lazy"><div class="micro-label" id="microLabel">خلايا بشرة البصل · 40×</div></div>
 <div class="button-row"><button class="btn primary" id="showSampleInfo">اعرض معلومات العينة</button><button class="btn" id="resetMicroscope">إعادة ضبط</button></div><div class="result-box" id="sampleInfo" aria-live="polite">اختر عيّنة لتبدأ الاستكشاف.</div></div>
 <div class="tool-panel"><h3>📖 ماذا تلاحظ؟</h3><p class="tool-desc">اقرأ وصف العيّنة ثم أجب عن سؤال الملاحظة.</p><div class="note" style="margin-top:0">التكبير الكلي للمجهر الضوئي = تكبير العدسة العينية × تكبير العدسة الشيئية. في هذه المحاكاة، تغيّر التكبير يقرّب الرسم توضيحيًا فقط.</div>
 <div class="result-box" id="microObservation">خلايا البصل غالبًا مستطيلة ومتراصة، وتظهر حدودها بوضوح.</div><label class="control-label" for="microQuestion">سؤال سريع</label><p id="microQuestionText">ما الشكل الشائع لخلايا بشرة البصل؟</p><select id="microQuestion"><option value="">اختَر الإجابة</option></select><div class="button-row"><button class="btn primary" id="checkMicro">تحقّق من إجابتي</button></div><div class="result-box" id="microFeedback" aria-live="polite">جرّب الإجابة بعد ملاحظة الرسم.</div></div></div></div></section>
@@ -241,18 +275,49 @@ searchInput.addEventListener("input",doSearch);
 /* محاكي المجهر: رسومات SVG توضيحية تتغير حسب العينة والتكبير */
 const sampleSelect=document.getElementById("sampleSelect"),magnification=document.getElementById("magnification"),microSample=document.getElementById("microSample"),microLabel=document.getElementById("microLabel"),sampleInfo=document.getElementById("sampleInfo"),microObservation=document.getElementById("microObservation");
 const sampleData={
- onion:{name:"خلايا بشرة البصل",info:"تظهر خلايا بشرة البصل غالبًا بشكل مستطيل ومتراص، وتبدو الجدران الخلوية واضحة. عادة لا تُرى البلاستيدات الخضراء في بشرة البصل المستخدمة في التجارب المدرسية.",obs:"ابحث عن خلايا مستطيلة متجاورة وحدود واضحة.",question:"ما الشكل الشائع لخلايا بشرة البصل؟",correct:"rect",options:[["rect","مستطيلة ومتراصة"],["round","دوائر منفصلة تمامًا"],["star","نجوم متعددة الأطراف"]]},
- cheek:{name:"خلايا الخد",info:"خلايا الخد خلايا حيوانية، شكلها غالبًا مفلطح وغير منتظم، ويمكن رؤية النواة عند استخدام صبغة مناسبة. لا تمتلك جدارًا خلويًا.",obs:"تبدو الخلايا مفلطحة وغير منتظمة، وقد تظهر نواة داكنة، ولا يوجد جدار خلوي نباتي.",question:"أي وصف يناسب خلايا الخد؟",correct:"irregular",options:[["rect","مستطيلة ولها جدار خلوي واضح"],["irregular","مفلطحة وغير منتظمة ولا تمتلك جدارًا خلويًا"],["chloroplast","تحتوي على بلاستيدات خضراء"]]},
- leaf:{name:"بشرة الورقة والثغور",info:"تحتوي بشرة كثير من الأوراق على ثغور تحيط بها خلايا حارسة، وتساعد الثغور في تبادل الغازات وفقد الماء.",obs:"ابحث عن فتحات صغيرة بين خلايا البشرة، تحيط بها خلايا حارسة.",question:"ما الوظيفة الأساسية للثغور؟",correct:"gas",options:[["gas","تبادل الغازات وتنظيم فقد الماء"],["energy","إنتاج الطاقة بالتنفس الخلوي"],["support","تكوين الجدار الخلوي"]]}
+ onion:{
+  name:"خلايا بشرة البصل",image:"https://commons.wikimedia.org/wiki/Special:FilePath/Onion_Epidermis_Cells_W.M._40x_-_250.jpg",
+  alt:"خلايا بشرة البصل تحت المجهر الضوئي",
+  credit:"الصورة: Logan Rickert / Wikimedia Commons، CC BY 2.0",
+  info:"تظهر خلايا بشرة البصل غالبًا مستطيلة ومتراصة، وتبرز حدود الجدران الخلوية. لا تظهر البلاستيدات الخضراء عادةً في بشرة البصل المستخدمة في التجارب المدرسية.",
+  obs:"لاحظ الخلايا المستطيلة المتجاورة وحدودها الواضحة.",
+  question:"ما الشكل الشائع لخلايا بشرة البصل؟",correct:"rect",
+  options:[["round","دوائر منفصلة تمامًا"],["rect","مستطيلة ومتراصة بجدران واضحة"],["star","نجوم متعددة الأطراف"]]
+ },
+ cheek:{
+  name:"خلايا الخد",image:"https://commons.wikimedia.org/wiki/Special:FilePath/Cheekcells_stained.jpg",
+  alt:"خلايا خد بشرية مصبوغة تحت المجهر",
+  credit:"الصورة: Mulletsrokk / Wikimedia Commons، CC BY-SA 3.0",
+  info:"خلايا الخد خلايا حيوانية مفلطحة وغير منتظمة. قد تظهر النواة بلون أغمق بعد الصبغ، ولا تمتلك الخلايا جدارًا خلويًا نباتيًا.",
+  obs:"لاحظ حدود الخلايا غير المنتظمة والنواة الداكنة نسبيًا؛ لا يوجد جدار خلوي نباتي.",
+  question:"أي وصف يناسب خلايا الخد؟",correct:"irregular",
+  options:[["rect","مستطيلة ولها جدار خلوي واضح"],["chloroplast","تحتوي على بلاستيدات خضراء"],["irregular","مفلطحة وغير منتظمة ولا تمتلك جدارًا خلويًا"]]
+ },
+ leaf:{
+  name:"بشرة الورقة والثغور",image:"https://commons.wikimedia.org/wiki/Special:FilePath/Leaf_epithelium%2C_stomata.jpg",
+  alt:"بشرة ورقة نبات وثغورها تحت المجهر الضوئي",
+  credit:"الصورة: Ivan Bachev / Wikimedia Commons، CC BY 4.0",
+  info:"تظهر في بشرة الورقة خلايا البشرة والثغور التي يحدّ فتحتها زوج من الخلايا الحارسة. تساعد الثغور على تبادل الغازات وتنظيم فقد الماء.",
+  obs:"ابحث عن فتحة الثغر بين الخليتين الحارستين، وعن خلايا البشرة المحيطة.",
+  question:"ما الوظيفة الأساسية للثغور؟",correct:"gas",
+  options:[["support","تكوين الجدار الخلوي فقط"],["energy","إنتاج الطاقة بالتنفس الخلوي"],["gas","تبادل الغازات وتنظيم فقد الماء"]]
+ }
 };
 function drawSample(){
- const type=sampleSelect.value,mag=Number(magnification.value);let s=`<defs><radialGradient id="fieldGlow"><stop offset="0%" stop-color="#243b32"/><stop offset="100%" stop-color="#07130f"/></radialGradient><linearGradient id="cellTint" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0c6dc" stop-opacity=".72"/><stop offset="100%" stop-color="#9d6fa8" stop-opacity=".35"/></linearGradient><filter id="softBlur"><feGaussianBlur stdDeviation="1.1"/></filter></defs><rect width="300" height="300" fill="url(#fieldGlow)"/>`;
- if(type==="onion"){for(let y=-15;y<315;y+=55){for(let x=-15;x<315;x+=76){s+=`<rect x="${x}" y="${y}" width="73" height="52" rx="2" fill="#9ccf9b" fill-opacity=".22" stroke="#c6edbd" stroke-opacity=".9" stroke-width="2.4"/><ellipse cx="${x+35}" cy="${y+25}" rx="7" ry="5" fill="#bd9be8" stroke="#eadcff" stroke-width="1"/>`;}}}
- if(type==="cheek"){for(let i=0;i<13;i++){let x=30+(i*67)%240,y=25+(i*91)%250;s+=`<path d="M${x-24} ${y-8} Q${x-35} ${y-28} ${x-8} ${y-25} Q${x+22} ${y-37} ${x+27} ${y-8} Q${x+35} ${y+17} ${x+7} ${y+24} Q${x-21} ${y+29} ${x-24} ${y-8}Z" fill="url(#cellTint)" fill-opacity=".72" stroke="#e9b4d1" stroke-width="1.6"/><ellipse cx="${x+1}" cy="${y}" rx="7" ry="9" fill="#6d4d91" stroke="#c5b1e8" stroke-width="1.4"/>`;}}
- if(type==="leaf"){for(let y=10;y<310;y+=55){for(let x=8;x<310;x+=65){s+=`<path d="M${x} ${y+3} Q${x+27} ${y-12} ${x+54} ${y+3} Q${x+28} ${y+20} ${x} ${y+3}Z" fill="#5da979" fill-opacity=".35" stroke="#b1e8bc" stroke-width="1.5"/>`;}}for(let y=55;y<275;y+=95){s+=`<ellipse cx="145" cy="${y}" rx="13" ry="24" fill="#b4e6a1" stroke="#e1ffd5" stroke-width="2"/><ellipse cx="171" cy="${y}" rx="13" ry="24" fill="#b4e6a1" stroke="#e1ffd5" stroke-width="2"/><ellipse cx="158" cy="${y}" rx="5" ry="15" fill="#071713" stroke="#d7f7c7" stroke-width="1"/>`;}}
- microSample.innerHTML=s;microSample.style.transform=`scale(${mag===40?1:mag===100?1.22:1.5})`;microLabel.textContent=`${sampleData[type].name} · ${mag}×`;microObservation.textContent=sampleData[type].obs;document.getElementById("microQuestionText").textContent=sampleData[type].question;const questionSelect=document.getElementById("microQuestion");questionSelect.innerHTML="<option value=\"\">اختَر الإجابة</option>"+sampleData[type].options.map(([value,label])=>`<option value="${value}">${label}</option>`).join("");questionSelect.value="";document.getElementById("microFeedback").textContent="جرّب الإجابة بعد ملاحظة الرسم.";sampleInfo.textContent="اضغط «اعرض معلومات العينة» لقراءة التفاصيل.";
+ const type=sampleSelect.value,mag=Number(magnification.value),item=sampleData[type];
+ microSample.src=item.image;microSample.alt=item.alt;
+ microSample.onerror=()=>{microSample.alt="تعذّر تحميل الصورة المجهرية؛ افتح رابط الصورة أو تحقق من الاتصال بالإنترنت.";};
+ microSample.style.transform=`scale(${mag===40?1:mag===100?1.18:1.35})`;
+ microLabel.textContent=`${item.name} · تكبير تقريبي ${mag}×`;
+ microObservation.textContent=item.obs;
+ document.getElementById("microQuestionText").textContent=item.question;
+ const questionSelect=document.getElementById("microQuestion");
+ questionSelect.innerHTML='<option value="">اختَر الإجابة</option>'+item.options.map(([value,label])=>`<option value="${value}">${label}</option>`).join("");
+ questionSelect.value="";
+ document.getElementById("microFeedback").textContent="اختر الإجابة بعد ملاحظة الصورة.";
+ sampleInfo.textContent=item.credit+" — اضغط «اعرض معلومات العينة» لقراءة التفاصيل.";
 }
-sampleSelect.addEventListener("change",drawSample);magnification.addEventListener("change",drawSample);document.getElementById("showSampleInfo").addEventListener("click",()=>sampleInfo.textContent=sampleData[sampleSelect.value].info);document.getElementById("resetMicroscope").addEventListener("click",()=>{sampleSelect.value="onion";magnification.value="40";drawSample()});
+sampleSelect.addEventListener("change",drawSample);magnification.addEventListener("change",drawSample);document.getElementById("showSampleInfo").addEventListener("click",()=>{const d=sampleData[sampleSelect.value];sampleInfo.textContent=d.info+" "+d.credit;});document.getElementById("resetMicroscope").addEventListener("click",()=>{sampleSelect.value="onion";magnification.value="40";drawSample()});
 document.getElementById("checkMicro").addEventListener("click",()=>{const type=sampleSelect.value,val=document.getElementById("microQuestion").value;const expected=sampleData[type].correct;const ok=val===expected;document.getElementById("microFeedback").textContent=!val?"اختَر إجابة أولًا.":ok?"إجابة صحيحة! "+sampleData[type].obs:"مش تمام، راجع وصف العينة وحاول مرة ثانية.";});drawSample();
 
 
