@@ -161,6 +161,48 @@ a{transition:color .2s}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 
+
+/* MIJHAR / ATELIER REDESIGN — redesigned composition, not just a palette swap */
+:root{--bg:#080d0c;--panel:#101816;--panel2:#17221d;--mint:#c6d9c4;--mint2:#edf2e8;--text:#f4f1e8;--muted:#b7b9ae;--line:#35443a;--gold:#cbb27a;--shadow:0 28px 80px rgba(0,0,0,.38)}
+body{background:linear-gradient(135deg,#090e0c 0%,#0d1712 48%,#090d0b 100%);font-size:15px;letter-spacing:.01em}
+header{background:rgba(8,13,11,.94);border-bottom:1px solid #8e80544a;backdrop-filter:blur(22px)}
+.nav{max-width:1440px;padding:16px clamp(16px,4vw,58px)}
+.logo{color:#e1e5d5;font-size:30px}.logo small{color:var(--gold);letter-spacing:1.8px;font-size:10px}
+.navlinks{gap:clamp(8px,1.4vw,22px);font-size:12px}.navlinks a{padding:7px 0;border-bottom:1px solid transparent}.navlinks a:hover{border-color:var(--gold);color:#f0dfb4}
+.hero{max-width:1440px;min-height:650px;padding:clamp(56px,8vw,118px) clamp(18px,5vw,72px);grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,84px);position:relative}
+.hero:before{content:"مِجهر  /  BIOLOGY FIELD NOTES";position:absolute;top:26px;right:clamp(18px,5vw,72px);color:#bba879;font-size:10px;letter-spacing:2.8px}
+.hero>div:first-child{position:relative;z-index:1}.eyebrow,.kicker{color:var(--gold);letter-spacing:2.4px}
+h1{font-size:clamp(44px,6.5vw,88px);font-weight:800;line-height:1.2;letter-spacing:-2px;margin:22px 0}
+h1 span{color:#d5e0ce;text-shadow:none}
+.hero p{font-size:clamp(15px,1.4vw,18px);max-width:540px;color:#bdc4b8;line-height:2.1}
+.hero-art{min-height:430px;border-radius:4px;border:1px solid #9c89514f;background:radial-gradient(ellipse at 50% 45%,#32483b 0%,#18271f 38%,#0b120e 76%);box-shadow:0 30px 80px #0006;isolation:isolate}
+.hero-art:before{width:min(75%,390px);height:min(75%,390px);border-color:#d7c69b55}.hero-art:after{width:min(58%,300px);height:min(58%,300px);border-color:#d7c69b44}
+.orbit{width:min(56%,270px);height:auto;aspect-ratio:1;border-color:#d5c08c99}.orbit:before{width:74%;height:74%;border-color:#c7d9c477}.orbit:after{background:#e0ca91;box-shadow:0 0 25px #e0ca91}.core{font-size:clamp(58px,7vw,92px);filter:grayscale(.35)}
+.hero-stat{right:18px;left:18px;bottom:18px}.hero-stat span{background:#0a100dd9;border:1px solid #cbb27a55;border-radius:2px;padding:8px 12px}
+.btn{border-radius:3px;padding:12px 20px;letter-spacing:.1px}.btn.primary{background:#d8e1d0;color:#172018;border-color:#d8e1d0}.btn.primary:hover{background:#f0dfb4;border-color:#f0dfb4}
+section{padding:clamp(54px,7vw,94px) clamp(16px,4vw,48px);border-top:1px solid #a5b19a12}
+.inner{max-width:1320px}.section-head{display:grid;grid-template-columns:minmax(0,1fr);margin-bottom:32px;max-width:820px}.section-head h2{font-size:clamp(30px,4.2vw,50px);line-height:1.25;letter-spacing:-.8px;margin:8px 0 14px}.section-head p{font-size:15px;line-height:2;color:#b9c1b6}
+.panel,.tool-panel,.video-library{border-radius:5px;border-color:#6d796344;background:linear-gradient(145deg,#151f19,#0d1410);box-shadow:0 22px 60px #0003}
+.info-card{border-radius:4px;background:linear-gradient(145deg,#17231b,#101713);border-color:#73806a44;padding:clamp(18px,2vw,28px)}.info-card:hover{border-color:#cbb27a;transform:translateY(-4px)}.info-card h3{color:#e3e8d8}
+.cards{gap:12px}.tag{border-radius:3px;color:#e2ce9b;border-color:#8b7a4d66}.note{border-right-color:var(--gold);border-radius:3px;background:#1b241b}
+.tool-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.tool-panel h3{font-size:24px}.control-label{color:#e4e8dc}
+/* Microscope now uses a wide optical field, never a tiny cropped circular viewport */
+#microscope .tool-panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);column-gap:26px;align-items:start}
+#microscope .tool-panel>h3,#microscope .tool-panel>.tool-desc,#microscope .tool-panel>.quiz-bottom{grid-column:1/-1}
+#microscope .microscope-view{grid-column:2;grid-row:4 / span 7;width:100%;max-width:none;height:auto;aspect-ratio:4/3;border-radius:4px;border:1px solid #b9c7ad66;outline:5px solid #111b15;background:#050806;box-shadow:0 20px 45px #0006;align-self:start;margin:12px 0;}
+#microscope .micro-sample{object-fit:contain;transform-origin:center;max-width:100%;max-height:100%;background:#050806}
+#microscope .micro-label{bottom:0;background:linear-gradient(transparent,#020806e8);padding:25px 12px 10px;font-size:12px}
+#microscope .result-box{border-radius:3px;background:#0b120e;border-color:#3c4b3d}
+#microscope select,#site-search input{background:#0b120e;border-radius:3px;border-color:#465347}
+#microscope #microQuestionText{font-weight:700;color:#e7e9dd;line-height:1.9}
+#microscope #microFeedback{grid-column:1/-1;min-height:52px;border-right:3px solid var(--gold)}
+.answers{gap:12px}.answer{border-radius:3px;background:#141d17;border-color:#53604f;padding:14px 16px;line-height:1.7}.answer.correct{background:#1c3325;border-color:#a8c8a0}.answer.wrong{background:#39251f;border-color:#d38f7b}
+.embed-frame{background:#0b120e}.cell-frame{height:clamp(460px,55vw,700px);min-height:0;border:1px solid #8c9a7b66;border-radius:3px}
+.video-card{border-radius:4px;border-color:#455242}.video-info h4{color:#e7eadf}
+footer{border-color:#85744b44;color:#b4bbae}
+@media(max-width:850px){.hero{grid-template-columns:1fr;min-height:unset}.hero-art{min-height:320px}.tool-grid{grid-template-columns:1fr}#microscope .tool-panel{display:flex;flex-direction:column}#microscope .microscope-view{width:100%;aspect-ratio:4/3;order:4;margin:12px 0}#microscope .micro-label{font-size:11px}.nav{gap:12px}}
+@media(max-width:560px){.hero{padding-top:72px}.hero:before{font-size:8px;letter-spacing:1.4px}.hero-art{min-height:260px}.hero-stat{flex-direction:column;align-items:flex-start}.navlinks{display:flex;max-height:none;gap:7px 13px}.navlinks a{font-size:11px}.section-head h2{font-size:32px}#microscope .microscope-view{aspect-ratio:1/1.08}.cell-frame{height:520px;min-height:0}.answers{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -197,11 +239,11 @@ a{transition:color .2s}
 <article class="info-card" data-searchable><div class="card-icon">🔬</div><h3>الريبوسومات</h3><p>تشارك في تصنيع البروتينات وفق التعليمات التي تحملها جزيئات RNA.</p></article>
 </div></div></section>
 
-<section id="microscope"><div class="inner"><div class="section-head"><div class="kicker">03 / VIRTUAL MICROSCOPE</div><h2>محاكي المجهر</h2><p>اختر عيّنة وغيّر التكبير لتتعرّف إلى أشكال الخلايا. هذا نموذج تعليمي مبسّط، وليس صورة مجهرية حيّة.</p></div>
+<section id="microscope"><div class="inner"><div class="section-head"><div class="kicker">03 / VIRTUAL MICROSCOPE</div><h2>محاكي المجهر</h2><p>اختر عيّنة وغيّر التكبير لتتعرّف إلى أشكال الخلايا. الصور عينات مجهرية فوتوغرافية؛ وقد يختلف شكل العينة بحسب طريقة التحضير والتكبير.</p></div>
 <div class="tool-grid"><div class="tool-panel"><h3>🔬 جهّز الشريحة</h3><p class="tool-desc">اختَر العيّنة وقوة التكبير، ثم لاحظ تغيّر العرض.</p>
 <label class="control-label" for="sampleSelect">العينة</label><select id="sampleSelect"><option value="onion">خلايا بشرة البصل</option><option value="cheek">خلايا الخد</option><option value="leaf">بشرة الورقة والثغور</option></select>
 <label class="control-label" for="magnification">قوة التكبير</label><select id="magnification"><option value="40">40× — تكبير منخفض</option><option value="100">100× — تكبير متوسط</option><option value="400">400× — تكبير مرتفع</option></select>
-<div class="microscope-view"><img id="microSample" class="micro-sample micro-photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Onion_Epidermis_Cells_W.M._40x_-_250.jpg" alt="صورة مجهرية حقيقية لخلايا بشرة البصل" loading="lazy"><div class="micro-label" id="microLabel">خلايا بشرة البصل · 40×</div></div>
+<div class="microscope-view"><img id="microSample" class="micro-sample micro-photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Onion_epidermis.jpg" alt="صورة مجهرية حقيقية لخلايا بشرة البصل" loading="lazy"><div class="micro-label" id="microLabel">خلايا بشرة البصل · 40×</div></div>
 <div class="button-row"><button class="btn primary" id="showSampleInfo">اعرض معلومات العينة</button><button class="btn" id="resetMicroscope">إعادة ضبط</button></div><div class="result-box" id="sampleInfo" aria-live="polite">اختر عيّنة لتبدأ الاستكشاف.</div></div>
 <div class="tool-panel"><h3>📖 ماذا تلاحظ؟</h3><p class="tool-desc">اقرأ وصف العيّنة ثم أجب عن سؤال الملاحظة.</p><div class="note" style="margin-top:0">التكبير الكلي للمجهر الضوئي = تكبير العدسة العينية × تكبير العدسة الشيئية. في هذه المحاكاة، تغيّر التكبير يقرّب الرسم توضيحيًا فقط.</div>
 <div class="result-box" id="microObservation">خلايا البصل غالبًا مستطيلة ومتراصة، وتظهر حدودها بوضوح.</div><label class="control-label" for="microQuestion">سؤال سريع</label><p id="microQuestionText">ما الشكل الشائع لخلايا بشرة البصل؟</p><select id="microQuestion"><option value="">اختَر الإجابة</option></select><div class="button-row"><button class="btn primary" id="checkMicro">تحقّق من إجابتي</button></div><div class="result-box" id="microFeedback" aria-live="polite">جرّب الإجابة بعد ملاحظة الرسم.</div></div></div></div></section>
@@ -276,25 +318,25 @@ searchInput.addEventListener("input",doSearch);
 const sampleSelect=document.getElementById("sampleSelect"),magnification=document.getElementById("magnification"),microSample=document.getElementById("microSample"),microLabel=document.getElementById("microLabel"),sampleInfo=document.getElementById("sampleInfo"),microObservation=document.getElementById("microObservation");
 const sampleData={
  onion:{
-  name:"خلايا بشرة البصل",image:"https://commons.wikimedia.org/wiki/Special:FilePath/Onion_Epidermis_Cells_W.M._40x_-_250.jpg",
+  name:"خلايا بشرة البصل",image:"https://commons.wikimedia.org/wiki/Special:FilePath/Onion_epidermis.jpg",
   alt:"خلايا بشرة البصل تحت المجهر الضوئي",
-  credit:"الصورة: Logan Rickert / Wikimedia Commons، CC BY 2.0",
+  credit:"الصورة: SaraKasa / Wikimedia Commons، CC BY 4.0",
   info:"تظهر خلايا بشرة البصل غالبًا مستطيلة ومتراصة، وتبرز حدود الجدران الخلوية. لا تظهر البلاستيدات الخضراء عادةً في بشرة البصل المستخدمة في التجارب المدرسية.",
   obs:"لاحظ الخلايا المستطيلة المتجاورة وحدودها الواضحة.",
   question:"ما الشكل الشائع لخلايا بشرة البصل؟",correct:"rect",
   options:[["round","دوائر منفصلة تمامًا"],["rect","مستطيلة ومتراصة بجدران واضحة"],["star","نجوم متعددة الأطراف"]]
  },
  cheek:{
-  name:"خلايا الخد",image:"https://commons.wikimedia.org/wiki/Special:FilePath/Cheekcells_stained.jpg",
+  name:"خلايا الخد",image:"https://commons.wikimedia.org/wiki/Special:FilePath/Microscopic_Image_of_Human_Cheek_Cells.jpg",
   alt:"خلايا خد بشرية مصبوغة تحت المجهر",
-  credit:"الصورة: Mulletsrokk / Wikimedia Commons، CC BY-SA 3.0",
+  credit:"الصورة: Aholderfield / Wikimedia Commons، CC BY 4.0",
   info:"خلايا الخد خلايا حيوانية مفلطحة وغير منتظمة. قد تظهر النواة بلون أغمق بعد الصبغ، ولا تمتلك الخلايا جدارًا خلويًا نباتيًا.",
   obs:"لاحظ حدود الخلايا غير المنتظمة والنواة الداكنة نسبيًا؛ لا يوجد جدار خلوي نباتي.",
   question:"أي وصف يناسب خلايا الخد؟",correct:"irregular",
-  options:[["rect","مستطيلة ولها جدار خلوي واضح"],["chloroplast","تحتوي على بلاستيدات خضراء"],["irregular","مفلطحة وغير منتظمة ولا تمتلك جدارًا خلويًا"]]
+  options:[["rect","مستطيلة ومتراصة ولها جدار خلوي"],["chloroplast","تحتوي على بلاستيدات خضراء"],["irregular","مفلطحة، منفصلة غالبًا، وغير منتظمة الشكل ولا تمتلك جدارًا خلويًا"]]
  },
  leaf:{
-  name:"بشرة الورقة والثغور",image:"https://commons.wikimedia.org/wiki/Special:FilePath/Leaf_epithelium%2C_stomata.jpg",
+  name:"بشرة الورقة والثغور",image:"https://commons.wikimedia.org/wiki/Special:FilePath/Leaf_cells_with_stomata.jpg",
   alt:"بشرة ورقة نبات وثغورها تحت المجهر الضوئي",
   credit:"الصورة: Ivan Bachev / Wikimedia Commons، CC BY 4.0",
   info:"تظهر في بشرة الورقة خلايا البشرة والثغور التي يحدّ فتحتها زوج من الخلايا الحارسة. تساعد الثغور على تبادل الغازات وتنظيم فقد الماء.",
@@ -306,8 +348,8 @@ const sampleData={
 function drawSample(){
  const type=sampleSelect.value,mag=Number(magnification.value),item=sampleData[type];
  microSample.src=item.image;microSample.alt=item.alt;
- microSample.onerror=()=>{microSample.alt="تعذّر تحميل الصورة المجهرية؛ افتح رابط الصورة أو تحقق من الاتصال بالإنترنت.";};
- microSample.style.transform=`scale(${mag===40?1:mag===100?1.18:1.35})`;
+ microSample.onerror=()=>{microSample.onerror=null;microSample.style.objectFit="contain";microSample.alt="تعذّر تحميل الصورة المجهرية. تحقق من اتصال الإنترنت.";microLabel.textContent="تعذّر تحميل الصورة — أعد المحاولة بعد الاتصال بالإنترنت";};
+ microSample.style.transform=`scale(${mag===40?1:mag===100?1.12:1.25})`;
  microLabel.textContent=`${item.name} · تكبير تقريبي ${mag}×`;
  microObservation.textContent=item.obs;
  document.getElementById("microQuestionText").textContent=item.question;
@@ -318,7 +360,7 @@ function drawSample(){
  sampleInfo.textContent=item.credit+" — اضغط «اعرض معلومات العينة» لقراءة التفاصيل.";
 }
 sampleSelect.addEventListener("change",drawSample);magnification.addEventListener("change",drawSample);document.getElementById("showSampleInfo").addEventListener("click",()=>{const d=sampleData[sampleSelect.value];sampleInfo.textContent=d.info+" "+d.credit;});document.getElementById("resetMicroscope").addEventListener("click",()=>{sampleSelect.value="onion";magnification.value="40";drawSample()});
-document.getElementById("checkMicro").addEventListener("click",()=>{const type=sampleSelect.value,val=document.getElementById("microQuestion").value;const expected=sampleData[type].correct;const ok=val===expected;document.getElementById("microFeedback").textContent=!val?"اختَر إجابة أولًا.":ok?"إجابة صحيحة! "+sampleData[type].obs:"مش تمام، راجع وصف العينة وحاول مرة ثانية.";});drawSample();
+document.getElementById("checkMicro").addEventListener("click",()=>{const type=sampleSelect.value,val=document.getElementById("microQuestion").value;const expected=String(sampleData[type].correct).trim().toLowerCase();const ok=String(val).trim().toLowerCase()===expected;document.getElementById("microFeedback").textContent=!val?"اختَر إجابة أولًا.":ok?"إجابة صحيحة! "+sampleData[type].obs:"مش تمام، راجع وصف العينة وحاول مرة ثانية.";});drawSample();
 
 
 /* لعبة تركيب الخلية: اختيار باللمس/النقر ثم تحديد الموضع */
