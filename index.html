@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -77,8 +76,88 @@ select,input[type=search]{width:100%;padding:10px;border-radius:10px;border:1px 
 .micro-caption{font-size:11px;color:var(--muted);margin-top:7px}
 .micro-frame img.zoomed{transform:scale(1.45)}
 .micro-frame img.zoomed-more{transform:scale(1.9)}
-.cell-photo-wrap{background:#f4f7f2;border-radius:15px;padding:10px;min-height:250px;display:grid;place-items:center}
-.cell-photo-wrap img{display:block;width:100%;max-height:430px;object-fit:contain;border-radius:10px}
+
+/* صورة لعبة الخلية والنقاط التفاعلية */
+.cell-photo-wrap{
+position:relative;
+width:100%;
+background:#f4f7f2;
+border-radius:15px;
+overflow:hidden;
+padding:0;
+line-height:0;
+}
+.cell-photo-wrap img{
+display:block;
+width:100%;
+height:auto;
+max-height:none;
+object-fit:initial;
+border-radius:15px;
+}
+.cell-hotspots{
+position:absolute;
+inset:0;
+pointer-events:none;
+}
+.cell-hotspot{
+position:absolute;
+transform:translate(-50%,-50%);
+width:13%;
+aspect-ratio:1;
+min-width:34px;
+max-width:76px;
+border:2px solid transparent;
+border-radius:50%;
+background:rgba(115,245,197,0);
+pointer-events:auto;
+display:grid;
+place-items:center;
+color:#062117;
+font-size:clamp(13px,2vw,22px);
+font-weight:900;
+transition:background .2s,border-color .2s,transform .2s;
+}
+.cell-hotspot:hover{
+background:rgba(115,245,197,.25);
+border-color:#32a77b;
+transform:translate(-50%,-50%) scale(1.08);
+}
+.cell-hotspot.found{
+background:rgba(115,245,197,.65);
+border:3px solid #08764c;
+}
+.cell-hotspot.missed{
+background:rgba(230,80,80,.55);
+border:3px solid #c52c2c;
+}
+.cell-hotspot:focus-visible{
+outline:3px solid #e8d39b;
+outline-offset:3px;
+}
+.cell-game-instruction{
+font-size:12px;
+color:var(--muted);
+margin:10px 0;
+}
+.cell-game-legend{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:10px;
+font-size:11px;
+color:var(--muted);
+}
+.cell-game-legend span{
+display:inline-flex;
+align-items:center;
+gap:5px;
+}
+.legend-dot{
+width:10px;height:10px;border-radius:50%;
+background:#73f5c5;border:1px solid #08764c;
+}
+.cell-hotspot:disabled{cursor:default;opacity:1}
 
 /* المختبر المطوّر */
 .lab-intro{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}
@@ -127,6 +206,7 @@ section{padding:38px 14px}
 .lab-intro{grid-template-columns:1fr 1fr}
 .lab-scene{min-height:240px}
 .lab-metrics{grid-template-columns:repeat(3,1fr)}
+.cell-hotspot{width:15%;min-width:30px}
 }
 [hidden]{display:none!important}
 </style>
@@ -226,19 +306,39 @@ section{padding:38px 14px}
 
 <section id="cell-game">
 <div class="inner">
-<div class="head"><div class="kicker">04 / CELL BUILDER</div><h2>تحدّي تركيب الخلية</h2><p>تأمّل صورة الخلية النباتية، ثم اختر العضيّة وحدّد موقعها الصحيح.</p></div>
+<div class="head"><div class="kicker">04 / CELL BUILDER</div><h2>تحدّي تركيب الخلية</h2><p>اختر العضيّة أولًا، ثم اضغط على موقعها الصحيح مباشرةً في صورة الخلية.</p></div>
 <div class="two">
 <div class="panel">
 <h3 style="color:var(--mint)">نموذج الخلية النباتية</h3>
-<div class="cell-photo-wrap"><img id="plantCellImage" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Plant_cell_structure_no_text.png" alt="رسم توضيحي لتركيب الخلية النباتية" loading="lazy"></div>
-<p class="small">استعن بالنموذج لتحديد مواقع العضيّات.</p>
-<div class="choices" id="targets">
-<button class="choice" data-target="nucleus">موقع النواة</button>
-<button class="choice" data-target="chloroplast">موقع البلاستيدة</button>
-<button class="choice" data-target="mitochondria">موقع الميتوكوندريا</button>
-<button class="choice" data-target="vacuole">موقع الفجوة</button>
+
+<div class="cell-photo-wrap" id="cellPhotoWrap">
+<img id="plantCellImage"
+src="https://upload.wikimedia.org/wikipedia/commons/3/38/Plant_cell_structure_no_text.png"
+alt="رسم توضيحي لتركيب الخلية النباتية"
+loading="lazy">
+
+<div class="cell-hotspots" id="cellHotspots">
+<!-- مناطق الضغط فوق صورة الخلية -->
+<button class="cell-hotspot" type="button" data-target="nucleus"
+style="left:60%;top:58%" aria-label="موقع النواة" title="النواة"></button>
+
+<button class="cell-hotspot" type="button" data-target="chloroplast"
+style="left:37%;top:39%" aria-label="موقع البلاستيدة الخضراء" title="البلاستيدة الخضراء"></button>
+
+<button class="cell-hotspot" type="button" data-target="mitochondria"
+style="left:72%;top:37%" aria-label="موقع الميتوكوندريا" title="الميتوكوندريا"></button>
+
+<button class="cell-hotspot" type="button" data-target="vacuole"
+style="left:43%;top:58%" aria-label="موقع الفجوة العصارية" title="الفجوة العصارية"></button>
 </div>
 </div>
+
+<p class="cell-game-instruction">بعد اختيار العضيّة، اضغط على المنطقة التي تعتقد أنها تمثل موقعها في الصورة.</p>
+<div class="cell-game-legend">
+<span><i class="legend-dot"></i> المنطقة الصحيحة تظهر باللون الأخضر بعد اكتشافها</span>
+</div>
+</div>
+
 <div class="panel">
 <h3 style="color:var(--mint)">اختر العضيّة</h3>
 <div class="choices" id="orgChoices">
@@ -247,7 +347,7 @@ section{padding:38px 14px}
 <button class="choice" data-org="mitochondria">الميتوكوندريا</button>
 <button class="choice" data-org="vacuole">الفجوة العصارية</button>
 </div>
-<div class="result" id="gameResult">اختر عضيّة أولًا ثم حدّد موقعها.</div>
+<div class="result" id="gameResult">اختر عضيّة أولًا، ثم اضغط على موقعها في الصورة.</div>
 <div class="stats"><span id="gameScore">النقاط: 0</span><span id="gameProgress">0 / 4</span></div>
 <button class="btn" id="gameReset">إعادة التحدي</button>
 </div>
@@ -428,38 +528,115 @@ $('microFeedback').textContent=$('microAnswer').value===samples[$('sample').valu
 });
 drawMicro();
 
-/* لعبة تركيب الخلية */
+/* لعبة تركيب الخلية: اختيار العضيّة ثم الضغط على الصورة */
 let selectedOrg=null,gamePoints=0;
 const placedOrganelles=new Set();
-const organelleNames={nucleus:'النواة',chloroplast:'البلاستيدة الخضراء',mitochondria:'الميتوكوندريا',vacuole:'الفجوة العصارية'};
-document.querySelectorAll('[data-org]').forEach(button=>{
+
+const organelleNames={
+nucleus:'النواة',
+chloroplast:'البلاستيدة الخضراء',
+mitochondria:'الميتوكوندريا',
+vacuole:'الفجوة العصارية'
+};
+
+const orgButtons=[...document.querySelectorAll('[data-org]')];
+const hotspots=[...document.querySelectorAll('[data-target]')];
+
+orgButtons.forEach(button=>{
 button.addEventListener('click',()=>{
-if(placedOrganelles.has(button.dataset.org))return;
-selectedOrg=button.dataset.org;
-document.querySelectorAll('[data-org]').forEach(b=>b.classList.toggle('active',b===button));
-$('gameResult').textContent='اخترتِ '+organelleNames[selectedOrg]+'. الآن حدّدي موقعها الصحيح.';
+const org=button.dataset.org;
+
+if(placedOrganelles.has(org))return;
+
+selectedOrg=org;
+
+orgButtons.forEach(b=>{
+b.classList.toggle('active',b===button);
+});
+
+hotspots.forEach(h=>{
+h.classList.remove('missed');
+});
+
+$('gameResult').textContent=
+'اخترتِ '+organelleNames[selectedOrg]+
+'. الآن اضغطي على موقعها في صورة الخلية.';
 });
 });
-document.querySelectorAll('[data-target]').forEach(button=>{
-button.addEventListener('click',()=>{
-const target=button.dataset.target;
-if(!selectedOrg){$('gameResult').textContent='اختاري عضيّة أولًا.';return;}
-if(placedOrganelles.has(target)){$('gameResult').textContent='أكملتِ هذا الموقع سابقًا.';return;}
+
+hotspots.forEach(hotspot=>{
+hotspot.addEventListener('click',()=>{
+const target=hotspot.dataset.target;
+
+if(!selectedOrg){
+$('gameResult').textContent='اختاري عضيّة من القائمة أولًا.';
+return;
+}
+
+if(placedOrganelles.has(target)){
+$('gameResult').textContent='اكتشفتِ هذا الموقع سابقًا. اختاري عضيّة أخرى.';
+return;
+}
+
 if(selectedOrg===target){
-gamePoints++;placedOrganelles.add(target);button.classList.add('active');
-document.querySelector('[data-org="'+target+'"]').disabled=true;
-$('gameResult').textContent='إجابة صحيحة! وضعتِ '+organelleNames[target]+' في موقعها الصحيح.';
-selectedOrg=null;document.querySelectorAll('[data-org]').forEach(b=>b.classList.remove('active'));
-}else{$('gameResult').textContent='ليس هذا موقعها الصحيح. حاولي مرة أخرى.';}
+gamePoints++;
+placedOrganelles.add(target);
+
+hotspot.classList.add('found');
+hotspot.textContent='✓';
+hotspot.disabled=true;
+
+const selectedButton=document.querySelector('[data-org="'+target+'"]');
+if(selectedButton){
+selectedButton.disabled=true;
+selectedButton.classList.remove('active');
+}
+
+$('gameResult').textContent=
+'إجابة صحيحة! وجدتِ '+organelleNames[target]+' في موقعها.';
+
+selectedOrg=null;
+orgButtons.forEach(b=>b.classList.remove('active'));
+
+}else{
+hotspot.classList.add('missed');
+$('gameResult').textContent=
+'ليس هذا موقع '+organelleNames[selectedOrg]+'. حاولي مرة أخرى.';
+
+setTimeout(()=>{
+hotspot.classList.remove('missed');
+},650);
+}
+
 $('gameScore').textContent='النقاط: '+gamePoints;
 $('gameProgress').textContent=placedOrganelles.size+' / 4';
-if(placedOrganelles.size===4)$('gameResult').textContent='ممتاز! أكملتِ تركيب الخلية بنجاح. نتيجتك 4 من 4.';
+
+if(placedOrganelles.size===4){
+$('gameResult').textContent=
+'ممتاز! أكملتِ تركيب الخلية بنجاح. نتيجتك 4 من 4.';
+}
 });
 });
+
 $('gameReset').addEventListener('click',()=>{
-selectedOrg=null;gamePoints=0;placedOrganelles.clear();
-document.querySelectorAll('[data-org], [data-target]').forEach(b=>{b.classList.remove('active');b.disabled=false;});
-$('gameScore').textContent='النقاط: 0';$('gameProgress').textContent='0 / 4';$('gameResult').textContent='اختاري عضيّة أولًا ثم حدّدي موقعها.';
+selectedOrg=null;
+gamePoints=0;
+placedOrganelles.clear();
+
+orgButtons.forEach(b=>{
+b.classList.remove('active');
+b.disabled=false;
+});
+
+hotspots.forEach(h=>{
+h.classList.remove('found','missed');
+h.textContent='';
+h.disabled=false;
+});
+
+$('gameScore').textContent='النقاط: 0';
+$('gameProgress').textContent='0 / 4';
+$('gameResult').textContent='اختاري عضيّة أولًا، ثم اضغطي على موقعها في الصورة.';
 });
 
 /* تحدي DNA */
