@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -93,7 +92,7 @@ display:block;
 width:100%;
 height:auto;
 max-height:none;
-object-fit:contain;
+object-fit:initial;
 border-radius:15px;
 }
 .cell-hotspots{
@@ -104,10 +103,10 @@ pointer-events:none;
 .cell-hotspot{
 position:absolute;
 transform:translate(-50%,-50%);
-width:8%;
+width:13%;
 aspect-ratio:1;
-min-width:22px;
-max-width:55px;
+min-width:34px;
+max-width:76px;
 border:2px solid transparent;
 border-radius:50%;
 background:rgba(115,245,197,0);
@@ -115,7 +114,7 @@ pointer-events:auto;
 display:grid;
 place-items:center;
 color:#062117;
-font-size:clamp(12px,1.7vw,20px);
+font-size:clamp(13px,2vw,22px);
 font-weight:900;
 transition:background .2s,border-color .2s,transform .2s;
 }
@@ -125,11 +124,11 @@ border-color:#32a77b;
 transform:translate(-50%,-50%) scale(1.08);
 }
 .cell-hotspot.found{
-background:rgba(115,245,197,.75);
+background:rgba(115,245,197,.65);
 border:3px solid #08764c;
 }
 .cell-hotspot.missed{
-background:rgba(230,80,80,.65);
+background:rgba(230,80,80,.55);
 border:3px solid #c52c2c;
 }
 .cell-hotspot:focus-visible{
@@ -207,7 +206,7 @@ section{padding:38px 14px}
 .lab-intro{grid-template-columns:1fr 1fr}
 .lab-scene{min-height:240px}
 .lab-metrics{grid-template-columns:repeat(3,1fr)}
-.cell-hotspot{width:10%;min-width:20px}
+.cell-hotspot{width:15%;min-width:30px}
 }
 [hidden]{display:none!important}
 </style>
@@ -307,81 +306,50 @@ section{padding:38px 14px}
 
 <section id="cell-game">
 <div class="inner">
-<div class="head"><div class="kicker">04 / CELL BUILDER</div><h2>تحدّي تركيب الخلية</h2><p>اختاري العضيّة أولًا، ثم اضغطي على جميع مواقعها الصحيحة في صورة الخلية.</p></div>
+<div class="head"><div class="kicker">04 / CELL BUILDER</div><h2>تحدّي تركيب الخلية</h2><p>اختر العضيّة أولًا، ثم اضغط على موقعها الصحيح مباشرةً في صورة الخلية.</p></div>
 <div class="two">
 <div class="panel">
 <h3 style="color:var(--mint)">نموذج الخلية النباتية</h3>
 
 <div class="cell-photo-wrap" id="cellPhotoWrap">
 <img id="plantCellImage"
-src="plant-cell.jpeg"
+src="https://upload.wikimedia.org/wikipedia/commons/3/38/Plant_cell_structure_no_text.png"
 alt="رسم توضيحي لتركيب الخلية النباتية"
 loading="lazy">
 
 <div class="cell-hotspots" id="cellHotspots">
-
-<!-- النواة -->
+<!-- مناطق الضغط فوق صورة الخلية -->
 <button class="cell-hotspot" type="button" data-target="nucleus"
-style="left:68.6%;top:27%" aria-label="موقع النواة" title="النواة"></button>
+style="left:60%;top:58%" aria-label="موقع النواة" title="النواة"></button>
 
-<!-- الفجوة العصارية -->
+<button class="cell-hotspot" type="button" data-target="chloroplast"
+style="left:37%;top:39%" aria-label="موقع البلاستيدة الخضراء" title="البلاستيدة الخضراء"></button>
+
+<button class="cell-hotspot" type="button" data-target="mitochondria"
+style="left:72%;top:37%" aria-label="موقع الميتوكوندريا" title="الميتوكوندريا"></button>
+
 <button class="cell-hotspot" type="button" data-target="vacuole"
-style="left:38%;top:50%" aria-label="موقع الفجوة العصارية" title="الفجوة العصارية"></button>
-
-<!-- البلاستيدات الخضراء: 6 مواقع -->
-<button class="cell-hotspot" type="button" data-target="chloroplast"
-style="left:19.7%;top:26.8%" aria-label="موقع البلاستيدة الخضراء الأول" title="البلاستيدة الخضراء"></button>
-
-<button class="cell-hotspot" type="button" data-target="chloroplast"
-style="left:16.8%;top:48.2%" aria-label="موقع البلاستيدة الخضراء الثاني" title="البلاستيدة الخضراء"></button>
-
-<button class="cell-hotspot" type="button" data-target="chloroplast"
-style="left:15.9%;top:66.7%" aria-label="موقع البلاستيدة الخضراء الثالث" title="البلاستيدة الخضراء"></button>
-
-<button class="cell-hotspot" type="button" data-target="chloroplast"
-style="left:55.6%;top:53.7%" aria-label="موقع البلاستيدة الخضراء الرابع" title="البلاستيدة الخضراء"></button>
-
-<button class="cell-hotspot" type="button" data-target="chloroplast"
-style="left:26.7%;top:80.5%" aria-label="موقع البلاستيدة الخضراء الخامس" title="البلاستيدة الخضراء"></button>
-
-<button class="cell-hotspot" type="button" data-target="chloroplast"
-style="left:29%;top:15%" aria-label="موقع البلاستيدة الخضراء السادس" title="البلاستيدة الخضراء"></button>
-
-<!-- الميتوكوندريا: 3 مواقع -->
-<button class="cell-hotspot" type="button" data-target="mitochondria"
-style="left:17.3%;top:14.8%" aria-label="موقع الميتوكوندريا الأول" title="الميتوكوندريا"></button>
-
-<button class="cell-hotspot" type="button" data-target="mitochondria"
-style="left:41%;top:14.2%" aria-label="موقع الميتوكوندريا الثاني" title="الميتوكوندريا"></button>
-
-<button class="cell-hotspot" type="button" data-target="mitochondria"
-style="left:82.9%;top:56.2%" aria-label="موقع الميتوكوندريا الثالث" title="الميتوكوندريا"></button>
-
+style="left:43%;top:58%" aria-label="موقع الفجوة العصارية" title="الفجوة العصارية"></button>
 </div>
 </div>
 
-<p class="cell-game-instruction">اختاري العضيّة من القائمة، ثم اضغطي على جميع النقاط التي تمثل مواقعها في الصورة. لكل عضيّة عدد محدد من المواقع.</p>
+<p class="cell-game-instruction">بعد اختيار العضيّة، اضغط على المنطقة التي تعتقد أنها تمثل موقعها في الصورة.</p>
 <div class="cell-game-legend">
-<span><i class="legend-dot"></i> الموقع الصحيح يظهر بالأخضر</span>
-<span>🔴 الموقع غير الصحيح يظهر بالأحمر مؤقتًا</span>
+<span><i class="legend-dot"></i> المنطقة الصحيحة تظهر باللون الأخضر بعد اكتشافها</span>
 </div>
 </div>
 
 <div class="panel">
 <h3 style="color:var(--mint)">اختر العضيّة</h3>
 <div class="choices" id="orgChoices">
-<button class="choice" data-org="nucleus">النواة <span class="small">(1)</span></button>
-<button class="choice" data-org="chloroplast">البلاستيدات الخضراء <span class="small">(6)</span></button>
-<button class="choice" data-org="mitochondria">الميتوكوندريا <span class="small">(3)</span></button>
-<button class="choice" data-org="vacuole">الفجوة العصارية <span class="small">(1)</span></button>
+<button class="choice" data-org="nucleus">النواة</button>
+<button class="choice" data-org="chloroplast">البلاستيدة الخضراء</button>
+<button class="choice" data-org="mitochondria">الميتوكوندريا</button>
+<button class="choice" data-org="vacuole">الفجوة العصارية</button>
 </div>
-<div class="result" id="gameResult">اختاري عضيّة أولًا، ثم اضغطي على مواقعها في الصورة.</div>
-<div class="stats">
-<span id="gameScore">النقاط: 0</span>
-<span id="gameProgress">0 / 11</span>
-</div>
-<div class="progress" style="margin-top:10px"><i id="gameBar"></i></div>
-<button class="btn" id="gameReset" style="margin-top:12px">إعادة التحدي</button>
+<div class="result" id="gameResult">اختر عضيّة أولًا، ثم اضغط على موقعها في الصورة.</div>
+<div class="stats"><span id="gameScore">النقاط: 0</span><span id="gameProgress">0 / 4</span></div>
+<button class="btn" id="gameReset">إعادة التحدي</button>
 </div>
 </div>
 </div>
@@ -560,14 +528,13 @@ $('microFeedback').textContent=$('microAnswer').value===samples[$('sample').valu
 });
 drawMicro();
 
-/* لعبة تركيب الخلية: 11 موقعًا تفاعليًا */
-let selectedOrg=null;
-let gamePoints=0;
-let foundHotspots=0;
+/* لعبة تركيب الخلية: اختيار العضيّة ثم الضغط على الصورة */
+let selectedOrg=null,gamePoints=0;
+const placedOrganelles=new Set();
 
 const organelleNames={
 nucleus:'النواة',
-chloroplast:'البلاستيدات الخضراء',
+chloroplast:'البلاستيدة الخضراء',
 mitochondria:'الميتوكوندريا',
 vacuole:'الفجوة العصارية'
 };
@@ -575,27 +542,11 @@ vacuole:'الفجوة العصارية'
 const orgButtons=[...document.querySelectorAll('[data-org]')];
 const hotspots=[...document.querySelectorAll('[data-target]')];
 
-const totalHotspots=hotspots.length;
-
-function countFoundFor(org){
-return hotspots.filter(h=>h.dataset.target===org && h.classList.contains('found')).length;
-}
-
-function countTotalFor(org){
-return hotspots.filter(h=>h.dataset.target===org).length;
-}
-
-function updateGameProgress(){
-$('gameScore').textContent='النقاط: '+gamePoints;
-$('gameProgress').textContent=foundHotspots+' / '+totalHotspots;
-$('gameBar').style.width=(foundHotspots/totalHotspots*100)+'%';
-}
-
 orgButtons.forEach(button=>{
 button.addEventListener('click',()=>{
 const org=button.dataset.org;
 
-if(button.disabled)return;
+if(placedOrganelles.has(org))return;
 
 selectedOrg=org;
 
@@ -603,13 +554,13 @@ orgButtons.forEach(b=>{
 b.classList.toggle('active',b===button);
 });
 
-hotspots.forEach(h=>h.classList.remove('missed'));
-
-const remaining=countTotalFor(org)-countFoundFor(org);
+hotspots.forEach(h=>{
+h.classList.remove('missed');
+});
 
 $('gameResult').textContent=
-'اخترتِ '+organelleNames[org]+
-'. ابحثي عن المواقع المتبقية: '+remaining+'.';
+'اخترتِ '+organelleNames[selectedOrg]+
+'. الآن اضغطي على موقعها في صورة الخلية.';
 });
 });
 
@@ -622,62 +573,47 @@ $('gameResult').textContent='اختاري عضيّة من القائمة أول�
 return;
 }
 
-if(hotspot.classList.contains('found')){
-$('gameResult').textContent='اكتشفتِ هذا الموقع سابقًا.';
+if(placedOrganelles.has(target)){
+$('gameResult').textContent='اكتشفتِ هذا الموقع سابقًا. اختاري عضيّة أخرى.';
 return;
 }
 
 if(selectedOrg===target){
 gamePoints++;
-foundHotspots++;
+placedOrganelles.add(target);
 
 hotspot.classList.add('found');
 hotspot.textContent='✓';
 hotspot.disabled=true;
 
-const foundForThisOrg=countFoundFor(target);
-const totalForThisOrg=countTotalFor(target);
-const remaining=totalForThisOrg-foundForThisOrg;
-
-if(remaining===0){
 const selectedButton=document.querySelector('[data-org="'+target+'"]');
 if(selectedButton){
 selectedButton.disabled=true;
 selectedButton.classList.remove('active');
 }
 
+$('gameResult').textContent=
+'إجابة صحيحة! وجدتِ '+organelleNames[target]+' في موقعها.';
+
 selectedOrg=null;
 orgButtons.forEach(b=>b.classList.remove('active'));
 
-$('gameResult').textContent=
-'أحسنتِ! اكتشفتِ جميع مواقع '+organelleNames[target]+'. اختاري عضيّة أخرى.';
-}else{
-$('gameResult').textContent=
-'إجابة صحيحة! بقي '+remaining+' من مواقع '+organelleNames[target]+'. تابعي البحث.';
-}
-
 }else{
 hotspot.classList.add('missed');
-
 $('gameResult').textContent=
-'هذا ليس موقع '+organelleNames[selectedOrg]+'. حاولي مرة أخرى.';
+'ليس هذا موقع '+organelleNames[selectedOrg]+'. حاولي مرة أخرى.';
 
 setTimeout(()=>{
 hotspot.classList.remove('missed');
-},700);
+},650);
 }
 
-updateGameProgress();
+$('gameScore').textContent='النقاط: '+gamePoints;
+$('gameProgress').textContent=placedOrganelles.size+' / 4';
 
-if(foundHotspots===totalHotspots){
-selectedOrg=null;
-orgButtons.forEach(b=>{
-b.classList.remove('active');
-b.disabled=true;
-});
-
+if(placedOrganelles.size===4){
 $('gameResult').textContent=
-'ممتاز! أكملتِ التحدي واكتشفتِ المواقع الإحدى عشرة كلها. نتيجتك 11 من 11!';
+'ممتاز! أكملتِ تركيب الخلية بنجاح. نتيجتك 4 من 4.';
 }
 });
 });
@@ -685,7 +621,7 @@ $('gameResult').textContent=
 $('gameReset').addEventListener('click',()=>{
 selectedOrg=null;
 gamePoints=0;
-foundHotspots=0;
+placedOrganelles.clear();
 
 orgButtons.forEach(b=>{
 b.classList.remove('active');
@@ -698,10 +634,9 @@ h.textContent='';
 h.disabled=false;
 });
 
-updateGameProgress();
-
-$('gameResult').textContent=
-'تمت إعادة التحدي. اختاري عضيّة وابدئي اكتشاف مواقعها.';
+$('gameScore').textContent='النقاط: 0';
+$('gameProgress').textContent='0 / 4';
+$('gameResult').textContent='اختاري عضيّة أولًا، ثم اضغطي على موقعها في الصورة.';
 });
 
 /* تحدي DNA */
