@@ -1,419 +1,793 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#071311">
 <title>مِجهر | اكتشف ما لا تراه</title>
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
-:root{--bg:#06110f;--panel:#0c1d18;--panel2:#102820;--mint:#78f3c5;--mint2:#c0ffe6;--text:#eefaf4;--muted:#9cb8ab;--line:#24483c;--gold:#f0d79b;--danger:#ff9d9d;--shadow:0 18px 50px #0003}
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+
+:root{--bg:#06110f;--p:#0d211a;--p2:#122d23;--mint:#78f3c5;--gold:#f0d79b;--txt:#effaf4;--muted:#a4bdb1;--line:#28503f}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:105px}
-body{margin:0;background:radial-gradient(ellipse at 80% 0%,#10352a 0,transparent 32rem),var(--bg);color:var(--text);font-family:'Cairo',sans-serif;line-height:1.85}
-a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cursor:pointer}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
-header{position:sticky;top:0;z-index:30;background:#06110fed;backdrop-filter:blur(18px);border-bottom:1px solid #24483c}
-.nav{max-width:1220px;margin:auto;padding:12px 22px;display:flex;justify-content:space-between;align-items:center;gap:18px}
-.logo{font-size:25px;font-weight:900;color:var(--mint);line-height:1.25;white-space:nowrap}.logo small{display:block;font-size:10px;color:var(--muted);font-weight:500;letter-spacing:.3px}
-.navlinks{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);align-items:center}.navlinks a{transition:color .2s}.navlinks a:hover{color:var(--mint)}
-.hero{max-width:1220px;margin:auto;padding:82px 24px 72px;display:grid;grid-template-columns:1.15fr .85fr;gap:38px;align-items:center}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:radial-gradient(ellipse at 80% 0,#123c2d 0,transparent 34rem),var(--bg);color:var(--txt);font-family:Cairo,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+button{cursor:pointer}
+header{position:sticky;top:0;z-index:9;background:#06110fee;backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav{max-width:1200px;margin:auto;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.logo{font-size:24px;font-weight:900;color:var(--mint)}
+.logo small{display:block;font-size:10px;color:var(--muted)}
+.links{display:flex;gap:13px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.links a:hover{color:var(--mint)}
+.hero,.inner{max-width:1200px;margin:auto}
+.hero{padding:70px 22px;display:grid;grid-template-columns:1fr .8fr;gap:30px;align-items:center}
 .eyebrow,.kicker{color:var(--mint);font-size:11px;font-weight:900;letter-spacing:1px}
-h1{font-size:clamp(40px,6vw,76px);line-height:1.22;margin:15px 0;letter-spacing:-1.5px}h1 span{color:var(--mint);text-shadow:0 0 35px #78f3c522}
-.hero p{max-width:650px;color:var(--muted);font-size:16px}.actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:25px}
-.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:10px 18px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-weight:800;font-size:13px;transition:transform .2s,border-color .2s,filter .2s}
-.btn:hover{transform:translateY(-2px);border-color:var(--mint);filter:brightness(1.08)}.btn.primary{background:linear-gradient(135deg,#8affd1,#56dcae);color:#062119;border-color:transparent}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
-.hero-art{min-height:330px;border:1px solid #316451;border-radius:30px;background:radial-gradient(ellipse at center,#1b5945 0,#102b24 45%,#091714 80%);display:grid;place-items:center;overflow:hidden;position:relative;box-shadow:var(--shadow)}
-.hero-art:before,.hero-art:after{content:"";position:absolute;width:330px;height:330px;border:1px solid #78f3c51c;border-radius:50%}.hero-art:after{width:260px;height:260px}
-.orbit{width:220px;height:220px;border:1px solid #73f5c566;border-radius:50%;display:grid;place-items:center;position:relative;animation:spin 28s linear infinite}
-.orbit:before{content:"";position:absolute;width:165px;height:165px;border:1px dashed #73f5c588;border-radius:50%}.orbit:after{content:"";width:13px;height:13px;background:var(--mint);border-radius:50%;position:absolute;top:18px;right:35px;box-shadow:0 0 22px var(--mint)}.core{font-size:76px;animation:counter 28s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}@keyframes counter{to{transform:rotate(-360deg)}}
-.hero-stat{position:absolute;bottom:18px;right:20px;left:20px;display:flex;justify-content:space-between;gap:10px;color:#d7f9e9;font-size:11px}.hero-stat span{background:#071a15c9;border:1px solid #78f3c533;padding:6px 10px;border-radius:30px}
-section{padding:60px 22px;scroll-margin-top:85px}.inner{max-width:1220px;margin:auto}.section-head{margin-bottom:25px}.section-head h2{font-size:clamp(27px,4vw,42px);margin:4px 0 8px;line-height:1.4}.section-head p{color:var(--muted);margin:0;max-width:800px}
-.panel{background:linear-gradient(145deg,#0e211b,#091713);border:1px solid var(--line);border-radius:22px;padding:20px;overflow:hidden;box-shadow:var(--shadow)}
-.embed-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.embed-title{font-size:18px;font-weight:800;color:var(--mint2);margin:0 0 12px}
-.embed-frame{width:100%;max-width:100%;border:0;display:block;border-radius:12px;background:#fff}
-.cell-frame{width:100%;height:680px;min-height:680px;aspect-ratio:auto}.dna-frame{aspect-ratio:4/5;height:auto}.rna-frame{aspect-ratio:5/4;height:auto}
-.hint{font-size:12px;color:var(--muted);margin:10px 0 0}.note{padding:14px 17px;border-right:3px solid var(--mint);background:#10251f;border-radius:10px;color:#d9eee4;margin-top:18px}
-.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.info-card{background:linear-gradient(145deg,#10251f,#0a1915);border:1px solid var(--line);border-radius:18px;padding:21px;transition:.22s;min-width:0}.info-card:hover{border-color:#5bcda4;transform:translateY(-3px);box-shadow:0 12px 35px #0002}.card-icon{font-size:29px}.info-card h3{margin:5px 0;color:var(--mint2);font-size:19px}.info-card p{color:var(--muted);font-size:14px;margin:0}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}.tag{display:inline-block;color:var(--mint);border:1px solid var(--line);padding:2px 10px;border-radius:20px;font-size:12px;margin-bottom:8px}
-.video-library{margin-top:26px;padding:24px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#102923,#0b1a16)}.library-heading{margin-bottom:20px}.library-heading h3{color:var(--mint2);font-size:22px;margin:4px 0}.library-heading p{color:var(--muted);margin:0;font-size:14px}
-.video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.video-card{min-width:0;overflow:hidden;border:1px solid var(--line);border-radius:17px;background:#07130f;transition:border-color .2s}.video-card:hover{border-color:#4b987b}.video-frame{position:relative;width:100%;aspect-ratio:16/9;background:#030907}.video-frame iframe{position:absolute;inset:0;display:block;width:100%;height:100%;border:0}.video-short{aspect-ratio:9/16;max-height:470px}.video-info{padding:15px 17px}.video-info span{font-size:12px;color:var(--mint)}.video-info h4{font-size:16px;margin:4px 0;color:var(--mint2)}.video-info p{font-size:13px;color:var(--muted);margin:0}.video-link{display:inline-block;margin-top:10px;font-size:12px;color:var(--mint);text-decoration:underline}
-.tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.tool-panel{background:linear-gradient(145deg,#10251f,#091713);border:1px solid var(--line);border-radius:22px;padding:22px;min-width:0;box-shadow:var(--shadow)}.tool-panel h3{margin:0 0 5px;color:var(--mint2);font-size:21px}.tool-desc{color:var(--muted);font-size:13px;margin:0 0 18px}.control-label{display:block;font-size:13px;font-weight:800;color:var(--mint2);margin:12px 0 6px}
-select,input[type="search"]{width:100%;background:#071713;color:var(--text);border:1px solid var(--line);border-radius:11px;padding:10px 12px;min-height:44px}
-select option{background:#071713}.button-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
-.result-box{margin-top:15px;padding:13px 15px;border:1px solid var(--line);border-radius:13px;background:#071713;color:#d4eee2;font-size:13px;min-height:48px}.result-box strong{color:var(--mint)}
-.microscope-view{overflow:hidden;margin:14px auto 12px;width:min(100%,320px);aspect-ratio:1;border-radius:50%;border:9px solid #203d32;outline:1px solid #48725f;background:#06100d;overflow:hidden;position:relative;display:grid;place-items:center;box-shadow:inset 0 0 35px #000,0 0 0 5px #0b1712}
-.micro-sample{width:100%;height:100%;display:block;transition:transform .35s;transform-origin:center}.micro-label{position:absolute;bottom:12px;left:0;right:0;text-align:center;color:#d5f8e6;text-shadow:0 2px 5px #000;font-size:11px;background:#06110f99;padding:4px}
-.cell-game{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch}.cell-map{border:1px solid var(--line);border-radius:16px;background:#071511;padding:10px;min-height:270px;display:grid;place-items:center;position:relative}
-.cell-map svg{width:100%;max-width:330px;height:auto;overflow:visible}.organelles-list{display:grid;gap:8px;align-content:start}.organelle-choice{border:1px solid var(--line);background:#10251f;color:var(--text);padding:9px 11px;border-radius:10px;text-align:right;font-size:13px}.organelle-choice.selected{border-color:var(--mint);background:#174332}.organelle-choice:disabled{opacity:.8;cursor:default}.drop-target{cursor:pointer;transition:fill .2s}.drop-target:hover{stroke:#b1ffe2;stroke-width:3}.drop-target.filled{fill:#73f5c566!important;stroke:#b1ffe2}
-.dna-pair{display:grid;grid-template-columns:1fr auto 1fr;gap:9px;align-items:center;margin:15px 0}.dna-base{border:1px solid var(--line);background:#071713;border-radius:12px;padding:13px;text-align:center;font-size:20px;font-weight:900;color:var(--mint2)}.dna-base small{display:block;font-size:10px;color:var(--muted);font-weight:500}.base-options{display:flex;gap:8px;flex-wrap:wrap}.base-btn{flex:1;min-width:52px;background:#10251f;border:1px solid var(--line);color:var(--text);padding:10px;border-radius:10px;font-weight:900}.base-btn:hover{border-color:var(--mint)}
-.lab-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.lab-control{border:1px solid var(--line);border-radius:13px;padding:12px;background:#081712}.lab-control label{display:block;color:var(--mint2);font-size:12px;font-weight:800;margin-bottom:7px}.plant-scene{margin-top:15px;border:1px solid var(--line);border-radius:16px;min-height:155px;background:linear-gradient(#0e3026,#081711);display:grid;place-items:center;position:relative;overflow:hidden}.plant-scene:before{content:"☀";position:absolute;top:10px;left:20px;color:#f0d79b;font-size:28px;opacity:.9}.plant-emoji{font-size:66px;filter:drop-shadow(0 0 18px #73f5c533);transition:filter .2s,opacity .2s}.plant-status{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
-.search-wrap{max-width:600px;margin:0 0 24px;position:relative}.search-wrap input{padding-right:42px}.search-wrap:before{content:"⌕";position:absolute;right:14px;top:0;color:var(--mint);font-size:25px}
-.quiz-question{font-size:20px;font-weight:800;margin:18px 0}.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}.answer{text-align:right;padding:13px;border:1px solid var(--line);border-radius:12px;background:#10241e;color:var(--text)}.answer:hover:not(:disabled){border-color:var(--mint)}.answer:disabled{cursor:default;opacity:1}.answer.correct{border-color:#73f5c5;background:#163d30}.answer.wrong{border-color:#ff9c9c;background:#3a2020}.feedback{min-height:45px;color:var(--mint2);margin-top:15px}.quiz-bottom{display:flex;gap:12px;align-items:center;flex-wrap:wrap}#score{color:var(--gold);font-weight:800}.progress-track{height:6px;background:#19362b;border-radius:99px;overflow:hidden;margin-top:13px}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#43c995,#b1ffe2);transition:width .3s}
-footer{border-top:1px solid var(--line);padding:30px 22px;text-align:center;color:var(--muted);font-size:13px;margin-top:20px}
+h1{font-size:clamp(40px,6vw,72px);line-height:1.2;margin:12px 0}
+h1 span{color:var(--mint)}
+p{color:var(--muted)}
+.hero-art{min-height:280px;border:1px solid #39785d;border-radius:28px;background:radial-gradient(circle,#205b43,#0a1913 70%);display:grid;place-items:center;font-size:110px}
+.actions,.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--line);border-radius:11px;padding:9px 15px;background:var(--p2);color:var(--txt);font-weight:800;font-size:13px}
+.btn.primary{background:linear-gradient(135deg,#9affd7,#52d6a7);color:#062117;border:0}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+section{padding:48px 22px;scroll-margin-top:85px}
+.head{margin-bottom:20px}
+.head h2{font-size:clamp(27px,4vw,40px);margin:3px 0}
+.panel,.card{background:linear-gradient(145deg,#10271e,#091711);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.card h3{color:var(--mint);margin:5px 0}
+.card p{margin:0;font-size:13px}
+.embed{width:100%;border:0;border-radius:12px;background:white;display:block;aspect-ratio:1/1}
+.embed.tall{aspect-ratio:4/5}
+.video{width:100%;aspect-ratio:16/9;border:0;border-radius:12px}
+.field{display:grid;gap:5px;margin:9px 0}
+.field label{font-size:13px;color:var(--mint);font-weight:800}
+select,input[type=search]{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:#071712;color:var(--txt);min-height:43px}
+.result{background:#071712;border:1px solid var(--line);border-radius:12px;padding:13px;margin-top:12px;min-height:48px;font-size:13px;color:#dff7eb}
+.visual{min-height:190px;border:1px solid var(--line);border-radius:15px;background:radial-gradient(circle,#174832,#071510);display:grid;place-items:center;padding:12px;font-size:65px;overflow:hidden;position:relative}
+.visual svg{width:100%;height:100%;max-height:260px;display:block;overflow:visible}
+.small{font-size:12px;color:var(--muted)}
+.choices{display:grid;gap:8px}
+.choice,.answer,.base{background:#10281e;border:1px solid var(--line);color:var(--txt);padding:10px;border-radius:10px;text-align:right}
+.choice.active,.answer.correct{border-color:var(--mint);background:#174632}
+.answer.wrong{border-color:#e99b9b;background:#3b2222}
+.base{min-width:55px;text-align:center;font-weight:900}
+.labtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
+.labtab{background:#071712;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:9px 13px}
+.labtab[aria-pressed=true]{border-color:var(--mint);background:#174632}
+.bar{height:9px;background:#18392b;border-radius:9px;overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#45bb8a,#baffdf);transition:width .6s}
+.stats{display:flex;gap:10px;flex-wrap:wrap;color:var(--gold);font-size:13px;margin-top:10px}
+.progress{height:7px;background:#18392b;border-radius:9px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--mint)}
 [hidden]{display:none!important}
-@media(max-width:900px){.nav{align-items:flex-start;flex-direction:column;gap:8px}.navlinks{gap:10px 14px}.hero{padding-top:52px;grid-template-columns:1fr}.hero-art{min-height:260px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.embed-grid,.tool-grid{grid-template-columns:1fr}}
-@media(max-width:600px){.cell-frame{width:100%;height:620px;min-height:620px;aspect-ratio:auto}.nav{padding:10px 15px}.navlinks{font-size:11px}.hero{padding:42px 16px;gap:22px}.hero-art{min-height:225px}.orbit{transform:scale(.85)}section{padding:43px 15px}.panel,.tool-panel{padding:14px}.cards,.split,.video-grid,.cell-game{grid-template-columns:1fr}.answers{grid-template-columns:1fr}.video-library{padding:14px}.lab-controls{grid-template-columns:1fr}.cell-frame{min-height:280px}.dna-frame{aspect-ratio:4/5}.rna-frame{aspect-ratio:1/1}.section-head h2{font-size:29px}.tool-panel h3{font-size:19px}.hero-stat{font-size:9px}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 
-/* Mijhar Studio — stronger premium redesign */
-:root{
- --bg:#07110f;--panel:#0d1d18;--panel2:#122820;--mint:#a6e8ca;--mint2:#dff7e9;
- --text:#f4f5ed;--muted:#b0beb5;--line:#2b4539;--gold:#d8bc80;--shadow:0 22px 65px rgba(0,0,0,.32)
-}
-body{
- background:
- radial-gradient(ellipse at 82% 0%,rgba(95,151,117,.22),transparent 34rem),
- radial-gradient(ellipse at 2% 28%,rgba(216,188,128,.07),transparent 30rem),
- linear-gradient(180deg,#07110f 0%,#091713 46%,#07100e 100%);
- color:var(--text);line-height:1.9
-}
-header{background:rgba(5,14,12,.91);border-bottom:1px solid rgba(216,188,128,.23);box-shadow:0 8px 30px #0002}
-.nav{max-width:1320px;padding:15px 28px}
-.logo{color:#c2efd9;font-size:28px;letter-spacing:.2px}
-.logo small{color:#d8bc80;font-size:10px;letter-spacing:1.5px}
-.navlinks{gap:19px;font-size:12px;color:#bdc9c1}
-.navlinks a{transition:color .2s,transform .2s}
-.navlinks a:hover{color:#f0d9a4;transform:translateY(-1px)}
-.hero{max-width:1320px;padding:95px 30px 90px;gap:60px}
-.eyebrow,.kicker{color:var(--gold);font-size:10px;letter-spacing:2.2px}
-h1{font-size:clamp(42px,6.2vw,82px);line-height:1.19;letter-spacing:-2px;font-weight:900}
-h1 span{color:#bdebd4;text-shadow:0 0 34px #a6e8ca22}
-.hero p{color:#bdc9c1;font-size:16px;line-height:2.1}
-.hero-art{min-height:390px;border:1px solid #c4a56d55;border-radius:30px;background:radial-gradient(ellipse at 50% 42%,#244b3b 0,#142d23 46%,#0a1712 82%);box-shadow:0 32px 90px #0005,inset 0 1px #ffffff12}
-.hero-art:before,.hero-art:after{border-color:#d8bc8024}
-.orbit{border-color:#b6e8ce88}
-.orbit:before{border-color:#d8bc8055}
-.orbit:after{background:var(--gold);box-shadow:0 0 24px #d8bc8066}
-.core{filter:saturate(.7)}
-.hero-stat span{background:#07130fdd;border-color:#d8bc8044;color:#f1ead6;padding:8px 12px}
-.btn{border:1px solid #40594b;border-radius:11px;background:linear-gradient(145deg,#173328,#10221a);padding:11px 19px;box-shadow:0 7px 20px #0002;letter-spacing:.1px}
-.btn.primary{background:linear-gradient(135deg,#e3d1a1,#b8e8cf);color:#102219;border:0;box-shadow:0 10px 28px #b8e8cf20}
-.btn:hover{border-color:#d8bc80;transform:translateY(-2px);filter:brightness(1.06)}
-section{padding:78px 26px;scroll-margin-top:95px}
-.inner{max-width:1320px}
-.section-head{margin-bottom:32px}
-.section-head h2{font-size:clamp(30px,4vw,45px);letter-spacing:-.8px;font-weight:900}
-.section-head p{color:#b6c3ba;max-width:850px;line-height:2}
-.panel,.tool-panel,.video-library{background:linear-gradient(145deg,rgba(18,39,30,.97),rgba(9,22,17,.98));border:1px solid #314d3e;border-radius:23px;box-shadow:var(--shadow);padding:24px}
-.embed-grid,.tool-grid{gap:22px}
-.embed-title,.tool-panel h3{color:#d7f3e3}
-.cell-frame{height:clamp(520px,62vw,760px);min-height:520px;background:#f8f8f3}
-.dna-frame{min-height:480px}
-.rna-frame{min-height:400px}
-.note{background:linear-gradient(100deg,#142e23,#10221b);border-right:3px solid var(--gold);color:#dfe9df;padding:16px 19px}
-.cards{gap:18px}
-.info-card{background:linear-gradient(150deg,#152f24,#0c1b15);border:1px solid #2c4839;border-radius:19px;padding:24px;box-shadow:0 10px 30px #00015;transition:transform .22s,border-color .22s,box-shadow .22s}
-.info-card:hover{border-color:#d8bc8066;transform:translateY(-4px);box-shadow:0 20px 42px #0003}
-.info-card h3{color:#d6f3e3}
-.info-card p{color:#b3c1b7;line-height:1.95}
-.video-library{margin-top:32px}
-.video-card{border:1px solid #2d4839;border-radius:18px;background:#08140f;box-shadow:0 12px 30px #0002}
-.video-card:hover{border-color:#b99d68}
-.video-info h4{color:#d9f1e2}
-.video-info p{color:#b5c2b9;line-height:1.9}
-.tool-panel{padding:26px}
-.tool-desc{color:#b4c2b9;line-height:1.9}
-.control-label{color:#d8bc80}
-select,input[type="search"]{background:#081510;color:#f4f5ed;border:1px solid #3a5747;border-radius:11px;min-height:47px}
-select option{background:#081510;color:#fff}
-.result-box{background:linear-gradient(130deg,#0a1711,#10271c);border:1px solid #345342;border-radius:14px;color:#d9eadf;padding:16px;line-height:1.95}
-.microscope-view{width:min(100%,450px);aspect-ratio:4/3;border-radius:20px;border:1px solid #d8bc8077;outline:0;background:#020503;box-shadow:0 18px 40px #0005;overflow:hidden}
-.micro-sample{width:100%;height:100%;display:block;object-fit:cover;transition:transform .35s;transform-origin:center}
-.micro-photo{filter:contrast(1.04) saturate(1.06)}
-.micro-label{bottom:0;background:linear-gradient(transparent,#020806ee);font-size:12px;padding:22px 10px 10px;color:#f5f1e5}
-.cell-map,.lab-control{background:#091711;border-color:#34503f;border-radius:16px}
-.organelle-choice,.base-btn{background:linear-gradient(145deg,#173327,#10221a);border-color:#355341;border-radius:11px}
-.organelle-choice:hover,.base-btn:hover{border-color:#d8bc80}
-.organelle-choice.selected{background:#254a36;border-color:#b9e8ce}
-.dna-base{background:#091711;border-color:#3b5947;color:#e0f4e7;border-radius:13px}
-.plant-scene{border-color:#35503e;border-radius:18px}
-.quiz-question{font-size:21px;font-weight:800;line-height:1.8}
-.answer{border:1px solid #34503f!important;border-radius:13px!important;background:#10251b!important;color:#eaf2eb!important;padding:13px 16px!important}
-.answer:hover{border-color:#d8bc80!important}
-.answer.correct{border-color:#8ed9b0!important;background:#163d2a!important}
-.answer.wrong{border-color:#dc8888!important;background:#3b2020!important}
-.progress-track{background:#1b3024}
-.progress-fill{background:linear-gradient(90deg,#d8bc80,#a6e8ca)}
-footer{background:#050d0b;border-top:1px solid #d8bc8030;padding:45px 24px;color:#aebbb2}
-footer .logo{font-size:27px}
-a{transition:color .2s}
-::selection{background:#c2efd9;color:#07110f}
-@media(max-width:900px){
- .hero{grid-template-columns:1fr;padding:58px 20px 52px;gap:30px}
- .hero-art{min-height:300px}
- .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
- .embed-grid,.tool-grid{grid-template-columns:1fr}
- .cell-frame{height:600px;min-height:500px}
-}
-@media(max-width:600px){
- .nav{align-items:flex-start;flex-direction:column;padding:12px 17px;gap:9px}
- .navlinks{gap:9px 14px}
- section{padding:52px 16px}
- .hero{padding:42px 17px}
- .cards,.video-grid,.split{grid-template-columns:1fr}
- .cell-game{grid-template-columns:1fr}
- .lab-controls{grid-template-columns:1fr}
- .panel,.tool-panel,.video-library{padding:16px;border-radius:17px}
- .cell-frame{height:520px;min-height:450px}
- .microscope-view{width:100%}
-}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+/* تحسين رسومات المختبر */
+.lab-visual{min-height:235px;padding:12px}
+.lab-visual svg{max-height:250px}
+.plant-visual{min-height:230px}
+.lab-visual .cell-shape{transition:all .7s ease;transform-box:fill-box;transform-origin:center}
+.lab-visual .particle{animation:floatParticle 2.8s ease-in-out infinite alternate}
+.lab-visual .particle:nth-child(2n){animation-delay:.5s}
+.lab-visual .particle:nth-child(3n){animation-delay:1s}
+.lab-visual .bubble{animation:bubbleUp 2.5s ease-in infinite}
+.lab-visual .bubble:nth-child(2n){animation-delay:1s}
+.lab-visual .water-flow{animation:waterFlow 1.8s linear infinite}
+.lab-visual .vapor{animation:vaporRise 2.5s ease-in-out infinite}
+.lab-visual .vapor:nth-child(2n){animation-delay:.7s}
+.lab-visual .enzyme-piece{transition:all .6s ease}
+@keyframes floatParticle{from{transform:translate(0,0)}to{transform:translate(5px,-8px)}}
+@keyframes bubbleUp{0%{transform:translateY(8px);opacity:.25}50%{opacity:1}100%{transform:translateY(-24px);opacity:.1}}
+@keyframes waterFlow{from{stroke-dashoffset:30}to{stroke-dashoffset:0}}
+@keyframes vaporRise{0%{transform:translateY(8px);opacity:.15}50%{opacity:1}100%{transform:translateY(-15px);opacity:.1}}
 
-
-/* MIJHAR / ATELIER REDESIGN — redesigned composition, not just a palette swap */
-:root{--bg:#080d0c;--panel:#101816;--panel2:#17221d;--mint:#c6d9c4;--mint2:#edf2e8;--text:#f4f1e8;--muted:#b7b9ae;--line:#35443a;--gold:#cbb27a;--shadow:0 28px 80px rgba(0,0,0,.38)}
-body{background:linear-gradient(135deg,#090e0c 0%,#0d1712 48%,#090d0b 100%);font-size:15px;letter-spacing:.01em}
-header{background:rgba(8,13,11,.94);border-bottom:1px solid #8e80544a;backdrop-filter:blur(22px)}
-.nav{max-width:1440px;padding:16px clamp(16px,4vw,58px)}
-.logo{color:#e1e5d5;font-size:30px}.logo small{color:var(--gold);letter-spacing:1.8px;font-size:10px}
-.navlinks{gap:clamp(8px,1.4vw,22px);font-size:12px}.navlinks a{padding:7px 0;border-bottom:1px solid transparent}.navlinks a:hover{border-color:var(--gold);color:#f0dfb4}
-.hero{max-width:1440px;min-height:650px;padding:clamp(56px,8vw,118px) clamp(18px,5vw,72px);grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,84px);position:relative}
-.hero:before{content:"مِجهر  /  BIOLOGY FIELD NOTES";position:absolute;top:26px;right:clamp(18px,5vw,72px);color:#bba879;font-size:10px;letter-spacing:2.8px}
-.hero>div:first-child{position:relative;z-index:1}.eyebrow,.kicker{color:var(--gold);letter-spacing:2.4px}
-h1{font-size:clamp(44px,6.5vw,88px);font-weight:800;line-height:1.2;letter-spacing:-2px;margin:22px 0}
-h1 span{color:#d5e0ce;text-shadow:none}
-.hero p{font-size:clamp(15px,1.4vw,18px);max-width:540px;color:#bdc4b8;line-height:2.1}
-.hero-art{min-height:430px;border-radius:4px;border:1px solid #9c89514f;background:radial-gradient(ellipse at 50% 45%,#32483b 0%,#18271f 38%,#0b120e 76%);box-shadow:0 30px 80px #0006;isolation:isolate}
-.hero-art:before{width:min(75%,390px);height:min(75%,390px);border-color:#d7c69b55}.hero-art:after{width:min(58%,300px);height:min(58%,300px);border-color:#d7c69b44}
-.orbit{width:min(56%,270px);height:auto;aspect-ratio:1;border-color:#d5c08c99}.orbit:before{width:74%;height:74%;border-color:#c7d9c477}.orbit:after{background:#e0ca91;box-shadow:0 0 25px #e0ca91}.core{font-size:clamp(58px,7vw,92px);filter:grayscale(.35)}
-.hero-stat{right:18px;left:18px;bottom:18px}.hero-stat span{background:#0a100dd9;border:1px solid #cbb27a55;border-radius:2px;padding:8px 12px}
-.btn{border-radius:3px;padding:12px 20px;letter-spacing:.1px}.btn.primary{background:#d8e1d0;color:#172018;border-color:#d8e1d0}.btn.primary:hover{background:#f0dfb4;border-color:#f0dfb4}
-section{padding:clamp(54px,7vw,94px) clamp(16px,4vw,48px);border-top:1px solid #a5b19a12}
-.inner{max-width:1320px}.section-head{display:grid;grid-template-columns:minmax(0,1fr);margin-bottom:32px;max-width:820px}.section-head h2{font-size:clamp(30px,4.2vw,50px);line-height:1.25;letter-spacing:-.8px;margin:8px 0 14px}.section-head p{font-size:15px;line-height:2;color:#b9c1b6}
-.panel,.tool-panel,.video-library{border-radius:5px;border-color:#6d796344;background:linear-gradient(145deg,#151f19,#0d1410);box-shadow:0 22px 60px #0003}
-.info-card{border-radius:4px;background:linear-gradient(145deg,#17231b,#101713);border-color:#73806a44;padding:clamp(18px,2vw,28px)}.info-card:hover{border-color:#cbb27a;transform:translateY(-4px)}.info-card h3{color:#e3e8d8}
-.cards{gap:12px}.tag{border-radius:3px;color:#e2ce9b;border-color:#8b7a4d66}.note{border-right-color:var(--gold);border-radius:3px;background:#1b241b}
-.tool-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.tool-panel h3{font-size:24px}.control-label{color:#e4e8dc}
-/* Microscope now uses a wide optical field, never a tiny cropped circular viewport */
-#microscope .tool-panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);column-gap:26px;align-items:start}
-#microscope .tool-panel>h3,#microscope .tool-panel>.tool-desc,#microscope .tool-panel>.quiz-bottom{grid-column:1/-1}
-#microscope .microscope-view{grid-column:2;grid-row:4 / span 7;width:100%;max-width:none;height:auto;aspect-ratio:4/3;border-radius:4px;border:1px solid #b9c7ad66;outline:5px solid #111b15;background:#050806;box-shadow:0 20px 45px #0006;align-self:start;margin:12px 0;}
-#microscope .micro-sample{object-fit:contain;transform-origin:center;max-width:100%;max-height:100%;background:#050806}
-#microscope .micro-label{bottom:0;background:linear-gradient(transparent,#020806e8);padding:25px 12px 10px;font-size:12px}
-#microscope .result-box{border-radius:3px;background:#0b120e;border-color:#3c4b3d}
-#microscope select,#site-search input{background:#0b120e;border-radius:3px;border-color:#465347}
-#microscope #microQuestionText{font-weight:700;color:#e7e9dd;line-height:1.9}
-#microscope #microFeedback{grid-column:1/-1;min-height:52px;border-right:3px solid var(--gold)}
-.answers{gap:12px}.answer{border-radius:3px;background:#141d17;border-color:#53604f;padding:14px 16px;line-height:1.7}.answer.correct{background:#1c3325;border-color:#a8c8a0}.answer.wrong{background:#39251f;border-color:#d38f7b}
-.embed-frame{background:#0b120e}.cell-frame{height:clamp(460px,55vw,700px);min-height:0;border:1px solid #8c9a7b66;border-radius:3px}
-.video-card{border-radius:4px;border-color:#455242}.video-info h4{color:#e7eadf}
-footer{border-color:#85744b44;color:#b4bbae}
-@media(max-width:850px){.hero{grid-template-columns:1fr;min-height:unset}.hero-art{min-height:320px}.tool-grid{grid-template-columns:1fr}#microscope .tool-panel{display:flex;flex-direction:column}#microscope .microscope-view{width:100%;aspect-ratio:4/3;order:4;margin:12px 0}#microscope .micro-label{font-size:11px}.nav{gap:12px}}
-@media(max-width:560px){.hero{padding-top:72px}.hero:before{font-size:8px;letter-spacing:1.4px}.hero-art{min-height:260px}.hero-stat{flex-direction:column;align-items:flex-start}.navlinks{display:flex;max-height:none;gap:7px 13px}.navlinks a{font-size:11px}.section-head h2{font-size:32px}#microscope .microscope-view{aspect-ratio:1/1.08}.cell-frame{height:520px;min-height:0}.answers{grid-template-columns:1fr}}
-
+@media(max-width:800px){
+.hero{grid-template-columns:1fr;padding:45px 16px}
+.hero-art{min-height:210px}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.two{grid-template-columns:1fr}
+.links{gap:8px;font-size:11px}
+}
+@media(max-width:560px){
+section{padding:38px 14px}
+.grid{grid-template-columns:1fr}
+.panel{padding:13px}
+.hero-art{font-size:80px}
+.lab-visual{min-height:210px}
+}
 </style>
 </head>
+
 <body>
-<header><nav class="nav">
+<header>
+<nav>
 <a class="logo" href="#home">مِجهر<small>اكتشف ما لا تراه</small></a>
-<div class="navlinks">
-<a href="#cell">الخلية</a><a href="#organelles">العضيّات</a><a href="#microscope">محاكي المجهر</a><a href="#cell-game">تحدّي الخلية</a><a href="#genetics">المادة الوراثية</a><a href="#photosynthesis-lab">المختبر</a><a href="#video-library">الفيديوهات</a><a href="#quiz">اختبر نفسك</a>
-</div></nav></header>
+<div class="links">
+<a href="#cell">الخلية</a><a href="#organelles">العضيّات</a><a href="#microscope">المجهر</a><a href="#cell-game">لعبة الخلية</a><a href="#genetics">DNA</a><a href="#lab">المختبر</a><a href="#videos">الفيديوهات</a><a href="#quiz">اختبر نفسك</a>
+</div>
+</nav>
+</header>
+
 <main>
-<section class="hero" id="home"><div>
-<div class="eyebrow">مختبر العلوم التفاعلي · BIOLOGY LAB</div>
+<section class="hero" id="home">
+<div>
+<div class="eyebrow">BIOLOGY · INTERACTIVE LAB</div>
 <h1>ما لا تراه العين،<br><span>يكشفه مِجهر.</span></h1>
-<p>رحلة تفاعلية إلى عالم الخلية؛ اكتشف مكوّناتها، وافهم أسرار المادة الوراثية، وجرّب بنفسك في مختبرات وأنشطة تعليمية.</p>
-<div class="actions"><a class="btn primary" href="#cell">ابدأ الاستكشاف ↙</a><a class="btn" href="#microscope">🔬 محاكي المجهر</a><a class="btn" href="#quiz">🏆 اختبر معلوماتك</a></div>
-</div><div class="hero-art"><div class="orbit"><div class="core">🧬</div></div><div class="hero-stat"><span>استكشف · جرّب · تعلّم</span><span>علم الأحياء بطريقة تفاعلية</span></div></div></section>
+<p>رحلة تفاعلية إلى عالم الخلية والمادة الوراثية. استكشف، جرّب، واختبر فهمك.</p>
+<div class="actions"><a class="btn primary" href="#cell">ابدأ الاستكشاف</a><a class="btn" href="#lab">ادخل المختبر</a></div>
+</div>
+<div class="hero-art">🧬</div>
+</section>
 
-<section id="site-search"><div class="inner"><div class="section-head"><div class="kicker">QUICK DISCOVERY</div><h2>ابحث داخل مِجهر</h2><p>اكتب اسم موضوع أو عضيّة للوصول إلى القسم المناسب بسرعة.</p></div>
-<div class="search-wrap"><input id="siteSearch" type="search" placeholder="مثال: النواة، DNA، البناء الضوئي..." aria-label="ابحث داخل الموقع"></div><div id="searchResults" class="cards" aria-live="polite"></div></div></section>
+<section id="search">
+<div class="inner">
+<div class="head"><div class="kicker">DISCOVERY</div><h2>ابحث داخل مِجهر</h2></div>
+<input id="searchBox" type="search" placeholder="اكتب: النواة، DNA، المجهر، البناء الضوئي...">
+<div id="searchOut" class="grid" style="margin-top:12px"></div>
+</div>
+</section>
 
-<section id="cell"><div class="inner"><div class="section-head"><div class="kicker">01 / CELL EXPLORER</div><h2>داخل الخلية النباتية</h2><p>استكشف أجزاء الخلية ووظائفها من خلال النموذج التفاعلي.</p></div>
-<div class="panel"><iframe class="embed-frame cell-frame" src="https://interactiveimage.com/embed/b9108b8e-d4ce-475d-8b79-e53918293d55" title="الخلية النباتية التفاعلية" loading="lazy" allow="fullscreen" allowfullscreen></iframe><p class="hint">إذا ظهرت أجزاء من النموذج مقصوصة، افتحيه بحجم كامل من الزر أدناه.</p><p><a class="btn primary" href="https://interactiveimage.com/embed/b9108b8e-d4ce-475d-8b79-e53918293d55" target="_blank" rel="noopener">فتح نموذج الخلية بحجم كامل ↗</a></p></div>
-<div class="video-library"><div class="library-heading"><div class="kicker">WATCH & DISCOVER</div><h3>🎬 شاهدي الخلية النباتية</h3><p>فيديوهات تساعدك على فهم مكوّنات الخلية.</p></div><div class="video-grid">
-<article class="video-card"><div class="video-frame"><iframe src="https://www.youtube.com/embed/uHuazhI0WjI" title="الخلية النباتية - الفيديو الأول" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="video-info"><span>علم الخلية</span><h4>الخلية النباتية — الفيديو الأول</h4><p>فيديو تعليمي عن الخلية النباتية.</p><a class="video-link" href="https://youtu.be/uHuazhI0WjI" target="_blank" rel="noopener">فتح على YouTube ↗</a></div></article>
-<article class="video-card"><div class="video-frame"><iframe src="https://www.youtube.com/embed/wXaFN8VQPj0" title="الخلية النباتية - الفيديو الثاني" loading="lazy" allowfullscreen></iframe></div><div class="video-info"><span>علم الخلية</span><h4>الخلية النباتية — الفيديو الثاني</h4><p>مراجعة مرئية للخلية النباتية.</p><a class="video-link" href="https://youtu.be/wXaFN8VQPj0" target="_blank" rel="noopener">فتح على YouTube ↗</a></div></article>
-<article class="video-card"><div class="video-frame video-short"><iframe src="https://www.youtube.com/embed/wMGEBfP5PRc" title="الخلية النباتية ثلاثية الأبعاد" loading="lazy" allowfullscreen></iframe></div><div class="video-info"><span>استكشاف ثلاثي الأبعاد</span><h4>الخلية النباتية من منظور ثلاثي الأبعاد</h4><p>استكشاف بصري للخلية النباتية.</p><a class="video-link" href="https://youtube.com/shorts/wMGEBfP5PRc" target="_blank" rel="noopener">فتح الفيديو الأصلي ↗</a></div></article>
-</div></div></div></section>
+<section id="cell">
+<div class="inner">
+<div class="head"><div class="kicker">01 / CELL EXPLORER</div><h2>داخل الخلية النباتية</h2><p>نموذج تفاعلي لاستكشاف مكوّنات الخلية.</p></div>
+<div class="panel"><iframe class="embed" src="https://interactiveimage.com/embed/b9108b8e-d4ce-475d-8b79-e53918293d55" title="الخلية النباتية التفاعلية" loading="lazy" allowfullscreen></iframe></div>
+</div>
+</section>
 
-<section id="organelles"><div class="inner"><div class="section-head"><div class="kicker">02 / CELL STRUCTURE</div><h2>أجزاء صغيرة، وظائف عظيمة</h2><p>لكل عضيّة دور يساعد الخلية على أداء وظائفها الحيوية.</p></div><div class="cards">
-<article class="info-card" data-searchable><div class="card-icon">🧠</div><h3>النواة</h3><p>تحتوي على معظم المادة الوراثية في الخلية، وتشارك في تنظيم أنشطتها.</p></article>
-<article class="info-card" data-searchable><div class="card-icon">⚡</div><h3>الميتوكوندريا</h3><p>تنتج معظم الطاقة القابلة للاستخدام في الخلية عن طريق التنفس الخلوي.</p></article>
-<article class="info-card" data-searchable><div class="card-icon">🌿</div><h3>البلاستيدات الخضراء</h3><p>تحتوي على الكلوروفيل، وتتم فيها عملية البناء الضوئي في الخلايا النباتية.</p></article>
-<article class="info-card" data-searchable><div class="card-icon">🧱</div><h3>الجدار الخلوي</h3><p>يوفر الدعم والحماية ويساعد الخلية النباتية على المحافظة على شكلها.</p></article>
-<article class="info-card" data-searchable><div class="card-icon">💧</div><h3>الفجوة العصارية</h3><p>تخزن الماء ومواد مختلفة، وتساهم في المحافظة على ضغط الامتلاء في الخلية النباتية.</p></article>
-<article class="info-card" data-searchable><div class="card-icon">🔬</div><h3>الريبوسومات</h3><p>تشارك في تصنيع البروتينات وفق التعليمات التي تحملها جزيئات RNA.</p></article>
-</div></div></section>
+<section id="organelles">
+<div class="inner">
+<div class="head"><div class="kicker">02 / ORGANELLES</div><h2>أجزاء صغيرة، وظائف عظيمة</h2></div>
+<div class="grid">
+<article class="card"><h3>النواة</h3><p>تحتوي معظم المادة الوراثية وتشارك في تنظيم أنشطة الخلية.</p></article>
+<article class="card"><h3>الميتوكوندريا</h3><p>تنتج معظم ATP القابل للاستخدام بالتنفس الخلوي.</p></article>
+<article class="card"><h3>البلاستيدات الخضراء</h3><p>تحتوي الكلوروفيل وتتم فيها عملية البناء الضوئي.</p></article>
+<article class="card"><h3>الجدار الخلوي</h3><p>يوفر الدعم والحماية ويساعد في تثبيت شكل الخلية.</p></article>
+<article class="card"><h3>الفجوة العصارية</h3><p>تخزن الماء ومواد مختلفة وتحافظ على ضغط الامتلاء.</p></article>
+<article class="card"><h3>الريبوسومات</h3><p>مواقع تصنيع البروتينات في الخلية.</p></article>
+</div>
+</div>
+</section>
 
-<section id="microscope"><div class="inner"><div class="section-head"><div class="kicker">03 / VIRTUAL MICROSCOPE</div><h2>محاكي المجهر</h2><p>اختر عيّنة وغيّر التكبير لتتعرّف إلى أشكال الخلايا. الصور عينات مجهرية فوتوغرافية؛ وقد يختلف شكل العينة بحسب طريقة التحضير والتكبير.</p></div>
-<div class="tool-grid"><div class="tool-panel"><h3>🔬 جهّز الشريحة</h3><p class="tool-desc">اختَر العيّنة وقوة التكبير، ثم لاحظ تغيّر العرض.</p>
-<label class="control-label" for="sampleSelect">العينة</label><select id="sampleSelect"><option value="onion">خلايا بشرة البصل</option><option value="cheek">خلايا الخد</option><option value="leaf">بشرة الورقة والثغور</option></select>
-<label class="control-label" for="magnification">قوة التكبير</label><select id="magnification"><option value="40">40× — تكبير منخفض</option><option value="100">100× — تكبير متوسط</option><option value="400">400× — تكبير مرتفع</option></select>
-<div class="microscope-view"><img id="microSample" class="micro-sample micro-photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Onion_epidermis.jpg" alt="صورة مجهرية حقيقية لخلايا بشرة البصل" loading="lazy"><div class="micro-label" id="microLabel">خلايا بشرة البصل · 40×</div></div>
-<div class="button-row"><button class="btn primary" id="showSampleInfo">اعرض معلومات العينة</button><button class="btn" id="resetMicroscope">إعادة ضبط</button></div><div class="result-box" id="sampleInfo" aria-live="polite">اختر عيّنة لتبدأ الاستكشاف.</div></div>
-<div class="tool-panel"><h3>📖 ماذا تلاحظ؟</h3><p class="tool-desc">اقرأ وصف العيّنة ثم أجب عن سؤال الملاحظة.</p><div class="note" style="margin-top:0">التكبير الكلي للمجهر الضوئي = تكبير العدسة العينية × تكبير العدسة الشيئية. في هذه المحاكاة، تغيّر التكبير يقرّب الرسم توضيحيًا فقط.</div>
-<div class="result-box" id="microObservation">خلايا البصل غالبًا مستطيلة ومتراصة، وتظهر حدودها بوضوح.</div><label class="control-label" for="microQuestion">سؤال سريع</label><p id="microQuestionText">ما الشكل الشائع لخلايا بشرة البصل؟</p><select id="microQuestion"><option value="">اختَر الإجابة</option></select><div class="button-row"><button class="btn primary" id="checkMicro">تحقّق من إجابتي</button></div><div class="result-box" id="microFeedback" aria-live="polite">جرّب الإجابة بعد ملاحظة الرسم.</div></div></div></div></section>
+<section id="microscope">
+<div class="inner">
+<div class="head"><div class="kicker">03 / VIRTUAL MICROSCOPE</div><h2>محاكي المجهر</h2><p>اختر عيّنة وغيّر التكبير. الرسومات نماذج تعليمية مبسطة وليست صورًا مجهرية حقيقية.</p></div>
+<div class="two">
+<div class="panel">
+<div class="field"><label for="sample">العينة</label><select id="sample"><option value="onion">خلايا بشرة البصل</option><option value="cheek">خلايا الخد</option><option value="leaf">بشرة الورقة والثغور</option></select></div>
+<div class="field"><label for="zoom">قوة التكبير</label><select id="zoom"><option value="40">40×</option><option value="100">100×</option><option value="400">400×</option></select></div>
+<div class="visual" id="microVisual">▦</div>
+<div class="result" id="microResult">اختر العينة لعرض ملاحظاتها.</div>
+<button class="btn" id="microReset">إعادة ضبط المجهر</button>
+</div>
+<div class="panel">
+<h3 style="color:var(--mint)">ماذا تلاحظ؟</h3>
+<p id="microInfo">خلايا البصل غالبًا مستطيلة ومتراصة.</p>
+<div class="field"><label for="microAnswer">اختر الملاحظة الصحيحة</label><select id="microAnswer"><option value="">اختر</option><option value="rect">خلايا مستطيلة</option><option value="irregular">خلايا غير منتظمة</option><option value="stomata">ثغور وخلايا حارسة</option></select></div>
+<button class="btn primary" id="microCheck">تحقق من إجابتي</button>
+<div class="result" id="microFeedback">لاحظ الرسم ثم أجب.</div>
+</div>
+</div>
+</div>
+</section>
 
-<section id="cell-game"><div class="inner"><div class="section-head"><div class="kicker">04 / CELL BUILDER</div><h2>تحدّي تركيب الخلية</h2><p>اختر عضيّة من القائمة ثم اضغط على موضعها في الرسم. هذه الطريقة تعمل بالماوس واللمس.</p></div>
-<div class="tool-panel"><div class="quiz-bottom"><span class="tag" id="cellGameProgress">تم وضع 0 من 5</span><span id="cellGameScore" style="color:var(--gold);font-weight:800">النقاط: 0</span></div>
-<div class="cell-game" style="margin-top:14px"><div class="cell-map"><svg viewBox="0 0 340 260" role="img" aria-label="رسم مبسّط لخلية نباتية">
-<rect x="12" y="12" width="316" height="236" rx="35" fill="#173c2d" stroke="#78f3c5" stroke-width="7"/>
-<rect x="24" y="24" width="292" height="212" rx="29" fill="#234a37" stroke="#a0dfb5" stroke-width="2"/>
-<ellipse cx="85" cy="91" rx="29" ry="25" fill="#8a78d5" stroke="#d6caff" stroke-width="2" class="drop-target" data-org="nucleus"/>
-<circle cx="90" cy="92" r="9" fill="#d9ccff"/>
-<ellipse cx="244" cy="68" rx="26" ry="12" fill="#4cbf83" stroke="#b1ffe2" stroke-width="2" class="drop-target" data-org="chloroplast"/>
-<path d="M224 68h40M230 62h28M230 74h28" stroke="#d4ffe7" stroke-width="2"/>
-<ellipse cx="250" cy="180" rx="25" ry="12" fill="#df9d5d" stroke="#ffe0ad" stroke-width="2" class="drop-target" data-org="mitochondria"/>
-<path d="M230 180q8 -12 15 0t15 0" fill="none" stroke="#754a2b" stroke-width="3"/>
-<rect x="120" y="126" width="100" height="78" rx="20" fill="#4c8fa0" opacity=".8" stroke="#b7f3ff" stroke-width="2" class="drop-target" data-org="vacuole"/>
-<path d="M138 143h62M138 156h62M138 169h62" stroke="#d8faff" opacity=".5" stroke-width="2"/>
-<circle cx="145" cy="75" r="7" fill="#f5cf75" stroke="#fff0bf" stroke-width="2" class="drop-target" data-org="ribosome"/>
-<circle cx="180" cy="90" r="5" fill="#f5cf75"/><circle cx="206" cy="110" r="5" fill="#f5cf75"/>
-<text x="170" y="257" fill="#b1ffe2" font-size="9" text-anchor="middle">رسم توضيحي مبسّط للخلية النباتية</text></svg></div>
-<div><p class="tool-desc">١) اختَر اسم العضيّة. ٢) اضغط على الجزء المطابق في الرسم.</p><div class="organelles-list" id="organelleChoices">
-<button class="organelle-choice" data-choice="nucleus">🧠 النواة</button><button class="organelle-choice" data-choice="chloroplast">🌿 البلاستيدة الخضراء</button><button class="organelle-choice" data-choice="mitochondria">⚡ الميتوكوندريا</button><button class="organelle-choice" data-choice="vacuole">💧 الفجوة العصارية</button><button class="organelle-choice" data-choice="ribosome">🔬 الريبوسوم</button>
-</div><div class="result-box" id="cellGameFeedback" aria-live="polite">ابدأ باختيار عضيّة من القائمة.</div><div class="button-row"><button class="btn" id="resetCellGame">ابدأ التحدّي من جديد</button></div></div></div></div></div></section>
+<section id="cell-game">
+<div class="inner">
+<div class="head"><div class="kicker">04 / CELL BUILDER</div><h2>تحدّي تركيب الخلية</h2><p>اختر العضيّة ثم اضغط على موقعها الصحيح.</p></div>
+<div class="two">
+<div class="panel">
+<div class="visual" style="font-size:45px">🌱 <span style="font-size:15px">خلية نباتية</span></div>
+<div class="choices" id="targets">
+<button class="choice" data-target="nucleus">موقع النواة</button>
+<button class="choice" data-target="chloroplast">موقع البلاستيدة</button>
+<button class="choice" data-target="mitochondria">موقع الميتوكوندريا</button>
+<button class="choice" data-target="vacuole">موقع الفجوة</button>
+</div>
+</div>
+<div class="panel">
+<div class="choices" id="orgChoices">
+<button class="choice" data-org="nucleus">النواة</button>
+<button class="choice" data-org="chloroplast">البلاستيدة الخضراء</button>
+<button class="choice" data-org="mitochondria">الميتوكوندريا</button>
+<button class="choice" data-org="vacuole">الفجوة العصارية</button>
+</div>
+<div class="result" id="gameResult">اختر عضيّة أولًا ثم حدّد موقعها.</div>
+<div class="stats"><span id="gameScore">النقاط: 0</span><span id="gameProgress">0 / 4</span></div>
+<button class="btn" id="gameReset">إعادة التحدي</button>
+</div>
+</div>
+</div>
+</section>
 
-<section id="genetics"><div class="inner"><div class="section-head"><div class="kicker">05 / GENETIC MATERIAL</div><h2>المادة الوراثية</h2><p>استكشف بنية DNA، وتعرّف إلى DNA وRNA من خلال نماذج تفاعلية.</p></div><div class="note">يمكنك التفاعل مع كل نموذج بشكل مستقل. قد يحتاج تحميل النماذج المضمّنة إلى اتصال بالإنترنت.</div>
-<div class="embed-grid" style="margin-top:20px"><article class="panel"><h3 class="embed-title">🧬 نموذج DNA ثلاثي الأبعاد</h3><iframe class="embed-frame dna-frame" src="https://interactiveimage.com/embed/8b98a1ba-bf85-4b6e-83f0-901241700f62" title="نموذج DNA ثلاثي الأبعاد" loading="lazy" allow="fullscreen" allowfullscreen></iframe><p class="hint">استكشف النموذج وتفاصيله التفاعلية.</p></article>
-<article class="panel"><h3 class="embed-title">🔎 شرح DNA وRNA</h3><iframe class="embed-frame rna-frame" src="https://interactiveimage.com/embed/7ddc1b8d-ffb9-4203-8d02-33195439c2f9" title="شرح DNA وRNA التفاعلي" loading="lazy" allow="fullscreen" allowfullscreen></iframe><p class="hint">اضغط على العلامات داخل الخريطة لقراءة الشروحات.</p></article></div>
-<div class="video-library"><div class="library-heading"><div class="kicker">GENETIC MATERIAL</div><h3>🧬 شاهدي: عالم DNA</h3><p>فيديو للتعرّف إلى المادة الوراثية.</p></div><div class="video-grid"><article class="video-card"><div class="video-frame"><iframe src="https://www.youtube.com/embed/NPVGrdA3kmI" title="فيديو DNA" loading="lazy" allowfullscreen></iframe></div><div class="video-info"><span>المادة الوراثية</span><h4>اكتشفي عالم DNA</h4><p>شاهدي الفيديو ثم استكشفي نموذج DNA.</p><a class="video-link" href="https://youtu.be/NPVGrdA3kmI" target="_blank" rel="noopener">فتح على YouTube ↗</a></div></article></div></div>
-<div class="split"><article class="info-card"><span class="tag">DNA</span><h3>الحمض النووي الريبوزي منقوص الأكسجين</h3><p>يتكوّن عادةً من سلسلتين ملتفتين في شكل لولب مزدوج. قواعده A وT وG وC، وتتقابل A مع T وG مع C.</p></article><article class="info-card"><span class="tag">RNA</span><h3>الحمض النووي الريبوزي</h3><p>يتكوّن غالبًا من سلسلة واحدة، ويحتوي على القواعد A وU وG وC. تساعد أنواعه في استخدام المعلومات الوراثية وصنع البروتينات.</p></article></div></div></section>
+<section id="genetics">
+<div class="inner">
+<div class="head"><div class="kicker">05 / GENETIC MATERIAL</div><h2>المادة الوراثية</h2></div>
+<div class="two">
+<div class="panel"><h3 style="color:var(--mint)">نموذج DNA ثلاثي الأبعاد</h3><iframe class="embed tall" src="https://interactiveimage.com/embed/8b98a1ba-bf85-4b6e-83f0-901241700f62" title="نموذج DNA" loading="lazy" allowfullscreen></iframe></div>
+<div class="panel"><h3 style="color:var(--mint)">DNA وRNA</h3><iframe class="embed" src="https://interactiveimage.com/embed/7ddc1b8d-ffb9-4203-8d02-33195439c2f9" title="شرح DNA وRNA" loading="lazy" allowfullscreen></iframe><p>في DNA تتقابل A مع T وG مع C. يحتوي RNA على U بدلًا من T.</p></div>
+</div>
+</div>
+</section>
 
-<section id="dna-challenge"><div class="inner"><div class="section-head"><div class="kicker">06 / DNA PAIRING</div><h2>تحدّي أزواج DNA</h2><p>اختَر القاعدة المكملة لكل قاعدة في DNA، واجمع النقاط حتى تنهي السلسلة.</p></div><div class="tool-panel"><div class="quiz-bottom"><span class="tag" id="dnaProgress">القاعدة 1 من 6</span><span id="dnaScore" style="color:var(--gold);font-weight:800">النقاط: 0</span></div><div class="dna-pair"><div class="dna-base" id="dnaGiven">A<small>القاعدة المعطاة</small></div><div>↔</div><div class="dna-base" id="dnaAnswer">؟<small>القاعدة المكملة</small></div></div><div class="base-options" id="dnaOptions"><button class="base-btn" data-base="A">A</button><button class="base-btn" data-base="T">T</button><button class="base-btn" data-base="G">G</button><button class="base-btn" data-base="C">C</button></div><div class="result-box" id="dnaFeedback" aria-live="polite">تذكّر: A تقابل T، وG تقابل C.</div><div class="button-row"><button class="btn primary" id="nextDna" disabled>القاعدة التالية ←</button><button class="btn" id="restartDna">إعادة التحدّي</button></div></div></div></section>
+<section id="dna-game">
+<div class="inner">
+<div class="head"><div class="kicker">06 / DNA PAIRING</div><h2>تحدّي أزواج DNA</h2><p>اختر القاعدة المكملة للقاعدة المعطاة.</p></div>
+<div class="panel">
+<div class="stats"><span id="dnaProgress">قاعدة 1 من 6</span><span id="dnaScore">النقاط: 0</span></div>
+<div class="visual" style="font-size:24px;min-height:90px"><span id="dnaGiven">A</span>　↔　<span id="dnaAnswer">؟</span></div>
+<div class="row" style="margin-top:12px"><button class="base" data-base="A">A</button><button class="base" data-base="T">T</button><button class="base" data-base="G">G</button><button class="base" data-base="C">C</button></div>
+<div class="result" id="dnaFeedback">تذكّر: A تقابل T، وG تقابل C.</div>
+<div class="row"><button class="btn primary" id="dnaNext" disabled>التالي</button><button class="btn" id="dnaReset">إعادة التحدي</button></div>
+</div>
+</div>
+</section>
 
-<section id="photosynthesis-lab"><div class="inner"><div class="section-head"><div class="kicker">07 / VIRTUAL LAB</div><h2>مختبر البناء الضوئي</h2><p>غيّر العوامل وشاهد أثرها المتوقع على معدل البناء الضوئي في محاكاة تعليمية مبسّطة.</p></div><div class="tool-panel"><div class="lab-controls">
-<div class="lab-control"><label for="labLight">شدة الضوء</label><select id="labLight"><option value="high">مرتفعة</option><option value="low">منخفضة</option><option value="none">منعدمة</option></select></div>
-<div class="lab-control"><label for="labWater">توفر الماء</label><select id="labWater"><option value="enough">كافٍ</option><option value="low">قليل</option></select></div>
-<div class="lab-control"><label for="labCo2">ثاني أكسيد الكربون</label><select id="labCo2"><option value="enough">كافٍ</option><option value="low">قليل</option></select></div>
-</div><div class="plant-scene"><div class="plant-emoji" id="plantEmoji">🌿</div></div><div class="plant-status" id="plantStatus">النبات في ظروف مناسبة للمحاكاة.</div><div class="button-row"><button class="btn primary" id="runLab">شغّل التجربة</button><button class="btn" id="resetLab">إعادة ضبط</button></div><div class="result-box" id="labResult" aria-live="polite">غيّر عاملًا واحدًا كل مرة، ثم شغّل التجربة لمقارنة النتائج.</div><p class="hint">ملاحظة علمية: النتيجة وصفية وليست قياسًا حقيقيًا. يتأثر البناء الضوئي أيضًا بدرجة الحرارة وعوامل أخرى.</p></div></div></section>
+<section id="lab">
+<div class="inner">
+<div class="head"><div class="kicker">07 / VIRTUAL LAB</div><h2>مختبر مِجهر</h2><p>شغّل المحاكاة واقرأ التفسير العلمي. النسب مؤشرات تعليمية وليست قياسات حقيقية.</p></div>
 
-<section id="video-library"><div class="inner"><div class="section-head"><div class="kicker">08 / VIDEO LIBRARY</div><h2>مكتبة فيديوهات مِجهر</h2><p>كل الفيديوهات التعليمية في مكان واحد — اختَر الموضوع وابدأ المشاهدة.</p></div><div class="video-library"><div class="library-heading"><h3>🎬 شاهدي واكتشفي</h3><p>الخلية النباتية، والاستكشاف ثلاثي الأبعاد، والمادة الوراثية.</p></div><div class="video-grid">
-<article class="video-card"><div class="video-frame"><iframe src="https://www.youtube.com/embed/uHuazhI0WjI" title="الخلية النباتية - الفيديو الأول" loading="lazy" allowfullscreen></iframe></div><div class="video-info"><span>علم الخلية</span><h4>الخلية النباتية</h4><p>الفيديو الأول.</p><a class="video-link" href="https://youtu.be/uHuazhI0WjI" target="_blank" rel="noopener">فتح على YouTube ↗</a></div></article>
-<article class="video-card"><div class="video-frame"><iframe src="https://www.youtube.com/embed/wXaFN8VQPj0" title="الخلية النباتية - الفيديو الثاني" loading="lazy" allowfullscreen></iframe></div><div class="video-info"><span>علم الخلية</span><h4>الخلية النباتية</h4><p>الفيديو الثاني.</p><a class="video-link" href="https://youtu.be/wXaFN8VQPj0" target="_blank" rel="noopener">فتح على YouTube ↗</a></div></article>
-<article class="video-card"><div class="video-frame"><iframe src="https://www.youtube.com/embed/NPVGrdA3kmI" title="DNA" loading="lazy" allowfullscreen></iframe></div><div class="video-info"><span>المادة الوراثية</span><h4>عالم DNA</h4><p>فيديو عن المادة الوراثية.</p><a class="video-link" href="https://youtu.be/NPVGrdA3kmI" target="_blank" rel="noopener">فتح على YouTube ↗</a></div></article>
-<article class="video-card"><div class="video-frame video-short"><iframe src="https://www.youtube.com/embed/wMGEBfP5PRc" title="الخلية النباتية ثلاثية الأبعاد" loading="lazy" allowfullscreen></iframe></div><div class="video-info"><span>استكشاف ثلاثي الأبعاد</span><h4>الخلية النباتية ثلاثية الأبعاد</h4><p>فيديو قصير لاستكشاف الخلية.</p><a class="video-link" href="https://youtube.com/shorts/wMGEBfP5PRc" target="_blank" rel="noopener">فتح الفيديو الأصلي ↗</a></div></article>
-</div></div></div></section>
+<div class="panel">
+<h3 style="color:var(--mint)">أولًا: البناء الضوئي</h3>
+<div class="grid">
+<div class="field"><label for="light">شدة الضوء</label><select id="light"><option value="high">مرتفعة</option><option value="low">منخفضة</option><option value="none">منعدمة</option></select></div>
+<div class="field"><label for="water">الماء</label><select id="water"><option value="enough">كافٍ</option><option value="low">قليل</option></select></div>
+<div class="field"><label for="co2">ثاني أكسيد الكربون</label><select id="co2"><option value="enough">كافٍ</option><option value="low">قليل</option></select></div>
+</div>
+<div class="visual plant-visual" id="plant"></div>
+<div class="row" style="margin-top:12px"><button class="btn primary" id="runPhoto">شغّل التجربة</button><button class="btn" id="resetPhoto">إعادة ضبط</button></div>
+<div class="result" id="photoResult">غيّر عاملًا واحدًا ثم شغّل التجربة.</div>
+</div>
 
-<section id="quiz"><div class="inner"><div class="section-head"><div class="kicker">09 / KNOWLEDGE CHECK</div><h2>اختبر نفسك</h2><p>اختر مستوى الاختبار، أجب عن الأسئلة، وراجع تفسير كل إجابة. يُحفظ أفضل تقدّم على هذا الجهاز.</p></div><div class="panel">
-<label class="control-label" for="quizLevel">مستوى الأسئلة</label><div class="quiz-bottom"><select id="quizLevel" style="max-width:260px"><option value="easy">سهل</option><option value="medium" selected>متوسط</option><option value="hard">متقدم</option></select><button class="btn" id="startLevel">ابدأ هذا المستوى</button></div>
-<div class="quiz-bottom" style="margin-top:17px"><span class="tag" id="progress">السؤال 1 من 5</span><span id="score">النتيجة: 0 / 5</span><span id="bestScore" class="tag">أفضل نتيجة: —</span></div><div class="progress-track"><div class="progress-fill" id="quizProgressFill"></div></div>
-<p class="quiz-question" id="question"></p><div class="answers" id="answers"></div><div class="feedback" id="feedback" aria-live="polite"></div><div class="quiz-bottom"><button class="btn primary" id="next" disabled>السؤال التالي ←</button><button class="btn" id="restart" hidden>إعادة الاختبار ↻</button></div>
-</div></div></section>
+<div class="panel" style="margin-top:18px">
+<h3 style="color:var(--mint)">ثانيًا: محطات تجارب إضافية</h3>
+<div class="labtabs">
+<button class="labtab" data-lab="osmosis" aria-pressed="true">الأسموزية</button>
+<button class="labtab" data-lab="enzyme" aria-pressed="false">الإنزيمات</button>
+<button class="labtab" data-lab="transpiration" aria-pressed="false">النتح</button>
+<button class="labtab" data-lab="diffusion" aria-pressed="false">الانتشار</button>
+</div>
+<div class="two">
+<div>
+<div class="visual lab-visual" id="labVisual"></div>
+<div class="stats"><span id="labPercent">—</span><span id="labState">جاهز</span><span id="labRuns">0 تشغيلات</span></div>
+<div class="bar"><i id="labBar"></i></div>
+</div>
+<div>
+<h3 id="labTitle" style="color:var(--mint)">تجربة الأسموزية</h3>
+<p id="labDesc" class="small">انتقال الماء عبر غشاء شبه منفذ.</p>
+<div id="labFields"></div>
+<div class="row"><button class="btn primary" id="runStation">شغّل التجربة</button><button class="btn" id="resetStation">إعادة ضبط</button></div>
+<div class="result" id="labResult">اضبط العوامل ثم شغّل التجربة.</div>
+<p class="small" id="labHint">الماء ينتقل عبر الغشاء شبه المنفذ وفق فرق تركيز المذابات.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="videos">
+<div class="inner">
+<div class="head"><div class="kicker">08 / VIDEO LIBRARY</div><h2>مكتبة فيديوهات مِجهر</h2></div>
+<div class="grid">
+<div class="card"><iframe class="video" src="https://www.youtube.com/embed/uHuazhI0WjI" title="الخلية النباتية" loading="lazy" allowfullscreen></iframe><h3>الخلية النباتية</h3></div>
+<div class="card"><iframe class="video" src="https://www.youtube.com/embed/wXaFN8VQPj0" title="شرح الخلية" loading="lazy" allowfullscreen></iframe><h3>مراجعة الخلية</h3></div>
+<div class="card"><iframe class="video" src="https://www.youtube.com/embed/NPVGrdA3kmI" title="DNA" loading="lazy" allowfullscreen></iframe><h3>المادة الوراثية</h3></div>
+</div>
+</div>
+</section>
+
+<section id="quiz">
+<div class="inner">
+<div class="head"><div class="kicker">09 / KNOWLEDGE CHECK</div><h2>اختبر نفسك</h2><p>ثلاثة مستويات، مع تفسير الإجابات وحفظ أفضل نتيجة على جهازك.</p></div>
+<div class="panel">
+<div class="field"><label for="level">مستوى الاختبار</label><select id="level"><option value="easy">سهل</option><option value="medium" selected>متوسط</option><option value="hard">متقدم</option></select></div>
+<div class="stats"><span id="qProgress">السؤال 1</span><span id="qScore">النتيجة: 0</span><span id="best">أفضل نتيجة: —</span></div>
+<div class="progress"><i id="qBar"></i></div>
+<h3 id="question" style="margin-top:16px"></h3>
+<div class="choices" id="answers"></div>
+<div class="result" id="qFeedback"></div>
+<div class="row"><button class="btn primary" id="qNext" disabled>السؤال التالي</button><button class="btn" id="qRestart">إعادة الاختبار</button></div>
+</div>
+</div>
+</section>
 </main>
-<footer><div class="logo">مِجهر</div><p>نتعلّم لنفهم، ونستكشف لنكتشف.</p><p>مشروع تعليمي تفاعلي في العلوم والأحياء.</p><p>© مِجهر — تعلّم تفاعلي، بلا ذكاء اصطناعي.</p></footer>
+
+<footer>
+<div class="logo">مِجهر</div>
+<p>نتعلّم لنفهم، ونستكشف لنكتشف.</p>
+<small>مشروع تعليمي تفاعلي في العلوم والأحياء.</small>
+</footer>
 
 <script>
-/* بحث داخل أقسام الموقع */
-const searchIndex=[
- {title:"الخلية النباتية",desc:"النموذج التفاعلي للخلية النباتية",href:"#cell",keys:"خلية نباتية جدار فجوة بلاستيدة"},
- {title:"العضيّات ووظائفها",desc:"النواة والميتوكوندريا والريبوسومات وغيرها",href:"#organelles",keys:"نواة ميتوكوندريا ريبوسومات بلاستيدات فجوة"},
- {title:"محاكي المجهر",desc:"استكشف عينات خلايا البصل والخد والورقة",href:"#microscope",keys:"مجهر تكبير عينة خلايا بصل خد ورقة"},
- {title:"تحدّي تركيب الخلية",desc:"تعرّف إلى مواضع العضيات",href:"#cell-game",keys:"لعبة تركيب الخلية عضيات"},
- {title:"المادة الوراثية",desc:"نماذج DNA وRNA التفاعلية",href:"#genetics",keys:"dna rna وراثية حمض نووي"},
- {title:"تحدّي أزواج DNA",desc:"تدرّب على قواعد A وT وG وC",href:"#dna-challenge",keys:"تحدي dna قواعد نيتروجينية"},
- {title:"مختبر البناء الضوئي",desc:"غيّر الضوء والماء وثاني أكسيد الكربون",href:"#photosynthesis-lab",keys:"مختبر بناء ضوئي ضوء ماء co2 نبات"},
- {title:"مكتبة الفيديوهات",desc:"شاهد الفيديوهات التعليمية",href:"#video-library",keys:"فيديوهات يوتيوب مشاهدة"},
- {title:"اختبر نفسك",desc:"اختبارات أحياء بثلاثة مستويات",href:"#quiz",keys:"اختبار امتحان أسئلة علامة"}
+'use strict';
+const $=id=>document.getElementById(id);
+
+// البحث
+const searchItems=[
+['الخلية النباتية','نموذج تفاعلي للخلية','#cell','خلية نباتية جدار فجوة'],
+['العضيّات','وظائف أجزاء الخلية','#organelles','نواة ميتوكوندريا بلاستيدات'],
+['المجهر','عينات البصل والخد والورقة','#microscope','مجهر تكبير خلايا'],
+['تحدي الخلية','ركّب العضيّات في أماكنها','#cell-game','لعبة تركيب'],
+['DNA وRNA','المادة الوراثية','#genetics','dna rna'],
+['مختبر مِجهر','البناء الضوئي والأسموزية والإنزيمات والنتح والانتشار','#lab','مختبر تجارب']
 ];
-const searchInput=document.getElementById("siteSearch"),searchResults=document.getElementById("searchResults");
-function doSearch(){const q=searchInput.value.trim().toLowerCase();if(!q){searchResults.innerHTML="";return}const found=searchIndex.filter(x=>(x.title+" "+x.desc+" "+x.keys).toLowerCase().includes(q));searchResults.innerHTML=found.length?found.map(x=>`<a class="info-card" href="${x.href}"><h3>${x.title}</h3><p>${x.desc}</p><span class="video-link">انتقل إلى القسم ↙</span></a>`).join(""):'<div class="note">ما لقينا نتيجة مطابقة. جرّب كلمة ثانية.</div>'}
-searchInput.addEventListener("input",doSearch);
 
-/* محاكي المجهر: رسومات SVG توضيحية تتغير حسب العينة والتكبير */
-const sampleSelect=document.getElementById("sampleSelect"),magnification=document.getElementById("magnification"),microSample=document.getElementById("microSample"),microLabel=document.getElementById("microLabel"),sampleInfo=document.getElementById("sampleInfo"),microObservation=document.getElementById("microObservation");
-const sampleData={
- onion:{
-  name:"خلايا بشرة البصل",image:"https://commons.wikimedia.org/wiki/Special:FilePath/Onion_epidermis.jpg",
-  alt:"خلايا بشرة البصل تحت المجهر الضوئي",
-  credit:"الصورة: SaraKasa / Wikimedia Commons، CC BY 4.0",
-  info:"تظهر خلايا بشرة البصل غالبًا مستطيلة ومتراصة، وتبرز حدود الجدران الخلوية. لا تظهر البلاستيدات الخضراء عادةً في بشرة البصل المستخدمة في التجارب المدرسية.",
-  obs:"لاحظ الخلايا المستطيلة المتجاورة وحدودها الواضحة.",
-  question:"ما الشكل الشائع لخلايا بشرة البصل؟",correct:"rect",
-  options:[["round","دوائر منفصلة تمامًا"],["rect","مستطيلة ومتراصة بجدران واضحة"],["star","نجوم متعددة الأطراف"]]
- },
- cheek:{
-  name:"خلايا الخد",image:"https://commons.wikimedia.org/wiki/Special:FilePath/Microscopic_Image_of_Human_Cheek_Cells.jpg",
-  alt:"خلايا خد بشرية مصبوغة تحت المجهر",
-  credit:"الصورة: Aholderfield / Wikimedia Commons، CC BY 4.0",
-  info:"خلايا الخد خلايا حيوانية مفلطحة وغير منتظمة. قد تظهر النواة بلون أغمق بعد الصبغ، ولا تمتلك الخلايا جدارًا خلويًا نباتيًا.",
-  obs:"لاحظ حدود الخلايا غير المنتظمة والنواة الداكنة نسبيًا؛ لا يوجد جدار خلوي نباتي.",
-  question:"أي وصف يناسب خلايا الخد؟",correct:"irregular",
-  options:[["rect","مستطيلة ومتراصة ولها جدار خلوي"],["chloroplast","تحتوي على بلاستيدات خضراء"],["irregular","مفلطحة، منفصلة غالبًا، وغير منتظمة الشكل ولا تمتلك جدارًا خلويًا"]]
- },
- leaf:{
-  name:"بشرة الورقة والثغور",image:"https://commons.wikimedia.org/wiki/Special:FilePath/Leaf_cells_with_stomata.jpg",
-  alt:"بشرة ورقة نبات وثغورها تحت المجهر الضوئي",
-  credit:"الصورة: Ivan Bachev / Wikimedia Commons، CC BY 4.0",
-  info:"تظهر في بشرة الورقة خلايا البشرة والثغور التي يحدّ فتحتها زوج من الخلايا الحارسة. تساعد الثغور على تبادل الغازات وتنظيم فقد الماء.",
-  obs:"ابحث عن فتحة الثغر بين الخليتين الحارستين، وعن خلايا البشرة المحيطة.",
-  question:"ما الوظيفة الأساسية للثغور؟",correct:"gas",
-  options:[["support","تكوين الجدار الخلوي فقط"],["energy","إنتاج الطاقة بالتنفس الخلوي"],["gas","تبادل الغازات وتنظيم فقد الماء"]]
- }
+$('searchBox').addEventListener('input',()=>{
+const q=$('searchBox').value.trim().toLowerCase();
+$('searchOut').innerHTML='';
+if(!q)return;
+searchItems.filter(x=>x.join(' ').toLowerCase().includes(q)).forEach(x=>{
+const a=document.createElement('a');
+a.className='card';a.href=x[2];
+a.innerHTML='<h3>'+x[0]+'</h3><p>'+x[1]+'</p>';
+$('searchOut').appendChild(a);
+});
+if(!$('searchOut').children.length)$('searchOut').textContent='لا توجد نتائج مطابقة.';
+});
+
+// المجهر
+const samples={
+onion:{name:'خلايا بشرة البصل',info:'تظهر خلايا مستطيلة ومتراصة، ويمكن ملاحظة الجدار الخلوي والنواة عند تحضير الشريحة جيدًا.',answer:'rect',art:'▦'},
+cheek:{name:'خلايا الخد',info:'خلايا حيوانية ذات أشكال غير منتظمة نسبيًا، ولا تمتلك جدارًا خلويًا.',answer:'irregular',art:'◉'},
+leaf:{name:'بشرة الورقة والثغور',info:'تظهر ثغور تحيط بها خلايا حارسة وتساعد في تبادل الغازات وفقد الماء.',answer:'stomata',art:'🍃'}
 };
-function drawSample(){
- const type=sampleSelect.value,mag=Number(magnification.value),item=sampleData[type];
- microSample.src=item.image;microSample.alt=item.alt;
- microSample.onerror=()=>{microSample.onerror=null;microSample.style.objectFit="contain";microSample.alt="تعذّر تحميل الصورة المجهرية. تحقق من اتصال الإنترنت.";microLabel.textContent="تعذّر تحميل الصورة — أعد المحاولة بعد الاتصال بالإنترنت";};
- microSample.style.transform=`scale(${mag===40?1:mag===100?1.12:1.25})`;
- microLabel.textContent=`${item.name} · تكبير تقريبي ${mag}×`;
- microObservation.textContent=item.obs;
- document.getElementById("microQuestionText").textContent=item.question;
- const questionSelect=document.getElementById("microQuestion");
- questionSelect.innerHTML='<option value="">اختَر الإجابة</option>'+item.options.map(([value,label])=>`<option value="${value}">${label}</option>`).join("");
- questionSelect.value="";
- document.getElementById("microFeedback").textContent="اختر الإجابة بعد ملاحظة الصورة.";
- sampleInfo.textContent=item.credit+" — اضغط «اعرض معلومات العينة» لقراءة التفاصيل.";
+
+function drawMicro(){
+const s=samples[$('sample').value];
+$('microVisual').textContent=s.art+'  '+$('zoom').value+'×';
+$('microInfo').textContent=s.info;
+$('microResult').textContent=s.name+' — '+$('zoom').value+'×';
+$('microFeedback').textContent='لاحظ الرسم ثم أجب.';
+$('microAnswer').value='';
 }
-sampleSelect.addEventListener("change",drawSample);magnification.addEventListener("change",drawSample);document.getElementById("showSampleInfo").addEventListener("click",()=>{const d=sampleData[sampleSelect.value];sampleInfo.textContent=d.info+" "+d.credit;});document.getElementById("resetMicroscope").addEventListener("click",()=>{sampleSelect.value="onion";magnification.value="40";drawSample()});
-document.getElementById("checkMicro").addEventListener("click",()=>{const type=sampleSelect.value,val=document.getElementById("microQuestion").value;const expected=String(sampleData[type].correct).trim().toLowerCase();const ok=String(val).trim().toLowerCase()===expected;document.getElementById("microFeedback").textContent=!val?"اختَر إجابة أولًا.":ok?"إجابة صحيحة! "+sampleData[type].obs:"مش تمام، راجع وصف العينة وحاول مرة ثانية.";});drawSample();
+$('sample').addEventListener('change',drawMicro);
+$('zoom').addEventListener('change',drawMicro);
+$('microReset').addEventListener('click',()=>{
+$('sample').value='onion';$('zoom').value='40';drawMicro();
+});
+$('microCheck').addEventListener('click',()=>{
+$('microFeedback').textContent=$('microAnswer').value===samples[$('sample').value].answer?'إجابة صحيحة! '+samples[$('sample').value].info:'ليست هذه الملاحظة. اقرأ وصف العينة وحاول مجددًا.';
+});
+drawMicro();
 
+// لعبة تركيب الخلية
+const names={nucleus:'النواة',chloroplast:'البلاستيدة الخضراء',mitochondria:'الميتوكوندريا',vacuole:'الفجوة العصارية'};
+let selected=null,placed=new Set(),points=0;
 
-/* لعبة تركيب الخلية: اختيار باللمس/النقر ثم تحديد الموضع */
-const orgNames={nucleus:"النواة",chloroplast:"البلاستيدة الخضراء",mitochondria:"الميتوكوندريا",vacuole:"الفجوة العصارية",ribosome:"الريبوسوم"};
-let selectedOrg=null,placed=new Set(),cellPoints=0;
-const cellFeedback=document.getElementById("cellGameFeedback");
-document.querySelectorAll("[data-choice]").forEach(btn=>btn.addEventListener("click",()=>{if(placed.has(btn.dataset.choice))return;selectedOrg=btn.dataset.choice;document.querySelectorAll("[data-choice]").forEach(b=>b.classList.toggle("selected",b===btn));cellFeedback.textContent=`تم اختيار ${orgNames[selectedOrg]}. اضغط على موضعها في الرسم.`;}));
-document.querySelectorAll(".drop-target").forEach(target=>target.addEventListener("click",()=>{if(!selectedOrg){cellFeedback.textContent="اختَر عضيّة من القائمة أولًا.";return}const targetOrg=target.dataset.org;if(placed.has(selectedOrg)){cellFeedback.textContent="لقد وضعت هذه العضيّة بالفعل.";return}if(selectedOrg===targetOrg){placed.add(selectedOrg);cellPoints++;target.classList.add("filled");target.setAttribute("aria-label",orgNames[targetOrg]+" — تم تحديدها");const choice=document.querySelector(`[data-choice="${selectedOrg}"]`);choice.disabled=true;choice.classList.remove("selected");cellFeedback.textContent=`صحيح! ${orgNames[selectedOrg]} في موضعها على الرسم.`;selectedOrg=null;document.querySelectorAll("[data-choice]").forEach(b=>b.classList.remove("selected"));document.getElementById("cellGameProgress").textContent=`تم وضع ${placed.size} من 5`;document.getElementById("cellGameScore").textContent=`النقاط: ${cellPoints}`;if(placed.size===5)cellFeedback.textContent="رائع! أكملت تركيب الخلية بنجاح. أعد التحدّي لتكرار التدريب.";}else{cellFeedback.textContent="قريب! هذا موضع عضيّة أخرى. جرّب مرة ثانية.";}}));
-document.getElementById("resetCellGame").addEventListener("click",()=>{selectedOrg=null;placed.clear();cellPoints=0;document.querySelectorAll("[data-choice]").forEach(b=>{b.disabled=false;b.classList.remove("selected")});document.querySelectorAll(".drop-target").forEach(t=>{t.classList.remove("filled");t.setAttribute("aria-label",orgNames[t.dataset.org]||"موضع عضيّة")});document.getElementById("cellGameProgress").textContent="تم وضع 0 من 5";document.getElementById("cellGameScore").textContent="النقاط: 0";cellFeedback.textContent="ابدأ باختيار عضيّة من القائمة."});
+document.querySelectorAll('[data-org]').forEach(b=>b.addEventListener('click',()=>{
+selected=b.dataset.org;
+document.querySelectorAll('[data-org]').forEach(x=>x.classList.toggle('active',x===b));
+$('gameResult').textContent='اخترت '+names[selected]+'. اضغط على موضعها.';
+}));
 
-/* تحدّي DNA */
-const dnaSequence=["A","G","T","C","A","G"],complement={A:"T",T:"A",G:"C",C:"G"};let dnaIndex=0,dnaPoints=0,dnaLocked=false;
-function renderDna(){dnaLocked=false;document.getElementById("dnaGiven").innerHTML=dnaSequence[dnaIndex]+'<small>القاعدة المعطاة</small>';document.getElementById("dnaAnswer").innerHTML='؟<small>القاعدة المكملة</small>';document.getElementById("dnaProgress").textContent=`القاعدة ${dnaIndex+1} من ${dnaSequence.length}`;document.getElementById("dnaScore").textContent=`النقاط: ${dnaPoints}`;document.getElementById("dnaFeedback").textContent="تذكّر: A تقابل T، وG تقابل C.";document.getElementById("nextDna").disabled=true;document.getElementById("nextDna").textContent=dnaIndex===dnaSequence.length-1?"عرض النتيجة":"القاعدة التالية ←";document.querySelectorAll("[data-base]").forEach(b=>b.disabled=false)}
-document.querySelectorAll("[data-base]").forEach(btn=>btn.addEventListener("click",()=>{if(dnaLocked)return;dnaLocked=true;const correct=complement[dnaSequence[dnaIndex]],chosen=btn.dataset.base;document.querySelectorAll("[data-base]").forEach(b=>b.disabled=true);if(chosen===correct){dnaPoints++;document.getElementById("dnaAnswer").innerHTML=chosen+'<small>صحيح ✓</small>';document.getElementById("dnaFeedback").textContent="إجابة صحيحة! أحسنت."; }else{document.getElementById("dnaAnswer").innerHTML=correct+'<small>الإجابة الصحيحة</small>';document.getElementById("dnaFeedback").textContent=`ليست الإجابة الصحيحة. القاعدة المكملة لـ ${dnaSequence[dnaIndex]} هي ${correct}.`;}document.getElementById("dnaScore").textContent=`النقاط: ${dnaPoints}`;document.getElementById("nextDna").disabled=false;}));
-document.getElementById("nextDna").addEventListener("click",()=>{if(!dnaLocked)return;if(dnaIndex<dnaSequence.length-1){dnaIndex++;renderDna()}else{document.getElementById("dnaProgress").textContent="اكتمل التحدّي";document.getElementById("dnaFeedback").textContent=`انتهى التحدّي! نتيجتك ${dnaPoints} من ${dnaSequence.length}. اضغط إعادة التحدّي للعب مجددًا.`;document.getElementById("dnaAnswer").innerHTML="✓<small>اكتمل</small>";document.getElementById("nextDna").disabled=true;}});document.getElementById("restartDna").addEventListener("click",()=>{dnaIndex=0;dnaPoints=0;renderDna()});renderDna();
+document.querySelectorAll('[data-target]').forEach(b=>b.addEventListener('click',()=>{
+const target=b.dataset.target;
+if(!selected){$('gameResult').textContent='اختر عضيّة أولًا.';return}
+if(placed.has(selected))return;
+if(selected===target){
+placed.add(selected);points++;b.classList.add('active');
+document.querySelector('[data-org="'+selected+'"]').disabled=true;
+$('gameResult').textContent='صحيح! '+names[selected]+' في موضعها.';
+selected=null;
+document.querySelectorAll('[data-org]').forEach(x=>x.classList.remove('active'));
+$('gameScore').textContent='النقاط: '+points;
+$('gameProgress').textContent=placed.size+' / 4';
+if(placed.size===4)$('gameResult').textContent='ممتاز! أكملت تركيب الخلية.';
+}else $('gameResult').textContent='هذا موضع عضيّة أخرى. جرّب مرة ثانية.';
+}));
 
-/* مختبر البناء الضوئي */
-function runLab(){const light=document.getElementById("labLight").value,water=document.getElementById("labWater").value,co2=document.getElementById("labCo2").value;let result,status,opacity=1;if(light==="none"){result="من دون ضوء، لا تتم عملية البناء الضوئي المعتمدة على الضوء؛ لذلك يتوقف إنتاج نواتجها المعتاد.";status="الضوء غير متوفر — البناء الضوئي محدود جدًا.";opacity=.45}else if(water==="low"&&co2==="low"){result="نقص الماء وثاني أكسيد الكربون يحدّان من معدل البناء الضوئي في هذه المحاكاة.";status="عاملان أساسيان متوفران بكمية قليلة.";opacity=.58}else if(water==="low"){result="نقص الماء قد يقلّل البناء الضوئي، كما قد يؤدي إلى إغلاق الثغور وتقليل دخول ثاني أكسيد الكربون.";status="الماء عامل محدِّد محتمل.";opacity=.68}else if(co2==="low"){result="انخفاض ثاني أكسيد الكربون قد يقلّل معدل البناء الضوئي إذا كان عاملًا محدِّدًا.";status="ثاني أكسيد الكربون عامل محدِّد محتمل.";opacity=.72}else if(light==="low"){result="الضوء المنخفض قد يحدّ من معدل البناء الضوئي إذا لم تكن عوامل أخرى هي المحدِّدة.";status="النبات يحصل على ضوء منخفض.";opacity=.8}else{result="الضوء والماء وثاني أكسيد الكربون متوفرة في هذه المحاكاة. قد يرتفع المعدل حتى تحدّه عوامل أخرى، مثل درجة الحرارة.";status="ظروف مناسبة نسبيًا في النموذج.";opacity=1}document.getElementById("labResult").textContent=result;document.getElementById("plantStatus").textContent=status;document.getElementById("plantEmoji").style.opacity=opacity;document.getElementById("plantEmoji").style.filter=`drop-shadow(0 0 ${Math.round(opacity*24)}px #73f5c566)`;}
-document.getElementById("runLab").addEventListener("click",runLab);document.getElementById("resetLab").addEventListener("click",()=>{document.getElementById("labLight").value="high";document.getElementById("labWater").value="enough";document.getElementById("labCo2").value="enough";document.getElementById("labResult").textContent="غيّر عاملًا واحدًا كل مرة، ثم شغّل التجربة لمقارنة النتائج.";document.getElementById("plantStatus").textContent="النبات في ظروف مناسبة للمحاكاة.";document.getElementById("plantEmoji").style.opacity=1;document.getElementById("plantEmoji").style.filter="drop-shadow(0 0 18px #73f5c533)"});
+$('gameReset').addEventListener('click',()=>{
+selected=null;placed.clear();points=0;
+document.querySelectorAll('[data-org],[data-target]').forEach(b=>{
+b.disabled=false;b.classList.remove('active');
+});
+$('gameScore').textContent='النقاط: 0';
+$('gameProgress').textContent='0 / 4';
+$('gameResult').textContent='اختر عضيّة ثم حدّد موقعها.';
+});
 
-/* اختبارات بثلاثة مستويات + حفظ أفضل علامة محليًا */
-const questionBanks={
-easy:[
-{q:"أي عضيّة تُعد الموقع الأساسي للبناء الضوئي في الخلية النباتية؟",a:["الميتوكوندريا","البلاستيدات الخضراء","الريبوسومات","النواة"],correct:1,explain:"البلاستيدات الخضراء تحتوي على الكلوروفيل وتتم فيها عملية البناء الضوئي."},
-{q:"أي عضيّة تشارك في تصنيع البروتينات؟",a:["الريبوسومات","الفجوة العصارية","الجدار الخلوي","البلاستيدات"],correct:0,explain:"الريبوسومات هي مواقع تصنيع البروتينات."},
-{q:"أي قاعدة في DNA تتقابل مع A؟",a:["G","C","T","U"],correct:2,explain:"في DNA تتقابل A مع T."},
-{q:"ما وظيفة الجدار الخلوي النباتي؟",a:["إنتاج البروتين","الدعم والحماية","تخزين المعلومات الوراثية","صنع ATP فقط"],correct:1,explain:"يوفر الجدار الخلوي الدعم والحماية."},
-{q:"أي جزيء يحتوي على اليوراسيل U عادةً؟",a:["DNA","RNA","الدهون","النشا"],correct:1,explain:"يحتوي RNA على U بدلًا من T."}],
-medium:[
-{q:"أي عضيّة تُعد الموقع الأساسي للبناء الضوئي في الخلية النباتية؟",a:["الميتوكوندريا","البلاستيدات الخضراء","الريبوسومات","النواة"],correct:1,explain:"البلاستيدات الخضراء تحتوي على الكلوروفيل وتتم فيها عملية البناء الضوئي."},
-{q:"ما الشكل الشائع لجزيء DNA؟",a:["سلسلة أحماض أمينية","لولب مزدوج","طبقة دهنية","سكريات فقط"],correct:1,explain:"يتكون DNA عادةً من سلسلتين ملتفتين في شكل لولب مزدوج."},
-{q:"أي قاعدة توجد في RNA بدلًا من الثايمين T؟",a:["اليوراسيل U","السيتوسين C","الجوانين G","الأدينين A"],correct:0,explain:"يحتوي RNA على اليوراسيل U، بينما يحتوي DNA على الثايمين T."},
-{q:"ما الوظيفة الأساسية للريبوسومات؟",a:["تخزين الماء","تصنيع البروتينات","إنتاج الضوء","حماية الخلية"],correct:1,explain:"الريبوسومات هي مواقع تصنيع البروتينات في الخلية."},
-{q:"أي قاعدة في DNA تتقابل مع الجوانين G؟",a:["الأدينين A","الثايمين T","السيتوسين C","اليوراسيل U"],correct:2,explain:"في DNA تتقابل قاعدة الجوانين G مع السيتوسين C."}],
-hard:[
-{q:"إذا كانت إحدى سلسلتي DNA هي A–G–T–C، فما السلسلة المكملة؟",a:["T–C–A–G","A–G–T–C","U–C–A–G","C–T–A–G"],correct:0,explain:"تتزاوج A مع T، وG مع C؛ لذلك تكون السلسلة T–C–A–G."},
-{q:"ما الأثر المتوقع لنقص ثاني أكسيد الكربون على البناء الضوئي؟",a:["يزداد دائمًا","قد ينخفض المعدل","تتحول البلاستيدات إلى نواة","لا يتأثر في أي ظرف"],correct:1,explain:"قد ينخفض معدل البناء الضوئي عندما يصبح CO₂ عاملًا محدِّدًا."},
-{q:"أي عبارة تميّز الخلية النباتية عن خلية حيوانية نموذجية؟",a:["وجود ريبوسومات فقط","وجود جدار خلوي وبلاستيدات في الخلايا الخضراء","وجود DNA فقط","وجود غشاء خلوي فقط"],correct:1,explain:"الخلايا النباتية تمتلك جدارًا خلويًا، وتحتوي الخلايا الخضراء على بلاستيدات خضراء."},
-{q:"ما الدور الأساسي للميتوكوندريا؟",a:["تخزين الشفرة الوراثية وحدها","إنتاج معظم ATP بالتنفس الخلوي","إنتاج الكلوروفيل","تكوين الجدار الخلوي"],correct:1,explain:"تنتج الميتوكوندريا معظم ATP القابل للاستخدام في الخلايا حقيقية النواة."},
-{q:"أي عبارة عن RNA صحيحة؟",a:["يحتوي دائمًا على الثايمين","يتكوّن دائمًا من سلسلتين","يحتوي على اليوراسيل بدل الثايمين","لا يشارك في تصنيع البروتين"],correct:2,explain:"يحتوي RNA على اليوراسيل، وتشارك أنواعه في استخدام المعلومات الوراثية وصنع البروتينات."}]
+// تحدي DNA
+const seq=['A','G','T','C','A','G'],pair={A:'T',T:'A',G:'C',C:'G'};
+let di=0,ds=0,answered=false;
+
+function drawDNA(){
+$('dnaGiven').textContent=seq[di];
+$('dnaAnswer').textContent='؟';
+$('dnaProgress').textContent='قاعدة '+(di+1)+' من 6';
+$('dnaScore').textContent='النقاط: '+ds;
+$('dnaFeedback').textContent='A تقابل T، وG تقابل C.';
+$('dnaNext').disabled=true;answered=false;
+document.querySelectorAll('[data-base]').forEach(b=>b.disabled=false);
+}
+
+document.querySelectorAll('[data-base]').forEach(b=>b.addEventListener('click',()=>{
+if(answered)return;
+answered=true;
+const ok=b.dataset.base===pair[seq[di]];
+if(ok)ds++;
+$('dnaAnswer').textContent=pair[seq[di]];
+$('dnaScore').textContent='النقاط: '+ds;
+$('dnaFeedback').textContent=ok?'إجابة صحيحة!':'الإجابة الصحيحة هي '+pair[seq[di]]+'.';
+document.querySelectorAll('[data-base]').forEach(x=>x.disabled=true);
+$('dnaNext').disabled=false;
+}));
+
+$('dnaNext').addEventListener('click',()=>{
+if(!answered)return;
+if(di<5){di++;drawDNA();}
+else{
+$('dnaProgress').textContent='اكتمل التحدي';
+$('dnaFeedback').textContent='نتيجتك '+ds+' من 6. اضغط إعادة التحدي للبدء من جديد.';
+$('dnaNext').disabled=true;
+}
+});
+$('dnaReset').addEventListener('click',()=>{di=0;ds=0;drawDNA();});
+drawDNA();
+
+// رسومات SVG للمختبر
+function plantSVG(rate=100){
+const healthy=rate>=65;
+const droop=healthy?0:rate>=30?13:27;
+const leafColor=healthy?'#48bd78':rate>=30?'#9b9b55':'#777b49';
+const bubbles=Array.from({length:Math.max(1,Math.round(rate/12))},(_,i)=>{
+const x=155+(i%4)*25;
+const y=160-(i%3)*24;
+return `<circle class="bubble" cx="${x}" cy="${y}" r="${3+(i%3)}" fill="none" stroke="#a9f5e1" stroke-width="2"/>`;
+}).join('');
+return `<svg viewBox="0 0 340 230" role="img" aria-label="رسم توضيحي لنبات يتغير حسب معدل البناء الضوئي">
+<defs>
+<linearGradient id="leafGrad" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#a6e78a"/><stop offset="1" stop-color="${leafColor}"/></linearGradient>
+<linearGradient id="soilGrad" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#72563a"/><stop offset="1" stop-color="#342b20"/></linearGradient>
+</defs>
+<ellipse cx="170" cy="208" rx="105" ry="12" fill="#172c20"/>
+<path d="M65 190 Q170 176 275 190 L260 220 L80 220Z" fill="url(#soilGrad)" opacity=".9"/>
+<path d="M170 192 Q${170-droop} 145 170 83" fill="none" stroke="#6dbd72" stroke-width="8" stroke-linecap="round"/>
+<path d="M170 132 Q${120-droop} 75 ${85-droop} 90 Q${90-droop} 132 170 132Z" fill="url(#leafGrad)" stroke="#a8db8d" stroke-width="2"/>
+<path d="M170 132 Q${220+droop} 72 ${260+droop} 91 Q${247+droop} 132 170 132Z" fill="url(#leafGrad)" stroke="#a8db8d" stroke-width="2"/>
+<path d="M170 132 Q${130-droop/2} 35 145 28 Q185 35 170 132Z" fill="${healthy?'#62c982':'#858b50'}" stroke="#b4d991" stroke-width="2"/>
+<path d="M170 132 Q${125-droop} 85 ${85-droop} 90 M170 132 Q${220+droop} 85 ${260+droop} 91 M170 132 L145 28" stroke="#d0edaa" stroke-width="2" fill="none" opacity=".8"/>
+${bubbles}
+<text x="170" y="18" text-anchor="middle" fill="#c7f4df" font-size="10">O₂</text>
+<text x="170" y="226" text-anchor="middle" fill="#c8d8c9" font-size="9">${healthy?'نبات بحالة جيدة':rate>=30?'انخفاض في كفاءة النبات':'إجهاد واضح بسبب نقص العوامل'}</text>
+</svg>`;
+}
+
+function osmosisSVG(value=50,type='plant',direction='equal'){
+const scale=direction==='in'?1.18:direction==='out'?.78:1;
+const cellColor=type==='plant'?'#78bb75':'#e3a66e';
+const shape=type==='plant'
+?`<rect class="cell-shape" x="${115-(scale-1)*35}" y="${54-(scale-1)*20}" width="${110*scale}" height="${110*scale}" rx="17" fill="#8acb7a" fill-opacity=".22" stroke="#9cdb91" stroke-width="5"/><rect x="${126-(scale-1)*35}" y="${65-(scale-1)*20}" width="${88*scale}" height="${88*scale}" rx="12" fill="#6fbf83" fill-opacity=".12" stroke="#b8e8a2" stroke-width="2"/>`
+:`<ellipse class="cell-shape" cx="170" cy="110" rx="${55*scale}" ry="${57*scale}" fill="#e6b77c" fill-opacity=".2" stroke="#e9bd8a" stroke-width="5"/>`;
+const arrows=direction==='in'
+?`<path d="M40 100 L90 100 M250 100 L300 100 M170 20 L170 45 M170 195 L170 165" stroke="#8debd0" stroke-width="3" stroke-linecap="round" marker-end="url(#arr)"/>`
+:direction==='out'
+?`<path d="M100 100 L48 100 M240 100 L292 100 M170 48 L170 15 M170 165 L170 205" stroke="#8debd0" stroke-width="3" stroke-linecap="round" marker-end="url(#arr)"/>`
+:`<path d="M45 100 L92 100 M295 100 L248 100" stroke="#8debd0" stroke-width="2" stroke-dasharray="5 5"/>`;
+return `<svg viewBox="0 0 340 220" role="img" aria-label="محاكاة تغير حجم الخلية في الأسموزية">
+<defs><marker id="arr" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#8debd0" stroke-width="1.5"/></marker></defs>
+<text x="170" y="18" text-anchor="middle" fill="#c8f4df" font-size="11">حركة الماء عبر الغشاء</text>
+${shape}${arrows}
+<circle cx="170" cy="110" r="13" fill="#9c7bc4" opacity=".85"/>
+${[0,1,2,3,4,5,6,7].map((n)=>`<circle class="particle" cx="${35+(n*37)%270}" cy="${38+(n*29)%145}" r="3" fill="#8bded2" opacity=".8"/>`).join('')}
+<text x="170" y="210" text-anchor="middle" fill="#d8e8dd" font-size="10">${type==='plant'?'خلية نباتية':'خلية حيوانية'} · ${direction==='in'?'دخول الماء':direction==='out'?'خروج الماء':'اتزان أسموزي'}</text>
+</svg>`;
+}
+
+function enzymeSVG(value=50,active=true){
+const distorted=value<30;
+return `<svg viewBox="0 0 340 220" role="img" aria-label="رسم توضيحي للإنزيم والموقع النشط">
+<text x="170" y="18" text-anchor="middle" fill="#c8f4df" font-size="11">الإنزيم والركيزة</text>
+<path d="${distorted?'M80 75 Q100 30 145 56 Q180 35 210 72 Q260 58 260 110 Q240 150 205 142 Q170 175 135 143 Q85 160 70 120Z':'M75 75 Q90 35 140 50 Q170 28 205 53 Q260 45 265 100 Q260 145 215 145 Q185 170 150 145 Q90 160 75 120Z'}" fill="#368f70" stroke="#8de4bd" stroke-width="4"/>
+<path d="${active?'M140 53 Q160 75 170 70 Q182 65 198 53':'M140 53 Q155 90 175 90 Q195 90 198 53'}" fill="#071b15" stroke="#b5f3d6" stroke-width="3"/>
+<path d="M145 35 L160 50 L175 35 L190 50 L205 35" fill="none" stroke="#edc77e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="170" y="193" text-anchor="middle" fill="#d7eee2" font-size="10">${active?'الموقع النشط مناسب للارتباط':'تغير شكل الموقع النشط'}</text>
+<text x="170" y="209" text-anchor="middle" fill="#a9c8b7" font-size="9">${value}% نشاط نسبي تقديري</text>
+</svg>`;
+}
+
+function transpirationSVG(value=50){
+const count=Math.max(2,Math.round(value/8));
+const vapor=Array.from({length:count},(_,i)=>{
+const x=100+(i%7)*23;
+const y=105-(i%4)*17;
+return `<circle class="vapor" cx="${x}" cy="${y}" r="${3+(i%3)}" fill="#b3e8ed" opacity=".8"/>`;
+}).join('');
+return `<svg viewBox="0 0 340 220" role="img" aria-label="ورقة نبات وخروج بخار الماء أثناء النتح">
+<text x="170" y="18" text-anchor="middle" fill="#c8f4df" font-size="11">خروج بخار الماء من الورقة</text>
+<path d="M170 180 Q145 115 170 48" fill="none" stroke="#75c77b" stroke-width="7" stroke-linecap="round"/>
+<path d="M170 110 Q85 35 65 95 Q92 145 170 110Z" fill="#4cae70" stroke="#a4e5a1" stroke-width="3"/>
+<path d="M170 110 Q250 35 275 95 Q248 145 170 110Z" fill="#4cae70" stroke="#a4e5a1" stroke-width="3"/>
+<path d="M170 110 L72 96 M170 110 L268 96" stroke="#c2efb2" stroke-width="2"/>
+${vapor}
+<text x="170" y="202" text-anchor="middle" fill="#d7eee2" font-size="10">${value>70?'نتح مرتفع':value>40?'نتح متوسط':'نتح منخفض'}</text>
+</svg>`;
+}
+
+function diffusionSVG(value=50){
+const spread=value>70;
+const points=Array.from({length:18},(_,i)=>{
+const x=spread?35+(i*47)%270:35+(i%3)*22+(i%2)*3;
+const y=spread?35+(i*31)%135:45+(i*23)%125;
+return `<circle class="particle" cx="${x}" cy="${y}" r="${3+(i%3)}" fill="${i%2?'#80e6c4':'#e6c17d'}"/>`;
+}).join('');
+return `<svg viewBox="0 0 340 220" role="img" aria-label="انتشار الجزيئات من منطقة عالية التركيز إلى منخفضة التركيز">
+<text x="170" y="18" text-anchor="middle" fill="#c8f4df" font-size="11">انتشار الجزيئات</text>
+<rect x="18" y="35" width="304" height="145" rx="12" fill="#0b2a20" stroke="#376d52" stroke-width="2"/>
+<path d="M170 35 V180" stroke="#719c82" stroke-dasharray="5 5" opacity=".6"/>
+${points}
+<text x="85" y="201" text-anchor="middle" fill="#d8e8dd" font-size="10">${spread?'توزيع أوسع':'تركيز أعلى'}</text>
+<text x="255" y="201" text-anchor="middle" fill="#d8e8dd" font-size="10">${spread?'انتشار الجزيئات':'تركيز أقل'}</text>
+</svg>`;
+}
+
+// البناء الضوئي
+function photo(){
+const l=$('light').value,w=$('water').value,c=$('co2').value;
+let n=100,why=[];
+if(l==='none'){n=0;why.push('لا يوجد ضوء، فتتوقف التفاعلات الضوئية.')}
+else{
+if(l==='low'){n=Math.min(n,45);why.push('شدة الضوء منخفضة.')}
+if(w==='low'){n=Math.min(n,35);why.push('نقص الماء قد يقلل فتح الثغور ودخول CO₂.')}
+if(c==='low'){n=Math.min(n,45);why.push('انخفاض CO₂ يحد من توفر المادة اللازمة لتكوين السكريات.')}
+}
+if(n===100)why.push('العوامل مناسبة نسبيًا، وقد تحد عوامل أخرى مثل الحرارة من المعدل.');
+$('photoResult').textContent='المعدل النسبي التقديري: '+n+'%. '+why.join(' ');
+$('plant').innerHTML=plantSVG(n);
+}
+
+$('runPhoto').addEventListener('click',photo);
+$('resetPhoto').addEventListener('click',()=>{
+$('light').value='high';$('water').value='enough';$('co2').value='enough';
+$('photoResult').textContent='تمت إعادة الضبط. غيّر العوامل ثم شغّل التجربة.';
+$('plant').innerHTML=plantSVG(100);
+});
+$('plant').innerHTML=plantSVG(100);
+
+// محطات المختبر
+const stations={
+osmosis:{
+title:'تجربة الأسموزية',
+desc:'انتقال الماء عبر غشاء شبه منفذ تبعًا لتركيز المذابات.',
+hint:'الماء ينتقل من وسط أقل تركيزًا بالمذابات إلى وسط أعلى تركيزًا بالمذابات.',
+icon:'💧',
+fields:[
+['outside','تركيز المحلول الخارجي',[['dilute','مخفف'],['equal','مماثل'],['concentrated','مركز']]],
+['cellType','نوع الخلية',[['plant','نباتية'],['animal','حيوانية']]]
+]
+},
+enzyme:{
+title:'نشاط الإنزيمات',
+desc:'اختبر تأثير الحرارة ودرجة الحموضة في نشاط إنزيم افتراضي.',
+hint:'لكل إنزيم ظروف مثلى. الحرارة العالية أو pH غير المناسب قد يغيران شكل الموقع النشط.',
+icon:'🧪',
+fields:[
+['temp','درجة الحرارة',[['cold','منخفضة'],['optimal','مثلى'],['hot','مرتفعة جدًا']]],
+['ph','درجة الحموضة',[['acid','حمضية'],['neutral','متعادلـة'],['alkaline','قاعدية']]]
+]
+},
+transpiration:{
+title:'تجربة النتح',
+desc:'غيّر الضوء وحركة الهواء والرطوبة لملاحظة فقد الماء من الورقة.',
+hint:'يزداد النتح غالبًا مع الضوء والهواء الجاف وحركة الهواء، ويقل مع الرطوبة العالية.',
+icon:'🍃',
+fields:[
+['sun','شدة الضوء',[['bright','قوي'],['dim','ضعيف']]],
+['wind','حركة الهواء',[['windy','سريعة'],['calm','ساكنة']]],
+['humidity','رطوبة الهواء',[['low','منخفضة'],['high','مرتفعة']]]
+]
+},
+diffusion:{
+title:'تجربة الانتشار',
+desc:'راقب انتقال الجزيئات من منطقة عالية التركيز إلى منطقة أقل تركيزًا.',
+hint:'يزداد الانتشار عادةً مع ارتفاع الحرارة وزيادة فرق التركيز.',
+icon:'🫧',
+fields:[
+['diffTemp','درجة الحرارة',[['warm','دافئة'],['cool','باردة']]],
+['gradient','فرق التركيز',[['large','كبير'],['small','صغير']]]
+]
+}
 };
-let quizItems=[],index=0,score=0,locked=false;
-const questionEl=document.getElementById("question"),answersEl=document.getElementById("answers"),feedbackEl=document.getElementById("feedback"),progressEl=document.getElementById("progress"),scoreEl=document.getElementById("score"),nextBtn=document.getElementById("next"),restartBtn=document.getElementById("restart");
-function currentLevel(){return document.getElementById("quizLevel").value}
-function bestKey(){return "mihjar-best-"+currentLevel()}
-function updateBest(){let best=localStorage.getItem(bestKey());document.getElementById("bestScore").textContent=`أفضل نتيجة: ${best===null?"—":best+" / "+questionBanks[currentLevel()].length}`}
-function startQuiz(){quizItems=questionBanks[currentLevel()];index=0;score=0;renderQuestion();updateBest()}
-function renderQuestion(){locked=false;const item=quizItems[index];questionEl.textContent=item.q;progressEl.textContent=`السؤال ${index+1} من ${quizItems.length}`;scoreEl.textContent=`النتيجة: ${score} / ${quizItems.length}`;feedbackEl.textContent="";answersEl.innerHTML="";nextBtn.disabled=true;nextBtn.hidden=false;nextBtn.textContent="السؤال التالي ←";restartBtn.hidden=true;document.getElementById("quizProgressFill").style.width=`${index/quizItems.length*100}%`;item.a.forEach((answer,i)=>{const btn=document.createElement("button");btn.className="answer";btn.textContent=answer;btn.addEventListener("click",()=>chooseAnswer(i,btn));answersEl.appendChild(btn)})}
-function chooseAnswer(choice,button){if(locked)return;locked=true;const item=quizItems[index],buttons=[...answersEl.querySelectorAll("button")];buttons.forEach(btn=>btn.disabled=true);if(choice===item.correct){score++;button.classList.add("correct");feedbackEl.textContent="إجابة صحيحة! "+item.explain}else{button.classList.add("wrong");buttons[item.correct].classList.add("correct");feedbackEl.textContent="ليست الإجابة الصحيحة. "+item.explain}scoreEl.textContent=`النتيجة: ${score} / ${quizItems.length}`;nextBtn.disabled=false;nextBtn.textContent=index===quizItems.length-1?"عرض النتيجة":"السؤال التالي ←"}
-nextBtn.addEventListener("click",()=>{if(!locked)return;if(index<quizItems.length-1){index++;renderQuestion()}else{questionEl.textContent=`انتهى الاختبار! نتيجتك ${score} من ${quizItems.length}.`;answersEl.innerHTML="";feedbackEl.textContent=score===quizItems.length?"ممتاز! أتقنت جميع الأسئلة.":score>=3?"أحسنت! راجع الإجابات ثم جرّب مرة أخرى.":"بداية جيدة! راجع أقسام الموقع وأعد المحاولة.";progressEl.textContent="اكتمل الاختبار";document.getElementById("quizProgressFill").style.width="100%";nextBtn.hidden=true;restartBtn.hidden=false;const key=bestKey(),old=Number(localStorage.getItem(key)||0);if(score>old)localStorage.setItem(key,String(score));updateBest()}});
-restartBtn.addEventListener("click",startQuiz);document.getElementById("startLevel").addEventListener("click",startQuiz);document.getElementById("quizLevel").addEventListener("change",updateBest);startQuiz();
 
-/* حفظ آخر مستوى اختير على الجهاز حيثما كان التخزين متاحًا */
-try{const saved=localStorage.getItem("mihjar-quiz-level");if(saved&&questionBanks[saved])document.getElementById("quizLevel").value=saved;document.getElementById("quizLevel").addEventListener("change",()=>localStorage.setItem("mihjar-quiz-level",currentLevel()));}catch(e){}
+let station='osmosis',runs=0;
+
+function renderStation(){
+const d=stations[station];
+$('labTitle').textContent=d.title;
+$('labDesc').textContent=d.desc;
+$('labHint').textContent=d.hint;
+$('labFields').innerHTML='';
+d.fields.forEach(([id,label,opts])=>{
+const wrap=document.createElement('div');
+wrap.className='field';
+const l=document.createElement('label');
+l.htmlFor='s_'+id;l.textContent=label;
+const sel=document.createElement('select');
+sel.id='s_'+id;
+opts.forEach(([v,t])=>{
+const o=document.createElement('option');
+o.value=v;o.textContent=t;sel.appendChild(o);
+});
+wrap.append(l,sel);
+$('labFields').appendChild(wrap);
+});
+document.querySelectorAll('[data-lab]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lab===station)));
+$('labPercent').textContent='—';
+$('labState').textContent='جاهز';
+$('labBar').style.width='0%';
+$('labResult').textContent='اضبط العوامل ثم شغّل التجربة.';
+drawStationVisual(null);
+}
+
+function drawStationVisual(data){
+if(station==='osmosis'){
+if(!data){$('labVisual').innerHTML=osmosisSVG(50,'plant','equal');return}
+$('labVisual').innerHTML=osmosisSVG(data.value,data.type,data.direction);
+}
+if(station==='enzyme'){
+$('labVisual').innerHTML=enzymeSVG(data?data.value:50,data?data.active:true);
+}
+if(station==='transpiration'){
+$('labVisual').innerHTML=transpirationSVG(data?data.value:50);
+}
+if(station==='diffusion'){
+$('labVisual').innerHTML=diffusionSVG(data?data.value:50);
+}
+}
+
+document.querySelectorAll('[data-lab]').forEach(b=>b.addEventListener('click',()=>{
+station=b.dataset.lab;
+renderStation();
+}));
+
+function runStation(){
+let value=0,desc='',state='';
+const v=id=>$('s_'+id).value;
+let visualData={};
+
+if(station==='osmosis'){
+let direction='equal';
+if(v('outside')==='dilute'){
+value=85;state='دخول الماء';direction='in';
+desc='يدخل الماء إلى الخلية. '+(v('cellType')==='plant'?'يساعد الجدار الخلوي النباتي على مقاومة زيادة الحجم.':'قد يزداد حجم الخلية الحيوانية.');
+}else if(v('outside')==='equal'){
+value=50;state='اتزان أسموزي';direction='equal';
+desc='حركة الماء متقاربة في الاتجاهين ولا يحدث تغير صافٍ كبير.';
+}else{
+value=15;state='خروج الماء';direction='out';
+desc='يخرج الماء من الخلية. '+(v('cellType')==='plant'?'قد تحدث البلزمة.':'تنكمش الخلية الحيوانية.');
+}
+visualData={value,type:v('cellType'),direction};
+}
+
+if(station==='enzyme'){
+value=v('temp')==='optimal'?100:v('temp')==='cold'?45:12;
+if(v('ph')!=='neutral')value=Math.round(value*.45);
+state=value>70?'نشاط مرتفع':value>30?'نشاط منخفض':'نشاط ضعيف';
+desc='النشاط النسبي التقديري '+value+'%. '+(v('temp')==='hot'?'الحرارة العالية قد تسبب تمسخ الإنزيم.':v('temp')==='cold'?'البرودة تقلل التصادمات الفعالة.':'درجة الحرارة قريبة من المجال الأمثل.')+(v('ph')==='neutral'?'':' pH غير مناسب قد يغير الموقع النشط.');
+visualData={value,active:value>=45};
+}
+
+if(station==='transpiration'){
+value=(v('sun')==='bright'?35:15)+(v('wind')==='windy'?35:10)+(v('humidity')==='low'?30:5);
+state=value>70?'نتح مرتفع':value>40?'نتح متوسط':'نتح منخفض';
+desc='معدل النتح النسبي '+value+'%. '+(v('wind')==='windy'?'الهواء المتحرك يزيل طبقة الهواء الرطب قرب الورقة.':'الهواء الساكن يبطئ فقد بخار الماء.')+(v('humidity')==='high'?' الرطوبة العالية تقلل فرق تركيز بخار الماء.':' الرطوبة المنخفضة تزيد فرق التركيز.');
+visualData={value};
+}
+
+if(station==='diffusion'){
+value=(v('diffTemp')==='warm'?65:30)+(v('gradient')==='large'?35:10);
+state=value>75?'انتشار أسرع':'انتشار أبطأ';
+desc='سرعة الانتشار النسبية '+value+'%. '+(v('diffTemp')==='warm'?'الحرارة الأعلى تزيد حركة الجزيئات.':'البرودة تقلل حركة الجزيئات.')+(v('gradient')==='large'?' فرق التركيز كبير.':' فرق التركيز صغير.');
+visualData={value};
+}
+
+runs++;
+$('labPercent').textContent=value+'%';
+$('labState').textContent=state;
+$('labRuns').textContent=runs+' تشغيلات';
+$('labBar').style.width=value+'%';
+$('labResult').textContent=desc;
+drawStationVisual(visualData);
+}
+
+$('runStation').addEventListener('click',runStation);
+$('resetStation').addEventListener('click',()=>{
+runs=0;
+$('labRuns').textContent='0 تشغيلات';
+renderStation();
+});
+renderStation();
+
+// اختبار بثلاثة مستويات
+const bank={
+easy:[
+['أي عضيّة تقوم بالبناء الضوئي؟',['الميتوكوندريا','البلاستيدة الخضراء','النواة'],1,'تتم عملية البناء الضوئي في البلاستيدات الخضراء.'],
+['ما القاعدة المكملة لـ A في DNA؟',['T','G','C'],0,'A تقابل T.'],
+['ما وظيفة الريبوسومات؟',['تصنيع البروتين','تخزين الماء','إنتاج الضوء'],0,'الريبوسومات مواقع تصنيع البروتينات.']
+],
+medium:[
+['ما الشكل الشائع لجزيء DNA؟',['لولب مزدوج','سلسلة أحماض أمينية','طبقة دهنية'],0,'يتكون DNA عادة من سلسلتين ملتفتين.'],
+['أي قاعدة توجد في RNA بدل T؟',['A','U','C'],1,'RNA يحتوي على اليوراسيل U بدل الثايمين T.'],
+['ما وظيفة الميتوكوندريا؟',['إنتاج معظم ATP','صنع الكلوروفيل','تخزين الماء'],0,'تنتج الميتوكوندريا معظم ATP بالتنفس الخلوي.']
+],
+hard:[
+['إذا كانت السلسلة A-G-T-C فما المكملة؟',['T-C-A-G','A-G-T-C','C-T-A-G'],0,'A تقابل T وG تقابل C.'],
+['ماذا قد يسبب نقص CO₂؟',['زيادة البناء الضوئي دائمًا','انخفاض المعدل','لا تأثير مطلقًا'],1,'قد يصبح CO₂ عاملًا محددًا.'],
+['ما أثر الحرارة الشديدة على إنزيم؟',['قد يتمسخ','يزداد نشاطه دائمًا','يتحول إلى DNA'],0,'الحرارة الشديدة قد تغير بنية الإنزيم.']
+]
+};
+
+let questions=[],qi=0,score=0,locked=false;
+function bestKey(){return 'mijhar-best-'+$('level').value}
+function updateBest(){
+try{$('best').textContent='أفضل نتيجة: '+(localStorage.getItem(bestKey())??'—')}
+catch(e){$('best').textContent='أفضل نتيجة غير متاحة'}
+}
+
+function drawQuestion(){
+locked=false;
+const q=questions[qi];
+$('question').textContent=q[0];
+$('qProgress').textContent='السؤال '+(qi+1)+' من '+questions.length;
+$('qScore').textContent='النتيجة: '+score;
+$('qFeedback').textContent='';
+$('answers').innerHTML='';
+q[1].forEach((t,i)=>{
+const b=document.createElement('button');
+b.className='answer';b.textContent=t;
+b.addEventListener('click',()=>choose(i,b));
+$('answers').appendChild(b);
+});
+$('qNext').disabled=true;
+$('qBar').style.width=(qi/questions.length*100)+'%';
+}
+
+function startQuiz(){
+questions=bank[$('level').value];
+qi=0;score=0;drawQuestion();updateBest();
+}
+
+function choose(i,b){
+if(locked)return;
+locked=true;
+const q=questions[qi];
+[...$('answers').children].forEach(x=>x.disabled=true);
+if(i===q[2]){
+score++;b.classList.add('correct');
+$('qFeedback').textContent='صحيح! '+q[3];
+}else{
+b.classList.add('wrong');
+$('answers').children[q[2]].classList.add('correct');
+$('qFeedback').textContent='الإجابة الصحيحة: '+q[1][q[2]]+'. '+q[3];
+}
+$('qScore').textContent='النتيجة: '+score;
+$('qNext').disabled=false;
+}
+
+$('qNext').addEventListener('click',()=>{
+if(!locked)return;
+if(qi<questions.length-1){
+qi++;drawQuestion();
+}else{
+$('question').textContent='انتهى الاختبار! نتيجتك '+score+' من '+questions.length;
+$('answers').innerHTML='';
+$('qProgress').textContent='اكتمل الاختبار';
+$('qBar').style.width='100%';
+$('qNext').disabled=true;
+try{
+const old=Number(localStorage.getItem(bestKey())||0);
+if(score>old)localStorage.setItem(bestKey(),String(score));
+}catch(e){}
+updateBest();
+}
+});
+$('qRestart').addEventListener('click',startQuiz);
+$('level').addEventListener('change',startQuiz);
+startQuiz();
 </script>
-</body></html>
+</body>
+</html>
