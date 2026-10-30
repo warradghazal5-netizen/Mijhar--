@@ -337,37 +337,67 @@ $('microFeedback').textContent=$('microAnswer').value===samples[$('sample').valu
 ?'إجابة صحيحة! '+samples[$('sample').value].info
 :'ليست هذه الملاحظة. اقرأ وصف العينة وحاول مجددًا.';
 });
-drawMicro();
 
-// لعبة تركيب الخلية
-const names={nucleus:'النواة',chloroplast:'البلاستيدة الخضراء',mitochondria:'الميتوكوندريا',vacuole:'الفجوة العصارية'};
-let selected=null,placed=new Set(),points=0;
-document.querySelectorAll('[data-org]').forEach(b=>b.addEventListener('click',()=>{
-selected=b.dataset.org;
-document.querySelectorAll('[data-org]').forEach(x=>x.classList.toggle('active',x===b));
-$('gameResult').textContent='اخترت '+names[selected]+'. اضغط على موضعها.';
-}));
-document.querySelectorAll('[data-target]').forEach(b=>b.addEventListener('click',()=>{
-const target=b.dataset.target;
-if(!selected){$('gameResult').textContent='اختر عضيّة أولًا.';return}
-if(placed.has(selected))return;
-if(selected===target){
-placed.add(selected);points++;b.classList.add('active');
-document.querySelector('[data-org="'+selected+'"]').disabled=true;
-$('gameResult').textContent='صحيح! '+names[selected]+' في موضعها.';
-selected=null;
-document.querySelectorAll('[data-org]').forEach(x=>x.classList.remove('active'));
-$('gameScore').textContent='النقاط: '+points;
-$('gameProgress').textContent=placed.size+' / 4';
-if(placed.size===4)$('gameResult').textContent='ممتاز! أكملت تركيب الخلية.';
-}else $('gameResult').textContent='هذا موضع عضيّة أخرى. جرّب مرة ثانية.';
-}));
-$('gameReset').addEventListener('click',()=>{
-selected=null;placed.clear();points=0;
-document.querySelectorAll('[data-org],[data-target]').forEach(b=>{b.disabled=false;b.classList.remove('active')});
-$('gameScore').textContent='النقاط: 0';$('gameProgress').textContent='0 / 4';
-$('gameResult').textContent='اختر عضيّة ثم حدّد موقعها.';
-});
+<section id="cell-game">
+<div class="inner">
+<div class="head">
+<div class="kicker">04 / CELL BUILDER</div>
+<h2>تحدّي تركيب الخلية</h2>
+<p>تأمّل صورة الخلية النباتية، ثم اختر العضيّة وحدّد موقعها الصحيح.</p>
+</div>
+
+<div class="two">
+<div class="panel">
+<h3 style="color:var(--mint)">نموذج الخلية النباتية</h3>
+
+<div style="background:#f4f7f2;border-radius:15px;padding:12px;overflow:hidden">
+<img
+src="https://upload.wikimedia.org/wikipedia/commons/3/38/Plant_cell_structure_no_text.png"
+alt="رسم توضيحي لتركيب الخلية النباتية"
+style="display:block;width:100%;max-height:430px;object-fit:contain;border-radius:10px"
+onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+>
+<p style="display:none;color:#333;text-align:center">
+تعذّر تحميل صورة الخلية. تحقّق من اتصال الإنترنت.
+</p>
+</div>
+
+<p class="small" style="margin-top:10px">
+استعن بالصورة لتحديد مواقع العضيّات.
+</p>
+
+<div class="choices" id="targets">
+<button class="choice" data-target="nucleus">موقع النواة</button>
+<button class="choice" data-target="chloroplast">موقع البلاستيدة</button>
+<button class="choice" data-target="mitochondria">موقع الميتوكوندريا</button>
+<button class="choice" data-target="vacuole">موقع الفجوة</button>
+</div>
+</div>
+
+<div class="panel">
+<h3 style="color:var(--mint)">اختر العضيّة</h3>
+
+<div class="choices" id="orgChoices">
+<button class="choice" data-org="nucleus">النواة</button>
+<button class="choice" data-org="chloroplast">البلاستيدة الخضراء</button>
+<button class="choice" data-org="mitochondria">الميتوكوندريا</button>
+<button class="choice" data-org="vacuole">الفجوة العصارية</button>
+</div>
+
+<div class="result" id="gameResult">
+اختر عضيّة أولًا ثم حدّد موقعها.
+</div>
+
+<div class="stats">
+<span id="gameScore">النقاط: 0</span>
+<span id="gameProgress">0 / 4</span>
+</div>
+
+<button class="btn" id="gameReset">إعادة التحدي</button>
+</div>
+</div>
+</div>
+</section>
 
 // تحدي DNA
 const seq=['A','G','T','C','A','G'],pair={A:'T',T:'A',G:'C',C:'G'};
