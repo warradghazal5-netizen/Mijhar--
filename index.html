@@ -6,1008 +6,600 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#071311">
 <title>مِجهر | اكتشف ما لا تراه</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
 
 <style>
 :root{
---bg:#071311;--panel:#10251d;--panel2:#163328;
---mint:#73f5c5;--gold:#e8d39b;--text:#f1fff8;
---muted:#a9c4b7;--border:#28513f;
+  --bg:#071311;--panel:#0d201b;--panel2:#112a23;
+  --mint:#a6e8ca;--mint2:#dff7e9;--gold:#d8bc80;
+  --text:#f1f5ef;--muted:#9bb2a7;--line:#29463b;
+  --red:#ed8c83;--green:#8bd5a9;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{
-margin:0;background:radial-gradient(circle at top right,#123b2c,transparent 35%),var(--bg);
-color:var(--text);font-family:'Cairo',sans-serif;line-height:1.8
-}
-a{text-decoration:none;color:inherit}
+body{margin:0;background:radial-gradient(circle at 80% 0%,#15352a 0,transparent 35%),var(--bg);color:var(--text);font-family:'Cairo',sans-serif}
 button,input,select{font:inherit}
 button{cursor:pointer}
-header{position:sticky;top:0;z-index:100;background:#071311ed;backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-nav{max-width:1200px;margin:auto;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
-.logo{font-size:25px;font-weight:900;color:var(--mint)}
-.logo small{display:block;font-size:10px;color:var(--muted)}
-.links{display:flex;gap:13px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
-.links a:hover{color:var(--mint)}
-.hero,.inner{max-width:1200px;margin:auto}
-.hero{padding:75px 22px;display:grid;grid-template-columns:1fr .8fr;gap:30px;align-items:center}
-.eyebrow,.kicker{color:var(--mint);font-size:11px;font-weight:900;letter-spacing:1px}
-h1{font-size:clamp(40px,6vw,72px);line-height:1.2;margin:12px 0}
+a{color:inherit;text-decoration:none}
+header{position:sticky;top:0;z-index:50;background:#071311eF;backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}
+nav{max-width:1250px;margin:auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-size:23px;font-weight:900;color:var(--mint2)}
+.logo small{display:block;color:var(--gold);font-size:10px;letter-spacing:2px;font-weight:600}
+.navlinks{display:flex;gap:17px;align-items:center;flex-wrap:wrap}
+.navlinks a{font-size:12px;color:var(--muted);transition:.2s}
+.navlinks a:hover{color:var(--mint)}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:white;border-radius:10px;padding:5px 12px}
+.hero{max-width:1200px;margin:auto;padding:85px 24px 65px;display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:45px}
+.eyebrow{color:var(--gold);font-size:12px;letter-spacing:3px;font-weight:800}
+h1{font-size:clamp(40px,6vw,72px);line-height:1.2;margin:15px 0}
 h1 span{color:var(--mint)}
-p{color:var(--muted)}
-.hero-art{min-height:290px;border:1px solid #39785d;border-radius:28px;background:radial-gradient(circle,#205b43,#0a1913 70%);display:grid;place-items:center;font-size:110px}
-.actions,.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
-.btn{border:1px solid var(--border);border-radius:11px;padding:9px 15px;background:var(--panel2);color:var(--text);font-weight:800;font-size:13px}
-.btn.primary{background:linear-gradient(135deg,#9affd7,#52d6a7);color:#062117;border:0}
-.btn:disabled{opacity:.4;cursor:not-allowed}
-section{padding:48px 22px;scroll-margin-top:85px}
-.head{margin-bottom:20px}
-.head h2{font-size:clamp(27px,4vw,40px);margin:3px 0}
-.panel,.card{background:linear-gradient(145deg,#10271e,#091711);border:1px solid var(--border);border-radius:18px;padding:18px;min-width:0}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.card h3{color:var(--mint);margin:5px 0}
-.card p{margin:0;font-size:13px}
-.embed{width:100%;border:0;border-radius:12px;background:white;display:block;aspect-ratio:1/1}
-.embed.tall{aspect-ratio:4/5}
-.video{width:100%;aspect-ratio:16/9;border:0;border-radius:12px}
-.field{display:grid;gap:5px;margin:9px 0}
-.field label{font-size:13px;color:var(--mint);font-weight:800}
-select,input[type=search]{width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:#071712;color:var(--text);min-height:43px}
-.result{background:#071712;border:1px solid var(--border);border-radius:12px;padding:13px;margin-top:12px;min-height:48px;font-size:13px;color:#dff7eb}
-.visual{min-height:190px;border:1px solid var(--border);border-radius:15px;background:radial-gradient(circle,#174832,#071510);display:grid;place-items:center;padding:12px;font-size:65px;overflow:hidden}
-.small{font-size:12px;color:var(--muted)}
-.choices{display:grid;gap:8px}
-.choice,.answer,.base{background:#10281e;border:1px solid var(--border);color:var(--text);padding:10px;border-radius:10px;text-align:right}
-.choice.active,.answer.correct{border-color:var(--mint);background:#174632}
-.answer.wrong{border-color:#e99b9b;background:#3b2222}
-.base{min-width:55px;text-align:center;font-weight:900}
-.labtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
-.labtab{background:#071712;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:9px 13px}
-.labtab[aria-pressed=true]{border-color:var(--mint);background:#174632}
-.bar{height:9px;background:#18392b;border-radius:9px;overflow:hidden;margin-top:10px}
-.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#45bb8a,#baffdf);transition:width .7s}
-.stats{display:flex;gap:10px;flex-wrap:wrap;color:var(--gold);font-size:13px;margin-top:10px}
-.progress{height:7px;background:#18392b;border-radius:9px;overflow:hidden}
-.progress i{display:block;height:100%;width:0;background:var(--mint)}
-.micro-frame{width:100%;height:340px;border-radius:15px;overflow:hidden;background:#050a09;border:1px solid #416b56;position:relative;display:grid;place-items:center}
-.micro-frame img{width:100%;height:100%;object-fit:contain;transition:transform .6s ease;transform-origin:center}
-.micro-frame:after{content:"";position:absolute;inset:0;pointer-events:none;border:12px solid #07110f;border-radius:15px;box-shadow:inset 0 0 35px #000}
-.micro-label{position:absolute;z-index:2;bottom:12px;right:12px;background:#06110fdc;border:1px solid #78f3c588;border-radius:8px;padding:5px 10px;font-size:11px;color:#dfffee}
-.micro-caption{font-size:11px;color:var(--muted);margin-top:7px}
-.micro-frame img.zoomed{transform:scale(1.45)}
-.micro-frame img.zoomed-more{transform:scale(1.9)}
-
-/* صورة لعبة الخلية والنقاط التفاعلية */
-.cell-photo-wrap{
-position:relative;
-width:100%;
-background:#f4f7f2;
-border-radius:15px;
-overflow:hidden;
-padding:0;
-line-height:0;
-}
-.cell-photo-wrap img{
-display:block;
-width:100%;
-height:auto;
-max-height:none;
-object-fit:contain;
-border-radius:15px;
-}
-.cell-hotspots{
-position:absolute;
-inset:0;
-pointer-events:none;
-}
-.cell-hotspot{
-position:absolute;
-transform:translate(-50%,-50%);
-width:8%;
-aspect-ratio:1;
-min-width:22px;
-max-width:55px;
-border:2px solid transparent;
-border-radius:50%;
-background:rgba(115,245,197,0);
-pointer-events:auto;
-display:grid;
-place-items:center;
-color:#062117;
-font-size:clamp(12px,1.7vw,20px);
-font-weight:900;
-transition:background .2s,border-color .2s,transform .2s;
-}
-.cell-hotspot:hover{
-background:rgba(115,245,197,.25);
-border-color:#32a77b;
-transform:translate(-50%,-50%) scale(1.08);
-}
-.cell-hotspot.found{
-background:rgba(115,245,197,.75);
-border:3px solid #08764c;
-}
-.cell-hotspot.missed{
-background:rgba(230,80,80,.65);
-border:3px solid #c52c2c;
-}
-.cell-hotspot:focus-visible{
-outline:3px solid #e8d39b;
-outline-offset:3px;
-}
-.cell-game-instruction{
-font-size:12px;
-color:var(--muted);
-margin:10px 0;
-}
-.cell-game-legend{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-top:10px;
-font-size:11px;
-color:var(--muted);
-}
-.cell-game-legend span{
-display:inline-flex;
-align-items:center;
-gap:5px;
-}
-.legend-dot{
-width:10px;height:10px;border-radius:50%;
-background:#73f5c5;border:1px solid #08764c;
-}
-.cell-hotspot:disabled{cursor:default;opacity:1}
-
-/* المختبر المطوّر */
-.lab-intro{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}
-.lab-intro div{background:#0a1b14;border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center}
-.lab-intro strong{display:block;color:var(--mint);font-size:19px}
-.lab-intro span{font-size:11px;color:var(--muted)}
-.lab-station{margin-top:18px}
-.lab-scene{
-width:100%;min-height:300px;border-radius:15px;overflow:hidden;
-background:radial-gradient(ellipse at center,#173e2c,#06110d 78%);
-border:1px solid #315a43;display:grid;place-items:center;padding:8px;
-position:relative
-}
-.lab-scene svg{width:100%;height:auto;max-height:370px;display:block}
-.scene-note{font-size:11px;color:#a9c6b5;text-align:center;margin-top:7px}
-.lab-visual-label{position:absolute;top:12px;right:12px;background:#06110fe8;border:1px solid #47765c;border-radius:8px;padding:5px 9px;font-size:10px;color:#baf9d9;z-index:2}
-.lab-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.metric{background:#081a13;border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center}
-.metric strong{display:block;color:var(--gold);font-size:20px}
-.metric span{font-size:10px;color:var(--muted)}
-.lab-note{border-right:3px solid var(--mint);padding:9px 12px;background:#0b2017;border-radius:8px;font-size:12px;color:#d5eee1;margin-top:12px}
-.lab-step{display:inline-flex;align-items:center;justify-content:center;background:#174632;color:var(--mint);width:25px;height:25px;border-radius:50%;font-weight:900;margin-left:5px}
-.particle{animation:floatParticle 2.8s ease-in-out infinite alternate}
-@keyframes floatParticle{from{transform:translateY(5px);opacity:.5}to{transform:translateY(-8px);opacity:1}}
-.bubble{animation:bubbleRise 2.4s linear infinite}
-@keyframes bubbleRise{0%{transform:translateY(15px);opacity:0}35%{opacity:1}100%{transform:translateY(-28px);opacity:0}}
-.leaf-sway{transform-origin:50% 90%;animation:sway 4s ease-in-out infinite alternate}
-@keyframes sway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
-.molecule{animation:moleculeMove 5s ease-in-out infinite alternate}
-@keyframes moleculeMove{from{transform:translate(0,0)}to{transform:translate(12px,-8px)}}
-.membrane{stroke-dasharray:4 3}
-footer{text-align:center;padding:35px 20px;border-top:1px solid var(--border)}
+.hero p{color:var(--muted);line-height:2;font-size:16px;max-width:650px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.btn{border:1px solid var(--mint);background:var(--mint);color:#092017;padding:11px 22px;border-radius:10px;font-weight:900;transition:.2s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn.secondary{background:transparent;color:var(--mint)}
+.hero-art{min-height:320px;display:grid;place-items:center;position:relative}
+.cell-art{width:min(330px,75vw);aspect-ratio:1;border:2px solid #83cbb0;border-radius:48% 52% 43% 57%;background:radial-gradient(ellipse at 35% 30%,#b0e5b733,#5dbb8b11 60%,#071311);box-shadow:0 0 90px #6bd5a322,inset 0 0 45px #a6e8ca22;position:relative;transform:rotate(-12deg)}
+.cell-art:before,.cell-art:after{content:"";position:absolute;border:1px solid #d8bc8077;border-radius:50%;inset:12% 18% 18% 12%;transform:rotate(35deg)}
+.cell-art:after{inset:30% 8% 12% 27%;transform:rotate(-30deg)}
+.nucleus{position:absolute;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d8bc80,#916b46 70%);top:35%;left:35%;box-shadow:0 0 35px #d8bc8055}
+.nucleus:after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:#483c35;top:38%;left:38%}
+.orbit{position:absolute;width:35px;height:12px;border:2px solid #a6e8ca;border-radius:50%;top:20%;left:20%;transform:rotate(40deg)}
+.orbit.two{top:70%;left:65%;transform:rotate(-30deg);border-color:var(--gold)}
+.stats{display:flex;gap:30px;margin-top:35px;flex-wrap:wrap}
+.stat strong{display:block;color:var(--mint);font-size:24px}
+.stat span{color:var(--muted);font-size:11px}
+section{max-width:1200px;margin:auto;padding:65px 24px}
+.section-head{margin-bottom:28px}
+.section-head .eyebrow{font-size:11px}
+.section-head h2{font-size:clamp(26px,4vw,39px);margin:8px 0}
+.section-head p{color:var(--muted);line-height:1.9;margin:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.card{background:linear-gradient(145deg,#11251e,#0b1915);border:1px solid var(--line);border-radius:17px;padding:22px;transition:.25s}
+.card:hover{border-color:#6ba98b;transform:translateY(-3px)}
+.card h3{margin:8px 0;color:var(--mint2)}
+.card p{color:var(--muted);font-size:13px;line-height:1.9}
+.symbol{font-size:30px}
+.tag{display:inline-block;color:var(--gold);font-size:10px;border:1px solid #8e7952;border-radius:30px;padding:3px 10px}
+.cell-layout{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center}
+.cell-diagram{background:#0b1d17;border:1px solid var(--line);border-radius:18px;padding:18px;min-height:350px;display:grid;place-items:center}
+.cell-svg{width:100%;max-width:470px}
+.organelle{cursor:pointer;transition:.2s;stroke:#d9f5e5;stroke-width:2}
+.organelle:hover{filter:brightness(1.6);stroke:var(--gold);stroke-width:4}
+.info-panel{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:25px;min-height:230px}
+.info-panel h3{color:var(--mint);font-size:24px}
+.info-panel p{color:var(--muted);line-height:2}
+.switches{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}
+.switch{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:8px 17px;border-radius:9px}
+.switch.active{background:var(--mint);color:#092017;border-color:var(--mint);font-weight:900}
+.lab-shell{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#081711}
+#lab3d{height:430px;width:100%;position:relative}
+.lab-overlay{position:absolute;z-index:2;top:14px;right:14px;background:#071311cc;padding:12px 16px;border:1px solid var(--line);border-radius:10px;font-size:12px;color:var(--mint)}
+.lab-controls{padding:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--line)}
+.lab-controls select{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:9px}
+.experiment-area{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+.experiment-area h3{color:var(--gold)}
+.experiment-area p{color:var(--muted);line-height:1.9}
+.range-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:15px 0}
+.range-row input{accent-color:var(--mint);flex:1;min-width:140px}
+.result{border-right:3px solid var(--mint);padding:10px 14px;background:#a6e8ca0c;color:var(--mint2);line-height:1.9;margin-top:12px;min-height:48px}
+.challenge-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.challenge-box{background:linear-gradient(145deg,#10271f,#091812);border:1px solid var(--line);border-radius:18px;padding:25px}
+.question{font-size:19px;line-height:1.8;margin:15px 0 22px}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.answer{background:#132a21;border:1px solid #29463b;color:var(--text);padding:13px;border-radius:10px;text-align:right}
+.answer:hover{border-color:var(--mint)}
+.answer.correct{border-color:var(--green);background:#1b4932}
+.answer.wrong{border-color:var(--red);background:#48231f}
+.feedback{margin-top:15px;line-height:1.9;color:var(--muted);min-height:30px}
+.progress{height:7px;background:#20372d;border-radius:20px;overflow:hidden;margin:12px 0}
+.progress div{height:100%;background:var(--mint);width:0%;transition:.3s}
+.quiz-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:20px;flex-wrap:wrap}
+.badge{border:1px solid var(--gold);color:var(--gold);padding:6px 12px;border-radius:30px;font-size:12px}
+footer{border-top:1px solid var(--line);padding:35px 20px;text-align:center;color:var(--muted);font-size:12px}
+footer strong{color:var(--mint)}
+.hidden{display:none!important}
 @media(max-width:800px){
-.hero{grid-template-columns:1fr;padding:45px 16px}
-.hero-art{min-height:210px}
-.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-.two{grid-template-columns:1fr}
-.links{gap:8px;font-size:11px}
+ .hero{grid-template-columns:1fr;text-align:center;padding-top:55px}
+ .hero p{margin:auto}.actions,.stats{justify-content:center}
+ .hero-art{min-height:260px}
+ .grid{grid-template-columns:1fr 1fr}
+ .cell-layout{grid-template-columns:1fr}
+ .navlinks{display:none;position:absolute;top:62px;right:0;left:0;background:#071311;padding:20px;flex-direction:column;align-items:stretch;border-bottom:1px solid var(--line)}
+ .navlinks.open{display:flex}.menu-btn{display:block}
 }
-@media(max-width:560px){
-section{padding:38px 14px}
-.grid{grid-template-columns:1fr}
-.panel{padding:13px}
-.hero-art{font-size:80px}
-.micro-frame{height:280px}
-.lab-intro{grid-template-columns:1fr 1fr}
-.lab-scene{min-height:240px}
-.lab-metrics{grid-template-columns:repeat(3,1fr)}
-.cell-hotspot{width:10%;min-width:20px}
+@media(max-width:520px){
+ .grid{grid-template-columns:1fr}
+ section{padding:48px 17px}
+ .answers{grid-template-columns:1fr}
+ #lab3d{height:330px}
+ .challenge-box{padding:17px}
 }
-[hidden]{display:none!important}
 </style>
 </head>
 
 <body>
 <header>
 <nav>
-<a class="logo" href="#home">مِجهر<small>اكتشف ما لا تراه</small></a>
-<div class="links">
-<a href="#cell">الخلية</a><a href="#organelles">العضيّات</a>
-<a href="#microscope">المجهر</a><a href="#cell-game">لعبة الخلية</a>
-<a href="#genetics">DNA</a><a href="#lab">المختبر</a>
-<a href="#videos">الفيديوهات</a><a href="#quiz">اختبر نفسك</a>
-</div>
+ <a class="logo" href="#home">مِجهر <small>اكتشف ما لا تراه</small></a>
+ <button class="menu-btn" onclick="document.querySelector('.navlinks').classList.toggle('open')">القائمة ☰</button>
+ <div class="navlinks">
+  <a href="#cells">الخلايا</a>
+  <a href="#organelles">العضيّات</a>
+  <a href="#lab">المختبر</a>
+  <a href="#experiments">التجارب</a>
+  <a href="#challenges">التحديات</a>
+  <a href="#about">عن مِجهر</a>
+ </div>
 </nav>
 </header>
 
 <main>
-<section class="hero" id="home">
-<div>
-<div class="eyebrow">BIOLOGY · INTERACTIVE LAB</div>
-<h1>ما لا تراه العين،<br><span>يكشفه مِجهر.</span></h1>
-<p>رحلة تفاعلية إلى عالم الخلية والمادة الوراثية. استكشف، جرّب، واختبر فهمك.</p>
-<div class="actions">
-<a class="btn primary" href="#cell">ابدأ الاستكشاف</a>
-<a class="btn" href="#lab">ادخل المختبر</a>
+<div class="hero" id="home">
+ <div>
+  <div class="eyebrow">BIOLOGY • EXPLORE • DISCOVER</div>
+  <h1>ما لا تراه<br><span>عينك…</span> يكتشفه مِجهر</h1>
+  <p>رحلتك إلى العالم المجهري تبدأ من هنا. استكشف الخلايا، افهم أسرار العضيّات، نفّذ تجارب علمية، واختبر معرفتك في تحديات تزداد صعوبة.</p>
+  <div class="actions">
+   <a class="btn" href="#cells">ابدأ الاستكشاف</a>
+   <a class="btn secondary" href="#lab">ادخل المختبر</a>
+  </div>
+  <div class="stats">
+   <div class="stat"><strong>02</strong><span>أنواع الخلايا</span></div>
+   <div class="stat"><strong>04</strong><span>مستويات تحدٍّ</span></div>
+   <div class="stat"><strong>∞</strong><span>مساحة للاكتشاف</span></div>
+  </div>
+ </div>
+ <div class="hero-art"><div class="cell-art"><div class="nucleus"></div><div class="orbit"></div><div class="orbit two"></div></div></div>
 </div>
-</div>
-<div class="hero-art">🧬</div>
-</section>
 
-<section id="search">
-<div class="inner">
-<div class="head"><div class="kicker">DISCOVERY</div><h2>ابحث داخل مِجهر</h2></div>
-<input id="searchBox" type="search" placeholder="اكتب: النواة، DNA، المجهر، البناء الضوئي...">
-<div id="searchOut" class="grid" style="margin-top:12px"></div>
-</div>
-</section>
-
-<section id="cell">
-<div class="inner">
-<div class="head"><div class="kicker">01 / CELL EXPLORER</div><h2>داخل الخلية النباتية</h2><p>نموذج تفاعلي لاستكشاف مكوّنات الخلية.</p></div>
-<div class="panel">
-<iframe class="embed" src="https://interactiveimage.com/embed/b9108b8e-d4ce-475d-8b79-e53918293d55" title="الخلية النباتية التفاعلية" loading="lazy" allowfullscreen></iframe>
-</div>
-</div>
+<section id="cells">
+ <div class="section-head">
+  <div class="eyebrow">THE CELL</div>
+  <h2>استكشف عالم الخلية</h2>
+  <p>اختر نوع الخلية، ثم اضغط على أي عضيّة في الرسم لمعرفة تركيبها ووظيفتها.</p>
+ </div>
+ <div class="switches">
+  <button class="switch active" id="plantBtn" onclick="showCell('plant')">الخلية النباتية</button>
+  <button class="switch" id="animalBtn" onclick="showCell('animal')">الخلية الحيوانية</button>
+ </div>
+ <div class="cell-layout">
+  <div class="cell-diagram">
+   <svg class="cell-svg" viewBox="0 0 500 360" id="cellSvg" role="img" aria-label="رسم تفاعلي للخلية">
+    <defs>
+     <radialGradient id="cyto"><stop stop-color="#397e5b" stop-opacity=".65"/><stop offset="1" stop-color="#123526" stop-opacity=".85"/></radialGradient>
+    </defs>
+    <rect id="wall" x="25" y="20" width="450" height="320" rx="65" fill="#477d4b" fill-opacity=".23" stroke="#a6e8ca" stroke-width="12"/>
+    <rect id="membrane" x="38" y="33" width="424" height="294" rx="58" fill="url(#cyto)" stroke="#b6e6ca" stroke-width="3"/>
+    <g class="organelle" onclick="showInfo('النواة','مركز التحكم في الخلية، تحتوي على المادة الوراثية DNA وتنظم معظم أنشطة الخلية.')">
+     <ellipse cx="250" cy="170" rx="62" ry="53" fill="#9a754e"/>
+     <ellipse cx="250" cy="170" rx="22" ry="19" fill="#4e3a35"/>
+     <text x="250" y="245" fill="white" text-anchor="middle" font-size="14">النواة</text>
+    </g>
+    <g class="organelle" onclick="showInfo('الميتوكوندريا','عضيّة مسؤولة عن إنتاج معظم ATP من خلال التنفس الخلوي، لذلك توصف بأنها محطة الطاقة في الخلية.')">
+     <ellipse cx="125" cy="105" rx="39" ry="18" fill="#c17d58" transform="rotate(25 125 105)"/>
+     <path d="M95 103 Q110 82 120 107 T153 106" fill="none" stroke="#6b392d" stroke-width="4"/>
+     <text x="120" y="145" fill="white" text-anchor="middle" font-size="11">ميتوكوندريا</text>
+    </g>
+    <g class="organelle" onclick="showInfo('الشبكة الإندوبلازمية','نظام من الأغشية داخل الخلية. الخشنة تحمل ريبوسومات وتشارك في تصنيع البروتينات، والملساء تشارك في تصنيع الدهون ووظائف أخرى.')">
+     <path d="M305 105 Q345 75 380 110 Q350 140 390 150 Q350 175 310 145" fill="none" stroke="#80c6a0" stroke-width="9"/>
+     <text x="350" y="190" fill="white" text-anchor="middle" font-size="11">الشبكة الإندوبلازمية</text>
+    </g>
+    <g class="organelle" onclick="showInfo('جهاز جولجي','يعدّل البروتينات والدهون ويفرزها أو يوجهها إلى أماكنها المناسبة داخل الخلية أو خارجها.')">
+     <path d="M100 235 Q145 210 175 230 M95 250 Q145 225 180 245 M105 265 Q145 245 170 260" fill="none" stroke="#e0bf78" stroke-width="7" stroke-linecap="round"/>
+     <text x="135" y="290" fill="white" text-anchor="middle" font-size="12">جولجي</text>
+    </g>
+    <g id="chloroplast" class="organelle" onclick="showInfo('البلاستيدة الخضراء','توجد في الخلايا النباتية، وتحتوي على الكلوروفيل الذي يمتص الطاقة الضوئية اللازمة لعملية البناء الضوئي.')">
+     <ellipse cx="390" cy="260" rx="43" ry="22" fill="#71a65e"/>
+     <path d="M360 260 H420 M365 250 H415 M365 270 H415" stroke="#315d3b" stroke-width="4"/>
+     <text x="390" y="300" fill="white" text-anchor="middle" font-size="11">بلاستيدة خضراء</text>
+    </g>
+    <g id="vacuole" class="organelle" onclick="showInfo('الفجوة العصارية','تخزن الماء والمواد الذائبة، وتساعد في المحافظة على ضغط الامتلاء في الخلية النباتية.')">
+     <rect x="205" y="260" width="90" height="43" rx="15" fill="#75b9c0" fill-opacity=".65"/>
+     <text x="250" y="287" fill="#092017" text-anchor="middle" font-size="12">فجوة</text>
+    </g>
+    <g id="lysosome" class="organelle hidden" onclick="showInfo('الجسيمات الحالّة','تحتوي على إنزيمات تساعد على تحليل المواد والعضيّات التالفة وإعادة تدوير بعض مكوّناتها.')">
+     <circle cx="390" cy="85" r="17" fill="#d38b76"/>
+     <text x="390" y="89" fill="#18251e" text-anchor="middle" font-size="10">هاضمة</text>
+    </g>
+    <g id="centrosome" class="organelle hidden" onclick="showInfo('الجسم المركزي','يساعد في تنظيم الأنابيب الدقيقة، وله دور في تكوين مغزل الانقسام في كثير من الخلايا الحيوانية.')">
+     <rect x="65" y="275" width="35" height="10" rx="4" fill="#d8bc80" transform="rotate(35 82 280)"/>
+     <rect x="65" y="275" width="35" height="10" rx="4" fill="#d8bc80" transform="rotate(-35 82 280)"/>
+    </g>
+   </svg>
+  </div>
+  <div class="info-panel" id="cellInfo">
+   <span class="tag">تفاعل تعليمي</span>
+   <h3>اختر عضيّة</h3>
+   <p>اضغط على أي جزء من الرسم لتظهر لك معلومات علمية عنه. قارن بين الخلية النباتية والحيوانية ولاحظ الاختلافات الأساسية.</p>
+  </div>
+ </div>
 </section>
 
 <section id="organelles">
-<div class="inner">
-<div class="head"><div class="kicker">02 / ORGANELLES</div><h2>أجزاء صغيرة، وظائف عظيمة</h2></div>
-<div class="grid">
-<article class="card"><h3>النواة</h3><p>تحتوي معظم المادة الوراثية وتشارك في تنظيم أنشطة الخلية.</p></article>
-<article class="card"><h3>الميتوكوندريا</h3><p>تنتج معظم ATP القابل للاستخدام بالتنفس الخلوي.</p></article>
-<article class="card"><h3>البلاستيدات الخضراء</h3><p>تحتوي الكلوروفيل وتتم فيها عملية البناء الضوئي.</p></article>
-<article class="card"><h3>الجدار الخلوي</h3><p>يوفر الدعم والحماية ويساعد في تثبيت شكل الخلية.</p></article>
-<article class="card"><h3>الفجوة العصارية</h3><p>تخزن الماء ومواد مختلفة وتحافظ على ضغط الامتلاء.</p></article>
-<article class="card"><h3>الريبوسومات</h3><p>مواقع تصنيع البروتينات في الخلية.</p></article>
-</div>
-</div>
-</section>
-
-<section id="microscope">
-<div class="inner">
-<div class="head"><div class="kicker">03 / VIRTUAL MICROSCOPE</div><h2>محاكي المجهر</h2><p>اختر عيّنة وشاهد صورتها المجهرية، ثم غيّر التكبير لملاحظة التفاصيل.</p></div>
-<div class="two">
-<div class="panel">
-<div class="field"><label for="sample">العينة</label>
-<select id="sample">
-<option value="onion">خلايا بشرة البصل</option>
-<option value="cheek">خلايا الخد</option>
-<option value="leaf">بشرة الورقة والثغور</option>
-</select></div>
-<div class="field"><label for="zoom">قوة التكبير</label>
-<select id="zoom"><option value="40">40×</option><option value="100">100×</option><option value="400">400×</option></select></div>
-<div class="micro-frame"><img id="microImage" alt="صورة مجهرية للعينة المختارة"><span class="micro-label" id="microMagnification">40× · صورة مجهرية</span></div>
-<div class="micro-caption" id="microCaption">صورة مجهرية تعليمية.</div>
-<div class="result" id="microResult">اختر العينة لعرض ملاحظاتها.</div>
-<button class="btn" id="microReset">إعادة ضبط المجهر</button>
-</div>
-<div class="panel">
-<h3 style="color:var(--mint)">ماذا تلاحظ؟</h3>
-<p id="microInfo">خلايا البصل غالبًا مستطيلة ومتراصة.</p>
-<div class="field"><label for="microAnswer">اختر الملاحظة الصحيحة</label>
-<select id="microAnswer">
-<option value="">اختر</option><option value="rect">خلايا مستطيلة</option>
-<option value="irregular">خلايا غير منتظمة</option><option value="stomata">ثغور وخلايا حارسة</option>
-</select></div>
-<button class="btn primary" id="microCheck">تحقق من إجابتي</button>
-<div class="result" id="microFeedback">لاحظ الصورة ثم أجب.</div>
-<p class="small">التكبير هنا تأثير عرض بصري ولا يغيّر دقة الصورة الأصلية.</p>
-</div>
-</div>
-</div>
-</section>
-
-<section id="cell-game">
-<div class="inner">
-<div class="head"><div class="kicker">04 / CELL BUILDER</div><h2>تحدّي تركيب الخلية</h2><p>اختاري العضيّة أولًا، ثم اضغطي على جميع مواقعها الصحيحة في صورة الخلية.</p></div>
-<div class="two">
-<div class="panel">
-<h3 style="color:var(--mint)">نموذج الخلية النباتية</h3>
-
-<div class="cell-photo-wrap" id="cellPhotoWrap">
-<img id="plantCellImage"
-src="plant-cell.jpeg"
-alt="رسم توضيحي لتركيب الخلية النباتية"
-loading="lazy">
-
-<div class="cell-hotspots" id="cellHotspots">
-
-<!-- النواة -->
-<button class="cell-hotspot" type="button" data-target="nucleus"
-style="left:68.6%;top:27%" aria-label="موقع النواة" title="النواة"></button>
-
-<!-- الفجوة العصارية -->
-<button class="cell-hotspot" type="button" data-target="vacuole"
-style="left:38%;top:50%" aria-label="موقع الفجوة العصارية" title="الفجوة العصارية"></button>
-
-<!-- البلاستيدات الخضراء: 6 مواقع -->
-<button class="cell-hotspot" type="button" data-target="chloroplast"
-style="left:19.7%;top:26.8%" aria-label="موقع البلاستيدة الخضراء الأول" title="البلاستيدة الخضراء"></button>
-
-<button class="cell-hotspot" type="button" data-target="chloroplast"
-style="left:16.8%;top:48.2%" aria-label="موقع البلاستيدة الخضراء الثاني" title="البلاستيدة الخضراء"></button>
-
-<button class="cell-hotspot" type="button" data-target="chloroplast"
-style="left:15.9%;top:66.7%" aria-label="موقع البلاستيدة الخضراء الثالث" title="البلاستيدة الخضراء"></button>
-
-<button class="cell-hotspot" type="button" data-target="chloroplast"
-style="left:55.6%;top:53.7%" aria-label="موقع البلاستيدة الخضراء الرابع" title="البلاستيدة الخضراء"></button>
-
-<button class="cell-hotspot" type="button" data-target="chloroplast"
-style="left:26.7%;top:80.5%" aria-label="موقع البلاستيدة الخضراء الخامس" title="البلاستيدة الخضراء"></button>
-
-<button class="cell-hotspot" type="button" data-target="chloroplast"
-style="left:29%;top:15%" aria-label="موقع البلاستيدة الخضراء السادس" title="البلاستيدة الخضراء"></button>
-
-<!-- الميتوكوندريا: 3 مواقع -->
-<button class="cell-hotspot" type="button" data-target="mitochondria"
-style="left:17.3%;top:14.8%" aria-label="موقع الميتوكوندريا الأول" title="الميتوكوندريا"></button>
-
-<button class="cell-hotspot" type="button" data-target="mitochondria"
-style="left:41%;top:14.2%" aria-label="موقع الميتوكوندريا الثاني" title="الميتوكوندريا"></button>
-
-<button class="cell-hotspot" type="button" data-target="mitochondria"
-style="left:82.9%;top:56.2%" aria-label="موقع الميتوكوندريا الثالث" title="الميتوكوندريا"></button>
-
-</div>
-</div>
-
-<p class="cell-game-instruction">اختاري العضيّة من القائمة، ثم اضغطي على جميع النقاط التي تمثل مواقعها في الصورة. لكل عضيّة عدد محدد من المواقع.</p>
-<div class="cell-game-legend">
-<span><i class="legend-dot"></i> الموقع الصحيح يظهر بالأخضر</span>
-<span>🔴 الموقع غير الصحيح يظهر بالأحمر مؤقتًا</span>
-</div>
-</div>
-
-<div class="panel">
-<h3 style="color:var(--mint)">اختر العضيّة</h3>
-<div class="choices" id="orgChoices">
-<button class="choice" data-org="nucleus">النواة <span class="small">(1)</span></button>
-<button class="choice" data-org="chloroplast">البلاستيدات الخضراء <span class="small">(6)</span></button>
-<button class="choice" data-org="mitochondria">الميتوكوندريا <span class="small">(3)</span></button>
-<button class="choice" data-org="vacuole">الفجوة العصارية <span class="small">(1)</span></button>
-</div>
-<div class="result" id="gameResult">اختاري عضيّة أولًا، ثم اضغطي على مواقعها في الصورة.</div>
-<div class="stats">
-<span id="gameScore">النقاط: 0</span>
-<span id="gameProgress">0 / 11</span>
-</div>
-<div class="progress" style="margin-top:10px"><i id="gameBar"></i></div>
-<button class="btn" id="gameReset" style="margin-top:12px">إعادة التحدي</button>
-</div>
-</div>
-</div>
-</section>
-
-<section id="genetics">
-<div class="inner">
-<div class="head"><div class="kicker">05 / GENETIC MATERIAL</div><h2>المادة الوراثية</h2></div>
-<div class="two">
-<div class="panel"><h3 style="color:var(--mint)">نموذج DNA ثلاثي الأبعاد</h3>
-<iframe class="embed tall" src="https://interactiveimage.com/embed/8b98a1ba-bf85-4b6e-83f0-901241700f62" title="نموذج DNA" loading="lazy" allowfullscreen></iframe></div>
-<div class="panel"><h3 style="color:var(--mint)">DNA وRNA</h3>
-<iframe class="embed" src="https://interactiveimage.com/embed/7ddc1b8d-ffb9-4203-8d02-33195439c2f9" title="شرح DNA وRNA" loading="lazy" allowfullscreen></iframe>
-<p>في DNA تتقابل A مع T وG مع C. يحتوي RNA على U بدلًا من T.</p></div>
-</div>
-</div>
-</section>
-
-<section id="dna-game">
-<div class="inner">
-<div class="head"><div class="kicker">06 / DNA PAIRING</div><h2>تحدّي أزواج DNA</h2><p>اختر القاعدة المكملة للقاعدة المعطاة.</p></div>
-<div class="panel">
-<div class="stats"><span id="dnaProgress">قاعدة 1 من 6</span><span id="dnaScore">النقاط: 0</span></div>
-<div class="visual" style="font-size:24px;min-height:90px"><span id="dnaGiven">A</span>　↔　<span id="dnaAnswer">؟</span></div>
-<div class="row" style="margin-top:12px">
-<button class="base" data-base="A">A</button><button class="base" data-base="T">T</button><button class="base" data-base="G">G</button><button class="base" data-base="C">C</button>
-</div>
-<div class="result" id="dnaFeedback">تذكّر: A تقابل T، وG تقابل C.</div>
-<div class="row"><button class="btn primary" id="dnaNext" disabled>التالي</button><button class="btn" id="dnaReset">إعادة التحدي</button></div>
-</div>
-</div>
+ <div class="section-head">
+  <div class="eyebrow">CELL ORGANELLES</div>
+  <h2>مكتبة العضيّات</h2>
+  <p>مجموعة من التراكيب الخلوية الأساسية ووظائفها.</p>
+ </div>
+ <div class="grid">
+  <article class="card"><div class="symbol">◉</div><h3>النواة</h3><p>تحتوي على DNA وتشارك في تنظيم أنشطة الخلية والتحكم فيها.</p></article>
+  <article class="card"><div class="symbol">ϟ</div><h3>الميتوكوندريا</h3><p>تنتج ATP خلال عمليات التنفس الخلوي.</p></article>
+  <article class="card"><div class="symbol">▤</div><h3>الشبكة الإندوبلازمية</h3><p>تشارك في تصنيع البروتينات والدهون ونقلها.</p></article>
+  <article class="card"><div class="symbol">≋</div><h3>جهاز جولجي</h3><p>يعدّل المواد ويصنفها ويغلّفها ويوجهها.</p></article>
+  <article class="card"><div class="symbol">✺</div><h3>الريبوسومات</h3><p>المواقع التي تتم فيها عملية بناء البروتين.</p></article>
+  <article class="card"><div class="symbol">❋</div><h3>البلاستيدات الخضراء</h3><p>تحتوي على الكلوروفيل وتتم فيها عملية البناء الضوئي.</p></article>
+ </div>
 </section>
 
 <section id="lab">
-<div class="inner">
-<div class="head">
-<div class="kicker">07 / VIRTUAL LAB</div>
-<h2>مختبر مِجهر</h2>
-<p>مختبر تفاعلي يتيح لك تغيير الظروف ومراقبة أثرها في نماذج علمية مرئية. النتائج مؤشرات تعليمية تقريبية وليست قياسات مخبرية حقيقية.</p>
-</div>
-
-<div class="lab-intro">
-<div><strong>05</strong><span>محطات تجريبية</span></div>
-<div><strong>LIVE</strong><span>مشاهد متحركة</span></div>
-<div><strong>∞</strong><span>إعادة التجربة</span></div>
-</div>
-
-<div class="panel">
-<h3 style="color:var(--mint)">المحطة الأولى: البناء الضوئي</h3>
-<p class="small">غيّر شدة الضوء والماء وثاني أكسيد الكربون، ثم راقب حالة الورقة ومؤشر النشاط.</p>
-<div class="grid">
-<div class="field"><label for="light">شدة الضوء</label><select id="light"><option value="high">مرتفعة</option><option value="low">منخفضة</option><option value="none">منعدمة</option></select></div>
-<div class="field"><label for="water">الماء</label><select id="water"><option value="enough">كافٍ</option><option value="low">قليل</option></select></div>
-<div class="field"><label for="co2">ثاني أكسيد الكربون</label><select id="co2"><option value="enough">كافٍ</option><option value="low">قليل</option></select></div>
-</div>
-<div class="lab-scene" id="plant"><span class="lab-visual-label">نموذج البناء الضوئي</span></div>
-<div class="lab-metrics">
-<div class="metric"><strong id="photoRate">100%</strong><span>مؤشر النشاط النسبي</span></div>
-<div class="metric"><strong id="photoOxygen">مرتفع</strong><span>إطلاق الأكسجين</span></div>
-<div class="metric"><strong id="photoStatus">نشاط جيد</strong><span>حالة المحاكاة</span></div>
-</div>
-<div class="row" style="margin-top:12px"><button class="btn primary" id="runPhoto">شغّل التجربة</button><button class="btn" id="resetPhoto">إعادة ضبط</button></div>
-<div class="result" id="photoResult">غيّر عاملًا واحدًا ثم شغّل التجربة.</div>
-</div>
-
-<div class="panel lab-station">
-<h3 style="color:var(--mint)">المحطات التجريبية المتقدمة</h3>
-<div class="labtabs">
-<button class="labtab" data-lab="osmosis" aria-pressed="true">الأسموزية</button>
-<button class="labtab" data-lab="enzyme" aria-pressed="false">الإنزيمات</button>
-<button class="labtab" data-lab="transpiration" aria-pressed="false">النتح</button>
-<button class="labtab" data-lab="diffusion" aria-pressed="false">الانتشار</button>
-</div>
-<div class="two">
-<div>
-<div class="lab-scene" id="labVisual"><span class="lab-visual-label" id="visualLabel">مشهد حي</span></div>
-<div class="lab-metrics">
-<div class="metric"><strong id="labPercent">—</strong><span>المؤشر النسبي</span></div>
-<div class="metric"><strong id="labState">جاهز</strong><span>حالة التجربة</span></div>
-<div class="metric"><strong id="labRuns">0</strong><span>عدد التشغيلات</span></div>
-</div>
-<div class="bar"><i id="labBar"></i></div>
-<div class="scene-note" id="sceneCaption">اختر تجربة لتبدأ المشاهدة.</div>
-</div>
-<div>
-<h3 id="labTitle" style="color:var(--mint)">تجربة الأسموزية</h3>
-<p id="labDesc" class="small">انتقال الماء عبر غشاء شبه منفذ.</p>
-<div id="labFields"></div>
-<div class="row"><button class="btn primary" id="runStation">شغّل التجربة</button><button class="btn" id="resetStation">إعادة ضبط</button></div>
-<div class="result" id="labResult">اضبط العوامل ثم شغّل التجربة.</div>
-<div class="lab-note" id="labHint">الماء ينتقل عبر الغشاء شبه المنفذ وفق فرق تركيز المذابات.</div>
-</div>
-</div>
-</div>
-</div>
+ <div class="section-head">
+  <div class="eyebrow">VIRTUAL LABORATORY</div>
+  <h2>مختبر مِجهر الافتراضي</h2>
+  <p>تجوّل داخل مساحة مختبر ثلاثية الأبعاد. اسحب لتدوير المشهد، واستخدم عجلة التكبير، واضغط على محطة لتفتح التجربة المرتبطة بها.</p>
+ </div>
+ <div class="lab-shell">
+  <div id="lab3d">
+   <div class="lab-overlay">مختبر تفاعلي ثلاثي الأبعاد · اسحب للتحريك</div>
+  </div>
+  <div class="lab-controls">
+   <button class="btn secondary" onclick="resetCamera()">إعادة ضبط المشهد</button>
+   <button class="btn secondary" onclick="openExperiment('scope')">محطة المجهر</button>
+   <button class="btn secondary" onclick="openExperiment('osmosis')">محطة التناضح</button>
+   <button class="btn secondary" onclick="openExperiment('photosynthesis')">محطة البناء الضوئي</button>
+  </div>
+ </div>
+ <div class="experiment-area" id="stationInfo">
+  <h3>مرحبًا بك في المختبر</h3>
+  <p>اختر محطة من المشهد ثلاثي الأبعاد أو من الأزرار أعلاه للبدء. ستجد في قسم التجارب أدوات تفاعلية لتغيير المتغيرات وملاحظة النتائج.</p>
+ </div>
 </section>
 
-<section id="videos">
-<div class="inner">
-<div class="head"><div class="kicker">08 / VIDEO LIBRARY</div><h2>مكتبة فيديوهات مِجهر</h2></div>
-<div class="grid">
-<div class="card"><iframe class="video" src="https://www.youtube.com/embed/uHuazhI0WjI" title="الخلية النباتية" loading="lazy" allowfullscreen></iframe><h3>الخلية النباتية</h3></div>
-<div class="card"><iframe class="video" src="https://www.youtube.com/embed/wXaFN8VQPj0" title="شرح الخلية" loading="lazy" allowfullscreen></iframe><h3>مراجعة الخلية</h3></div>
-<div class="card"><iframe class="video" src="https://www.youtube.com/embed/NPVGrdA3kmI" title="DNA" loading="lazy" allowfullscreen></iframe><h3>المادة الوراثية</h3></div>
-</div>
-</div>
+<section id="experiments">
+ <div class="section-head">
+  <div class="eyebrow">SCIENTIFIC EXPERIMENTS</div>
+  <h2>من الفرضية إلى النتيجة</h2>
+  <p>غيّر المتغيرات ولاحظ كيف تتغير النتائج. هذه نماذج تعليمية مبسطة وليست بديلًا عن التجارب المخبرية الحقيقية.</p>
+ </div>
+ <div class="switches">
+  <button class="switch active" onclick="setExperiment('photosynthesis',this)">البناء الضوئي</button>
+  <button class="switch" onclick="setExperiment('osmosis',this)">التناضح</button>
+  <button class="switch" onclick="setExperiment('enzyme',this)">نشاط الإنزيمات</button>
+  <button class="switch" onclick="setExperiment('scope',this)">المجهر</button>
+ </div>
+ <div class="experiment-area" id="experimentBox">
+  <h3>محاكاة البناء الضوئي</h3>
+  <p>غيّر شدة الضوء وتركيز ثاني أكسيد الكربون، ثم اضغط احسب لملاحظة معدل البناء الضوئي المتوقع في هذا النموذج.</p>
+  <div class="range-row"><label>شدة الضوء: <b id="lightVal">50</b>%</label><input id="light" type="range" min="0" max="100" value="50" oninput="document.getElementById('lightVal').textContent=this.value"></div>
+  <div class="range-row"><label>تركيز CO₂: <b id="co2Val">50</b>%</label><input id="co2" type="range" min="0" max="100" value="50" oninput="document.getElementById('co2Val').textContent=this.value"></div>
+  <button class="btn" onclick="calculateExperiment()">احسب النتيجة</button>
+  <div class="result" id="experimentResult">غيّر المتغيرات ثم ابدأ التجربة.</div>
+ </div>
 </section>
 
-<section id="quiz">
-<div class="inner">
-<div class="head"><div class="kicker">09 / KNOWLEDGE CHECK</div><h2>اختبر نفسك</h2><p>ثلاثة مستويات، مع تفسير الإجابات وحفظ أفضل نتيجة على جهازك.</p></div>
-<div class="panel">
-<div class="field"><label for="level">مستوى الاختبار</label><select id="level"><option value="easy">سهل</option><option value="medium" selected>متوسط</option><option value="hard">متقدم</option></select></div>
-<div class="stats"><span id="qProgress">السؤال 1</span><span id="qScore">النتيجة: 0</span><span id="best">أفضل نتيجة: —</span></div>
-<div class="progress"><i id="qBar"></i></div>
-<h3 id="question" style="margin-top:16px"></h3>
-<div class="choices" id="answers"></div>
-<div class="result" id="qFeedback"></div>
-<div class="row"><button class="btn primary" id="qNext" disabled>السؤال التالي</button><button class="btn" id="qRestart">إعادة الاختبار</button></div>
-</div>
-</div>
+<section id="challenges">
+ <div class="section-head">
+  <div class="eyebrow">CHALLENGE ARENA</div>
+  <h2>ساحة التحديات العلمية</h2>
+  <p>أربع درجات من الصعوبة، مع تفسير للإجابة وامتحان مختلط في النهاية.</p>
+ </div>
+ <div class="challenge-top">
+  <div class="switches" id="levelButtons">
+   <button class="switch active" onclick="startLevel(0,this)">التأسيسي</button>
+   <button class="switch" onclick="startLevel(1,this)">المتقدم</button>
+   <button class="switch" onclick="startLevel(2,this)">الخبير</button>
+   <button class="switch" onclick="startLevel(3,this)">الأولمبياد</button>
+  </div>
+  <span class="badge" id="rank">باحث مبتدئ</span>
+ </div>
+ <div class="challenge-box">
+  <div class="challenge-top">
+   <span id="levelName">المستوى التأسيسي</span>
+   <span id="qCount">السؤال 1</span>
+  </div>
+  <div class="progress"><div id="progressBar"></div></div>
+  <div class="question" id="questionText">استعد للتحدي!</div>
+  <div class="answers" id="answerList"></div>
+  <div class="feedback" id="feedback"></div>
+  <div class="quiz-footer">
+   <span id="scoreText">النقاط: 0</span>
+   <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>السؤال التالي</button>
+  </div>
+ </div>
+ <div class="experiment-area" style="margin-top:20px">
+  <h3>امتحان مِجهر الشامل</h3>
+  <p>امتحان من 12 سؤالًا متنوعًا. بعد إنهائه ستحصل على نتيجتك وتقييم لمستواك.</p>
+  <button class="btn secondary" onclick="startExam()">ابدأ الامتحان الشامل</button>
+  <div id="examResult" class="result">لم تبدأ الامتحان بعد.</div>
+ </div>
+</section>
+
+<section id="about">
+ <div class="section-head">
+  <div class="eyebrow">ABOUT MIJHAR</div>
+  <h2>العلم يبدأ بالسؤال</h2>
+  <p>مِجهر مساحة تعليمية تفاعلية تجعل المفاهيم العلمية أقرب للفهم والتجربة. هدفنا أن ننتقل من حفظ المعلومة إلى اكتشافها وتحليلها.</p>
+ </div>
+ <div class="grid">
+  <div class="card"><div class="symbol">⌕</div><h3>اكتشف</h3><p>استكشف التراكيب والعمليات الحيوية بصريًا.</p></div>
+  <div class="card"><div class="symbol">⚗</div><h3>جرّب</h3><p>غيّر المتغيرات واختبر أثرها في النماذج العلمية.</p></div>
+  <div class="card"><div class="symbol">✦</div><h3>تحدَّ نفسك</h3><p>تدرّج في مستويات الأسئلة وطوّر التفكير العلمي.</p></div>
+ </div>
 </section>
 </main>
 
-<footer><div class="logo">مِجهر</div><p>نتعلّم لنفهم، ونستكشف لنكتشف.</p><small>مشروع تعليمي تفاعلي في العلوم والأحياء.</small></footer>
+<footer>
+ <strong>مِجهر | اكتشف ما لا تراه</strong>
+ <p>منصة تعليمية تفاعلية للعلوم والأحياء</p>
+</footer>
 
 <script>
-'use strict';
-const $=id=>document.getElementById(id);
+/* ---------------- CELL EXPLORER ---------------- */
+const cellData={
+ plant:{
+  wall:true,chloroplast:true,vacuole:true,lysosome:false,centrosome:false,
+  info:"الخلية النباتية تتميز بوجود جدار خلوي وبلاستيدات خضراء وفجوة عصارية كبيرة غالبًا."
+ },
+ animal:{
+  wall:false,chloroplast:false,vacuole:false,lysosome:true,centrosome:true,
+  info:"الخلية الحيوانية لا تمتلك جدارًا خلويًا أو بلاستيدات خضراء، وتحتوي عادةً على جسيمات حالّة وجسم مركزي."
+ }
+};
+function showCell(type){
+ const d=cellData[type];
+ document.getElementById('wall').style.display=d.wall?'':'none';
+ ['chloroplast','vacuole','lysosome','centrosome'].forEach(id=>{
+  document.getElementById(id).classList.toggle('hidden',!d[id]);
+ });
+ document.getElementById('plantBtn').classList.toggle('active',type==='plant');
+ document.getElementById('animalBtn').classList.toggle('active',type==='animal');
+ document.getElementById('cellInfo').innerHTML=`<span class="tag">نوع الخلية</span><h3>${type==='plant'?'الخلية النباتية':'الخلية الحيوانية'}</h3><p>${d.info}</p><p>اضغط على العضيّات في الرسم لاستكشاف وظائفها.</p>`;
+}
+function showInfo(title,description){
+ document.getElementById('cellInfo').innerHTML=`<span class="tag">بطاقة عضيّة</span><h3>${title}</h3><p>${description}</p>`;
+}
 
-/* البحث */
-const searchItems=[
-['الخلية النباتية','نموذج تفاعلي للخلية','#cell','خلية نباتية جدار فجوة'],
-['العضيّات','وظائف أجزاء الخلية','#organelles','نواة ميتوكوندريا بلاستيدات'],
-['المجهر','عينات البصل والخد والورقة','#microscope','مجهر تكبير خلايا'],
-['تحدي الخلية','ركّب العضيّات في أماكنها','#cell-game','لعبة تركيب'],
-['DNA وRNA','المادة الوراثية','#genetics','dna rna'],
-['مختبر مِجهر','البناء الضوئي والأسموزية والإنزيمات والنتح والانتشار','#lab','مختبر تجارب']
+/* ---------------- 3D LAB ---------------- */
+let scene,camera,renderer,raycaster,mouse,labObjects=[],dragging=false,lastX=0,lastY=0,rotX=0,rotY=0;
+function initLab(){
+ const host=document.getElementById('lab3d');
+ if(!window.THREE){host.innerHTML='<p style="padding:30px;color:#edc">تعذّر تحميل مكتبة العرض ثلاثي الأبعاد. تحقّق من اتصال الإنترنت.</p>';return}
+ scene=new THREE.Scene();
+ scene.background=new THREE.Color(0x081711);
+ scene.fog=new THREE.Fog(0x081711,12,28);
+ camera=new THREE.PerspectiveCamera(55,host.clientWidth/host.clientHeight,.1,100);
+ camera.position.set(7,6,10);
+ renderer=new THREE.WebGLRenderer({antialias:true});
+ renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+ renderer.setSize(host.clientWidth,host.clientHeight);
+ host.appendChild(renderer.domElement);
+ raycaster=new THREE.Raycaster();mouse=new THREE.Vector2();
+ scene.add(new THREE.HemisphereLight(0xc9ffe4,0x183326,2));
+ const light=new THREE.DirectionalLight(0xffe5b5,2);light.position.set(4,8,5);scene.add(light);
+ const floor=new THREE.Mesh(new THREE.PlaneGeometry(22,18),new THREE.MeshStandardMaterial({color:0x13271f,roughness:.85}));
+ floor.rotation.x=-Math.PI/2;floor.position.y=-.08;scene.add(floor);
+ const grid=new THREE.GridHelper(22,22,0x47735d,0x294438);grid.position.y=-.06;scene.add(grid);
+ // Laboratory walls
+ const wallMat=new THREE.MeshStandardMaterial({color:0x18362a,roughness:.9});
+ const back=new THREE.Mesh(new THREE.BoxGeometry(22,7,.25),wallMat);back.position.set(0,3.4,-8);scene.add(back);
+ const side=new THREE.Mesh(new THREE.BoxGeometry(.25,7,16),wallMat);side.position.set(-11,3.4,0);scene.add(side);
+ // Work benches and experiment stations
+ const stations=[
+  {name:'محطة المجهر',key:'scope',x:-6,z:-3,color:0x82d9b0},
+  {name:'محطة التناضح',key:'osmosis',x:0,z:-3,color:0x75b9d1},
+  {name:'محطة البناء الضوئي',key:'photosynthesis',x:6,z:-3,color:0xd8bc80},
+  {name:'محطة الإنزيمات',key:'enzyme',x:-3,z:3,color:0xc28bd1},
+  {name:'مركز التحليل',key:'analysis',x:4,z:3,color:0xd88e7c}
+ ];
+ stations.forEach((s,i)=>{
+  const bench=new THREE.Mesh(new THREE.BoxGeometry(3.1,.35,1.7),new THREE.MeshStandardMaterial({color:0x42594b,metalness:.25,roughness:.5}));
+  bench.position.set(s.x,.9,s.z);scene.add(bench);
+  const legsMat=new THREE.MeshStandardMaterial({color:0x263d32});
+  [-1,1].forEach(dx=>[-1,1].forEach(dz=>{
+   const leg=new THREE.Mesh(new THREE.BoxGeometry(.13,.9,.13),legsMat);
+   leg.position.set(s.x+dx*1.3,.43,s.z+dz*.65);scene.add(leg);
+  }));
+  const base=new THREE.Mesh(new THREE.BoxGeometry(.65,.13,.65),new THREE.MeshStandardMaterial({color:s.color,emissive:s.color,emissiveIntensity:.2}));
+  base.position.set(s.x,.55,s.z);scene.add(base);
+  const equipment=new THREE.Mesh(
+   i===0?new THREE.CylinderGeometry(.18,.3,1.2,16):new THREE.SphereGeometry(.48,20,14),
+   new THREE.MeshStandardMaterial({color:s.color,metalness:.3,roughness:.3,emissive:s.color,emissiveIntensity:.18})
+  );
+  equipment.position.set(s.x,1.65,s.z);equipment.userData.station=s;scene.add(equipment);labObjects.push(equipment);
+  const glow=new THREE.PointLight(s.color,1.1,4);glow.position.set(s.x,2.2,s.z);scene.add(glow);
+ });
+ // Floating decorative molecules
+ for(let i=0;i<18;i++){
+  const dot=new THREE.Mesh(new THREE.SphereGeometry(.07,8,8),new THREE.MeshStandardMaterial({color:i%2?0xa6e8ca:0xd8bc80,emissive:0x315a43}));
+  dot.position.set((Math.random()-.5)*16,2+Math.random()*4,(Math.random()-.5)*12);scene.add(dot);
+ }
+ function animate(){requestAnimationFrame(animate);camera.position.x=12*Math.sin(rotY)*Math.cos(rotX);camera.position.z=12*Math.cos(rotY)*Math.cos(rotX);camera.position.y=5+8*Math.sin(rotX);camera.lookAt(0,1,0);renderer.render(scene,camera)}
+ animate();
+ const canvas=renderer.domElement;
+ canvas.addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY;});
+ window.addEventListener('pointerup',()=>dragging=false);
+ canvas.addEventListener('pointermove',e=>{
+  if(!dragging)return;
+  rotY-=(e.clientX-lastX)*.006;rotX+=(e.clientY-lastY)*.004;
+  rotX=Math.max(-.35,Math.min(.8,rotX));lastX=e.clientX;lastY=e.clientY;
+ });
+ canvas.addEventListener('wheel',e=>{camera.position.multiplyScalar(e.deltaY>0?1.05:.95);},{passive:true});
+ canvas.addEventListener('click',e=>{
+  const r=canvas.getBoundingClientRect();
+  mouse.x=((e.clientX-r.left)/r.width)*2-1;
+  mouse.y=-((e.clientY-r.top)/r.height)*2+1;
+  raycaster.setFromCamera(mouse,camera);
+  const hits=raycaster.intersectObjects(labObjects);
+  if(hits.length){const s=hits[0].object.userData.station;openExperiment(s.key,s.name)}
+ });
+ window.addEventListener('resize',()=>{
+  if(!renderer)return;
+  camera.aspect=host.clientWidth/host.clientHeight;camera.updateProjectionMatrix();
+  renderer.setSize(host.clientWidth,host.clientHeight);
+ });
+}
+function resetCamera(){rotX=0;rotY=0;if(camera)camera.position.set(7,6,10)}
+function openExperiment(key,name){
+ const titles={scope:'محطة المجهر',osmosis:'محطة التناضح',photosynthesis:'محطة البناء الضوئي',enzyme:'محطة الإنزيمات',analysis:'مركز التحليل'};
+ document.getElementById('stationInfo').innerHTML=`<span class="tag">تم اختيار المحطة</span><h3>${name||titles[key]||'محطة علمية'}</h3><p>تم اختيار المحطة بنجاح. انتقل إلى قسم التجارب لتشغيل النموذج المرتبط بها.</p><button class="btn" onclick="document.getElementById('experiments').scrollIntoView({behavior:'smooth'});setExperiment('${key}')">افتح التجربة</button>`;
+ setExperiment(key);
+}
+
+/* ---------------- EXPERIMENT SIMULATIONS ---------------- */
+let currentExperiment='photosynthesis';
+function setExperiment(type,button){
+ currentExperiment=type;
+ document.querySelectorAll('#experiments .switch').forEach(b=>b.classList.remove('active'));
+ if(button)button.classList.add('active');
+ const box=document.getElementById('experimentBox');
+ const templates={
+ photosynthesis:`<h3>محاكاة البناء الضوئي</h3><p>غيّر شدة الضوء وتركيز ثاني أكسيد الكربون لملاحظة أثرهما في معدل البناء الضوئي في النموذج.</p>
+ <div class="range-row"><label>شدة الضوء: <b id="lightVal">50</b>%</label><input id="light" type="range" min="0" max="100" value="50" oninput="lightVal.textContent=this.value"></div>
+ <div class="range-row"><label>تركيز CO₂: <b id="co2Val">50</b>%</label><input id="co2" type="range" min="0" max="100" value="50" oninput="co2Val.textContent=this.value"></div><button class="btn" onclick="calculateExperiment()">احسب النتيجة</button><div class="result" id="experimentResult">غيّر المتغيرات ثم ابدأ التجربة.</div>`,
+ osmosis:`<h3>محاكاة التناضح</h3><p>اختر تركيز المحلول الخارجي، ولاحظ اتجاه حركة الماء بالنسبة إلى الخلية.</p>
+ <div class="range-row"><label>تركيز المذاب خارج الخلية: <b id="saltVal">50</b>%</label><input id="salt" type="range" min="0" max="100" value="50" oninput="saltVal.textContent=this.value"></div>
+ <button class="btn" onclick="calculateExperiment()">راقب حركة الماء</button><div class="result" id="experimentResult">ابدأ بتغيير تركيز المحلول.</div>`,
+ enzyme:`<h3>محاكاة نشاط الإنزيمات</h3><p>غيّر درجة الحرارة في نموذج مبسط يوضح أن نشاط الإنزيم يتأثر بالحرارة، وقد ينخفض عند الابتعاد كثيرًا عن الدرجة المثلى.</p>
+ <div class="range-row"><label>درجة الحرارة: <b id="tempVal">37</b>°C</label><input id="temp" type="range" min="0" max="90" value="37" oninput="tempVal.textContent=this.value"></div>
+ <button class="btn" onclick="calculateExperiment()">قِس النشاط</button><div class="result" id="experimentResult">اختر درجة الحرارة ثم ابدأ.</div>`,
+ scope:`<h3>محاكاة المجهر</h3><p>غيّر قوة التكبير. تذكّر أن زيادة التكبير لا تعني بالضرورة زيادة الدقة أو ظهور تفاصيل جديدة.</p>
+ <div class="range-row"><label>قوة التكبير: <b id="zoomVal">100</b>×</label><input id="zoom" type="range" min="40" max="1000" step="20" value="100" oninput="zoomVal.textContent=this.value"></div>
+ <button class="btn" onclick="calculateExperiment()">اعرض الملاحظة</button><div class="result" id="experimentResult">اختر قوة التكبير.</div>`
+ };
+ box.innerHTML=templates[type]||templates.photosynthesis;
+}
+function calculateExperiment(){
+ const result=document.getElementById('experimentResult');
+ if(!result)return;
+ if(currentExperiment==='photosynthesis'){
+  const l=+document.getElementById('light').value,c=+document.getElementById('co2').value;
+  const rate=Math.round(Math.min(l,c)*.85+Math.max(l,c)*.15);
+  result.textContent=`معدل النشاط النسبي في هذا النموذج: ${rate}%. العامل الأقل توفرًا يحدّ من المعدل عندما يكون أحد العاملين منخفضًا.`;
+ }else if(currentExperiment==='osmosis'){
+  const s=+document.getElementById('salt').value;
+  result.textContent=s>55?'المحلول الخارجي أعلى تركيزًا بالمذاب: يميل الماء إلى الخروج من الخلية، وقد تنكمش الخلية النباتية.':s<45?'المحلول الخارجي أقل تركيزًا بالمذاب: يميل الماء إلى الدخول إلى الخلية.':'التركيزان متقاربان: لا توجد حركة صافية كبيرة للماء في النموذج.';
+ }else if(currentExperiment==='enzyme'){
+  const t=+document.getElementById('temp').value;
+  const activity=Math.max(0,Math.round(100-Math.abs(t-37)*2.4));
+  result.textContent=`النشاط النسبي التقريبي: ${activity}%. في هذا النموذج تبلغ الفعالية ذروتها قرب 37°C، وتنخفض عند الابتعاد عنها.`;
+ }else{
+  const z=+document.getElementById('zoom').value;
+  result.textContent=`قوة التكبير المختارة ${z}×. كلما زاد التكبير صغر مجال الرؤية غالبًا، وقد تصبح الصورة أقل وضوحًا إذا لم تكن الدقة كافية.`;
+ }
+}
+
+/* ---------------- CHALLENGE BANK ---------------- */
+const banks=[
+ [
+  ['ما العضيّة المسؤولة عن إنتاج معظم ATP؟',['النواة','الميتوكوندريا','جهاز جولجي','الفجوة'],1,'تنتج الميتوكوندريا معظم ATP خلال التنفس الخلوي.'],
+  ['أي تركيب يميز الخلية النباتية؟',['الجدار الخلوي','الغشاء البلازمي','الريبوسومات','النواة'],0,'الجدار الخلوي تركيب مميز للخلايا النباتية وليس موجودًا في الخلايا الحيوانية.'],
+  ['أين توجد المادة الوراثية DNA في الخلية حقيقية النواة بصورة أساسية؟',['جهاز جولجي','النواة','الفجوة','الغشاء'],1,'توجد معظم المادة الوراثية في نواة الخلية حقيقية النواة.'],
+  ['ما وظيفة الريبوسومات؟',['إنتاج الدهون','بناء البروتين','هضم الفضلات','تخزين الماء'],1,'الريبوسومات هي مواقع تصنيع البروتين.']
+ ],
+ [
+  ['إذا تعطلت الميتوكوندريا، فما العملية التي تتأثر مباشرة؟',['إنتاج ATP','تضاعف الجدار الخلوي','تخزين DNA','تكوين الكلوروفيل'],0,'الميتوكوندريا أساسية لإنتاج ATP بكفاءة عبر التنفس الخلوي.'],
+  ['أي عبارة تصف الشبكة الإندوبلازمية الخشنة؟',['لا تحمل ريبوسومات','تحمل ريبوسومات على سطحها','توجد خارج الخلية','تخزن الماء فقط'],1,'تظهر خشونة سطحها بسبب الريبوسومات المرتبطة بها.'],
+  ['ما النتيجة المتوقعة لو وُضعت خلية في محلول أعلى تركيزًا بالمذاب؟',['يدخل الماء بكثرة','يخرج الماء من الخلية','يتوقف كل انتقال','تزداد كتلة الخلية حتمًا'],1,'ينتقل الماء أسموزيًا نحو الوسط الأعلى تركيزًا بالمذاب عبر الغشاء شبه المنفذ.'],
+  ['أي عضية تعدّل البروتينات وتجهزها للنقل؟',['جهاز جولجي','النوية','الجدار الخلوي','الليسوسوم'],0,'يعدّل جهاز جولجي المواد ويصنفها ويغلفها ويوجهها.']
+ ],
+ [
+  ['خلية تستهلك الأكسجين وتنتج ATP. أي تركيب يرتبط مباشرة بهذه العملية؟',['الميتوكوندريا','البلاستيدة الخضراء','الفجوة','الجدار الخلوي'],0,'التنفس الهوائي يحدث أساسًا في الميتوكوندريا في الخلايا حقيقية النواة.'],
+  ['إذا زاد الضوء ولم يزد معدل البناء الضوئي، فما التفسير المحتمل؟',['الضوء لا يؤثر مطلقًا','عامل آخر أصبح محددًا','توقفت الخلية عن الحياة','اختفت البلاستيدات'],1,'قد يصبح تركيز CO₂ أو عامل آخر هو العامل المحدد للمعدل.'],
+  ['أي تسلسل أدق لمسار بروتين إفرازي؟',['ريبوسوم ثم شبكة خشنة ثم جولجي','جولجي ثم نواة ثم ريبوسوم','فجوة ثم ميتوكوندريا ثم نواة','ليسوسوم ثم غشاء ثم نوية'],0,'يُصنّع البروتين على ريبوسومات مرتبطة بالشبكة الخشنة، ثم يمر بجهاز جولجي للتعديل والتوجيه.'],
+  ['ما أثر تلف الغشاء البلازمي؟',['فقدان تنظيم التبادل مع البيئة','زيادة تصنيع DNA دائمًا','اختفاء الجدار النباتي فقط','زيادة البناء الضوئي'],0,'الغشاء البلازمي ينظم مرور المواد بين الخلية وبيئتها.']
+ ],
+ [
+  ['خلية نباتية في وسط شديد التركيز بالمذاب. ما الظاهرة التي قد تحدث؟',['البلزمة','الانقسام الاختزالي','الترجمة','التضاعف'],0,'قد تفقد الخلية الماء وينكمش محتواها مبتعدًا عن الجدار، وتسمى الظاهرة البلزمة.'],
+  ['لماذا لا يعني ازدياد شدة الضوء زيادة غير محدودة في البناء الضوئي؟',['لأن الضوء لا يمتص','لوجود عوامل محددة أخرى','لأن CO₂ غير مهم','لأن الماء لا يدخل النبات'],1,'عند تشبع الأنظمة الضوئية قد تصبح عوامل أخرى محددة للمعدل.'],
+  ['أي وصف يفسر كفاءة الغشاء الداخلي للميتوكوندريا؟',['مساحته تزيد بوجود الأعراف','لا يحتوي بروتينات','يسمح بمرور كل المواد بحرية','وظيفته تخزين الماء'],0,'الأعراف تزيد مساحة السطح المتاحة لعمليات إنتاج ATP.'],
+  ['إذا انخفضت كفاءة إنزيم بسبب تغير بنيته الفراغية، فما التفسير؟',['تغير الموقع الفعال','زيادة عدد النوى','اختفاء DNA','زيادة حجم الفجوة'],0,'شكل الموقع الفعال مهم لارتباط المادة المتفاعلة وحدوث التفاعل.']
+ ]
 ];
-$('searchBox').addEventListener('input',()=>{
-const q=$('searchBox').value.trim().toLowerCase();$('searchOut').innerHTML='';
-if(!q)return;
-searchItems.filter(x=>x.join(' ').toLowerCase().includes(q)).forEach(x=>{
-const a=document.createElement('a');a.className='card';a.href=x[2];
-const h=document.createElement('h3');h.textContent=x[0];
-const p=document.createElement('p');p.textContent=x[1];a.append(h,p);$('searchOut').appendChild(a);
-});
-if(!$('searchOut').children.length)$('searchOut').textContent='لا توجد نتائج مطابقة.';
-});
-
-/* المجهر الافتراضي */
-const samples={
-onion:{name:'خلايا بشرة البصل',info:'تظهر خلايا مستطيلة ومتراصة، وتبدو الجدران الخلوية كحدود واضحة بين الخلايا.',answer:'rect',image:'https://upload.wikimedia.org/wikipedia/commons/c/c8/Onion_epidermis.jpg',caption:'صورة مجهرية تعليمية لبشرة البصل.'},
-cheek:{name:'خلايا الخد',info:'خلايا حيوانية ذات أشكال غير منتظمة نسبيًا، ويمكن مشاهدة النواة داخل بعض الخلايا.',answer:'irregular',image:'https://upload.wikimedia.org/wikipedia/commons/b/b0/Microscopic_Image_of_Human_Cheek_Cells.jpg',caption:'صورة مجهرية تعليمية لخلايا الخد.'},
-leaf:{name:'بشرة الورقة والثغور',info:'تظهر الثغور بين خلايا البشرة، وتحيط بكل ثغر خليتان حارستان تنظمان فتحة الثغر.',answer:'stomata',image:'https://upload.wikimedia.org/wikipedia/commons/a/a8/Dicot_Leaf_Epidermis_Under_Compound_Microscope.jpg',caption:'صورة مجهرية تعليمية لبشرة الورقة.'}
-};
-function drawMicro(){
-const s=samples[$('sample').value],img=$('microImage'),z=$('zoom').value;
-img.onerror=()=>{img.alt='تعذّر تحميل الصورة من المصدر. تحقق من الاتصال أو جرّب عينة أخرى.';};
-img.onload=()=>{img.alt=s.name;};
-img.src=s.image;img.alt=s.name;img.className='';
-if(z==='100')img.classList.add('zoomed');
-if(z==='400')img.classList.add('zoomed-more');
-$('microMagnification').textContent=z+'× · صورة مجهرية';
-$('microCaption').textContent=s.caption;
-$('microInfo').textContent=s.info;
-$('microResult').textContent=s.name+' — '+z+'×';
-$('microFeedback').textContent='لاحظ الصورة ثم أجب.';
-$('microAnswer').value='';
+let level=0,index=0,score=0,answered=false,examMode=false,examQuestions=[],examIndex=0,examScore=0;
+function startLevel(l,button){
+ level=l;index=0;score=0;answered=false;examMode=false;
+ document.querySelectorAll('#levelButtons .switch').forEach(b=>b.classList.remove('active'));
+ if(button)button.classList.add('active');
+ document.getElementById('levelName').textContent=['المستوى التأسيسي','المستوى المتقدم','مستوى الخبير','مستوى الأولمبياد'][l];
+ document.getElementById('rank').textContent=['باحث مبتدئ','محلل علمي','خبير أحياء','باحث أولمبي'][l];
+ document.getElementById('scoreText').textContent='النقاط: 0';
+ loadQuestion();
 }
-$('sample').addEventListener('change',drawMicro);
-$('zoom').addEventListener('change',drawMicro);
-$('microReset').addEventListener('click',()=>{$('sample').value='onion';$('zoom').value='40';drawMicro();});
-$('microCheck').addEventListener('click',()=>{
-$('microFeedback').textContent=$('microAnswer').value===samples[$('sample').value].answer?'إجابة صحيحة! '+samples[$('sample').value].info:'ليست هذه الملاحظة. اقرأ وصف العينة وحاول مجددًا.';
-});
-drawMicro();
-
-/* لعبة تركيب الخلية: 11 موقعًا تفاعليًا */
-let selectedOrg=null;
-let gamePoints=0;
-let foundHotspots=0;
-
-const organelleNames={
-nucleus:'النواة',
-chloroplast:'البلاستيدات الخضراء',
-mitochondria:'الميتوكوندريا',
-vacuole:'الفجوة العصارية'
-};
-
-const orgButtons=[...document.querySelectorAll('[data-org]')];
-const hotspots=[...document.querySelectorAll('[data-target]')];
-
-const totalHotspots=hotspots.length;
-
-function countFoundFor(org){
-return hotspots.filter(h=>h.dataset.target===org && h.classList.contains('found')).length;
+function loadQuestion(){
+ const q=banks[level][index];
+ answered=false;
+ document.getElementById('qCount').textContent=`السؤال ${index+1} من ${banks[level].length}`;
+ document.getElementById('questionText').textContent=q[0];
+ document.getElementById('feedback').textContent='';
+ document.getElementById('nextBtn').disabled=true;
+ document.getElementById('nextBtn').textContent=index===banks[level].length-1?'إنهاء المستوى':'السؤال التالي';
+ document.getElementById('progressBar').style.width=(index/banks[level].length*100)+'%';
+ const list=document.getElementById('answerList');list.innerHTML='';
+ q[1].forEach((a,i)=>{
+  const b=document.createElement('button');b.className='answer';b.textContent=a;
+  b.onclick=()=>chooseAnswer(i,b);list.appendChild(b);
+ });
+}
+function chooseAnswer(i,button){
+ if(answered)return;answered=true;
+ const q=banks[level][index],buttons=[...document.querySelectorAll('.answer')];
+ buttons.forEach((b,j)=>{b.disabled=true;if(j===q[2])b.classList.add('correct')});
+ if(i===q[2]){score+=10;document.getElementById('feedback').textContent='إجابة صحيحة. '+q[3]}
+ else{button.classList.add('wrong');document.getElementById('feedback').textContent='ليست الإجابة الصحيحة. '+q[3]}
+ document.getElementById('scoreText').textContent='النقاط: '+score;
+ document.getElementById('nextBtn').disabled=false;
+}
+function nextQuestion(){
+ if(!answered)return;
+ if(index<banks[level].length-1){index++;loadQuestion()}
+ else{
+  document.getElementById('questionText').textContent=`انتهى المستوى! نتيجتك ${score} من ${banks[level].length*10}.`;
+  document.getElementById('answerList').innerHTML='';
+  document.getElementById('feedback').textContent=score>=30?'أداء ممتاز! واصل التقدم.':'راجع التفسيرات وحاول مرة أخرى.';
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('nextBtn').disabled=true;
+  try{localStorage.setItem('mijhar_best_'+level,Math.max(score,+localStorage.getItem('mijhar_best_'+level)||0))}catch(e){}
+ }
 }
 
-function countTotalFor(org){
-return hotspots.filter(h=>h.dataset.target===org).length;
+/* ---------------- MIXED EXAM ---------------- */
+function startExam(){
+ examQuestions=banks.flat().sort(()=>Math.random()-.5).slice(0,12);
+ examIndex=0;examScore=0;
+ document.getElementById('examResult').textContent='بدأ الامتحان. أجب عن الأسئلة الاثني عشر.';
+ document.getElementById('questionText').textContent='امتحان مِجهر الشامل';
+ document.getElementById('feedback').textContent='';
+ document.getElementById('qCount').textContent='امتحان شامل';
+ document.getElementById('answerList').innerHTML='';
+ const box=document.getElementById('answerList');
+ examQuestions.forEach((q,i)=>{
+  const wrap=document.createElement('div');wrap.className='card';wrap.style.gridColumn='1/-1';
+  const title=document.createElement('h3');title.textContent=`${i+1}. ${q[0]}`;wrap.appendChild(title);
+  q[1].forEach((a,j)=>{
+   const label=document.createElement('label');label.style.display='block';label.style.margin='8px 0';label.style.color='var(--muted)';
+   const input=document.createElement('input');input.type='radio';input.name='exam'+i;input.value=j;input.style.accentColor='var(--mint)';
+   label.append(input,' '+a);wrap.appendChild(label);
+  });
+  box.appendChild(wrap);
+ });
+ const submit=document.createElement('button');submit.className='btn';submit.textContent='سلّم الامتحان وصحّح';submit.style.marginTop='15px';submit.onclick=gradeExam;box.appendChild(submit);
+ document.getElementById('nextBtn').disabled=true;
+ document.getElementById('progressBar').style.width='0%';
 }
-
-function updateGameProgress(){
-$('gameScore').textContent='النقاط: '+gamePoints;
-$('gameProgress').textContent=foundHotspots+' / '+totalHotspots;
-$('gameBar').style.width=(foundHotspots/totalHotspots*100)+'%';
+function gradeExam(){
+ let total=0,details=[];
+ examQuestions.forEach((q,i)=>{
+  const chosen=document.querySelector(`input[name="exam${i}"]:checked`);
+  if(chosen&&+chosen.value===q[2])total++;
+  details.push(`${i+1}. ${chosen&&+chosen.value===q[2]?'صحيح':'غير صحيح'} — ${q[3]}`);
+ });
+ const percent=Math.round(total/12*100);
+ document.getElementById('examResult').innerHTML=`نتيجتك: <strong>${total}/12 (${percent}%)</strong><br>${percent>=85?'ممتاز! مستوى علمي قوي.':percent>=65?'جيد جدًا، تابع المراجعة.':percent>=50?'بداية جيدة، تحتاج إلى مراجعة إضافية.':'راجع المفاهيم الأساسية ثم أعد المحاولة.'}<hr>${details.join('<br>')}`;
+ document.getElementById('examResult').scrollIntoView({behavior:'smooth',block:'center'});
 }
-
-orgButtons.forEach(button=>{
-button.addEventListener('click',()=>{
-const org=button.dataset.org;
-
-if(button.disabled)return;
-
-selectedOrg=org;
-
-orgButtons.forEach(b=>{
-b.classList.toggle('active',b===button);
-});
-
-hotspots.forEach(h=>h.classList.remove('missed'));
-
-const remaining=countTotalFor(org)-countFoundFor(org);
-
-$('gameResult').textContent=
-'اخترتِ '+organelleNames[org]+
-'. ابحثي عن المواقع المتبقية: '+remaining+'.';
-});
-});
-
-hotspots.forEach(hotspot=>{
-hotspot.addEventListener('click',()=>{
-const target=hotspot.dataset.target;
-
-if(!selectedOrg){
-$('gameResult').textContent='اختاري عضيّة من القائمة أولًا.';
-return;
-}
-
-if(hotspot.classList.contains('found')){
-$('gameResult').textContent='اكتشفتِ هذا الموقع سابقًا.';
-return;
-}
-
-if(selectedOrg===target){
-gamePoints++;
-foundHotspots++;
-
-hotspot.classList.add('found');
-hotspot.textContent='✓';
-hotspot.disabled=true;
-
-const foundForThisOrg=countFoundFor(target);
-const totalForThisOrg=countTotalFor(target);
-const remaining=totalForThisOrg-foundForThisOrg;
-
-if(remaining===0){
-const selectedButton=document.querySelector('[data-org="'+target+'"]');
-if(selectedButton){
-selectedButton.disabled=true;
-selectedButton.classList.remove('active');
-}
-
-selectedOrg=null;
-orgButtons.forEach(b=>b.classList.remove('active'));
-
-$('gameResult').textContent=
-'أحسنتِ! اكتشفتِ جميع مواقع '+organelleNames[target]+'. اختاري عضيّة أخرى.';
-}else{
-$('gameResult').textContent=
-'إجابة صحيحة! بقي '+remaining+' من مواقع '+organelleNames[target]+'. تابعي البحث.';
-}
-
-}else{
-hotspot.classList.add('missed');
-
-$('gameResult').textContent=
-'هذا ليس موقع '+organelleNames[selectedOrg]+'. حاولي مرة أخرى.';
-
-setTimeout(()=>{
-hotspot.classList.remove('missed');
-},700);
-}
-
-updateGameProgress();
-
-if(foundHotspots===totalHotspots){
-selectedOrg=null;
-orgButtons.forEach(b=>{
-b.classList.remove('active');
-b.disabled=true;
-});
-
-$('gameResult').textContent=
-'ممتاز! أكملتِ التحدي واكتشفتِ المواقع الإحدى عشرة كلها. نتيجتك 11 من 11!';
-}
-});
-});
-
-$('gameReset').addEventListener('click',()=>{
-selectedOrg=null;
-gamePoints=0;
-foundHotspots=0;
-
-orgButtons.forEach(b=>{
-b.classList.remove('active');
-b.disabled=false;
-});
-
-hotspots.forEach(h=>{
-h.classList.remove('found','missed');
-h.textContent='';
-h.disabled=false;
-});
-
-updateGameProgress();
-
-$('gameResult').textContent=
-'تمت إعادة التحدي. اختاري عضيّة وابدئي اكتشاف مواقعها.';
-});
-
-/* تحدي DNA */
-const seq=['A','G','T','C','A','G'],pair={A:'T',T:'A',G:'C',C:'G'};
-let di=0,ds=0,answered=false;
-function drawDNA(){
-$('dnaGiven').textContent=seq[di];$('dnaAnswer').textContent='؟';
-$('dnaProgress').textContent='قاعدة '+(di+1)+' من 6';$('dnaScore').textContent='النقاط: '+ds;
-$('dnaFeedback').textContent='A تقابل T، وG تقابل C.';$('dnaNext').disabled=true;answered=false;
-document.querySelectorAll('[data-base]').forEach(b=>b.disabled=false);
-}
-document.querySelectorAll('[data-base]').forEach(b=>{
-b.addEventListener('click',()=>{
-if(answered)return;answered=true;
-const ok=b.dataset.base===pair[seq[di]];if(ok)ds++;
-$('dnaAnswer').textContent=pair[seq[di]];$('dnaScore').textContent='النقاط: '+ds;
-$('dnaFeedback').textContent=ok?'إجابة صحيحة!':'الإجابة الصحيحة هي '+pair[seq[di]]+'.';
-document.querySelectorAll('[data-base]').forEach(x=>x.disabled=true);$('dnaNext').disabled=false;
-});
-});
-$('dnaNext').addEventListener('click',()=>{
-if(!answered)return;
-if(di<5){di++;drawDNA();}
-else{$('dnaProgress').textContent='اكتمل التحدي';$('dnaFeedback').textContent='نتيجتك '+ds+' من 6. اضغط إعادة التحدي للبدء من جديد.';$('dnaNext').disabled=true;}
-});
-$('dnaReset').addEventListener('click',()=>{di=0;ds=0;drawDNA();});
-drawDNA();
-
-/* أدوات رسم مشاهد المختبر */
-function photoPlantSVG(rate){
-const leaf=rate>65?'#4caa62':rate>30?'#a1a04e':'#786e40';
-let bubbles='';
-for(let i=0;i<Math.max(1,Math.round(rate/12));i++){
-bubbles+=`<circle class="bubble" cx="${285+(i%5)*22}" cy="${150-(i%4)*22}" r="${4+i%3}" fill="#b5eaff" style="animation-delay:${i*.2}s"/>`;
-}
-return `<svg viewBox="0 0 600 330" role="img" aria-label="محاكاة البناء الضوئي">
-<defs>
-<linearGradient id="soil" x2="0" y2="1"><stop stop-color="#665039"/><stop offset="1" stop-color="#241c15"/></linearGradient>
-<radialGradient id="leafGrad"><stop stop-color="#b8dc76"/><stop offset="1" stop-color="${leaf}"/></radialGradient>
-<linearGradient id="stemGrad"><stop stop-color="#28623d"/><stop offset="1" stop-color="#91c96e"/></linearGradient>
-</defs>
-<path d="M0 276 Q300 250 600 276 V330 H0Z" fill="url(#soil)"/>
-<path d="M300 280 Q292 200 300 105" stroke="url(#stemGrad)" stroke-width="12" fill="none" stroke-linecap="round"/>
-<g class="leaf-sway" opacity="${rate===0?.4:1}">
-<path d="M300 210 C180 185 100 100 160 55 C220 15 285 100 300 210Z" fill="url(#leafGrad)" stroke="#bce99b" stroke-width="3"/>
-<path d="M300 210 Q215 115 165 60 M250 155 L205 88 M275 183 L250 103" stroke="#d5edac" stroke-width="2" fill="none"/>
-<path d="M300 155 C375 45 505 55 485 125 C470 195 365 205 300 155Z" fill="url(#leafGrad)" stroke="#bce99b" stroke-width="3"/>
-<path d="M300 155 Q405 110 480 125 M365 132 L400 75 M390 140 L445 175" stroke="#d5edac" stroke-width="2" fill="none"/>
-</g>
-<circle cx="80" cy="70" r="29" fill="#f4d46f" opacity="${rate===0?.15:1}"/>
-<g stroke="#f4d46f" stroke-width="4" opacity="${rate===0?.15:1}"><path d="M80 25V10 M80 130V115 M35 70H20 M140 70H125 M48 38L35 25 M115 105L128 118"/></g>
-<g fill="#d4efff" font-size="17" font-family="Arial">
-<text x="20" y="165">CO₂ ↓</text><text x="475" y="235">H₂O ↑</text><text x="345" y="42">O₂ ↑</text>
-</g>
-${bubbles}
-<text x="300" y="310" text-anchor="middle" fill="#f2f8e9" font-size="14">مؤشر نشاط البناء الضوئي: ${rate}%</text>
-</svg>`;
-}
-function drawPlant(rate){$('plant').innerHTML='<span class="lab-visual-label">محاكاة البناء الضوئي</span>'+photoPlantSVG(rate);}
-function runPhoto(){
-const l=$('light').value,w=$('water').value,c=$('co2').value;
-let n=100,why=[];
-if(l==='none'){n=0;why.push('غياب الضوء يوقف التفاعلات الضوئية.');}
-else{
-if(l==='low'){n=Math.min(n,45);why.push('شدة الضوء منخفضة.');}
-if(w==='low'){n=Math.min(n,35);why.push('نقص الماء يحد من توفره للتفاعلات.');}
-if(c==='low'){n=Math.min(n,45);why.push('انخفاض CO₂ يحد من تثبيت الكربون.');}
-}
-if(n===100)why.push('العوامل المختارة مناسبة نسبيًا.');
-drawPlant(n);
-$('photoRate').textContent=n+'%';
-$('photoOxygen').textContent=n>65?'مرتفع':n>20?'منخفض':'شبه متوقف';
-$('photoStatus').textContent=n>65?'نشاط جيد':n>20?'نشاط محدود':'نشاط متوقف';
-$('photoResult').textContent='المعدل النسبي التقديري: '+n+'%. '+why.join(' ');
-}
-$('runPhoto').addEventListener('click',runPhoto);
-$('resetPhoto').addEventListener('click',()=>{
-$('light').value='high';$('water').value='enough';$('co2').value='enough';
-$('photoRate').textContent='100%';$('photoOxygen').textContent='مرتفع';$('photoStatus').textContent='نشاط جيد';
-$('photoResult').textContent='تمت إعادة الضبط.';drawPlant(100);
-});
-drawPlant(100);
-
-/* محطة الأسموزية: خلية نباتية أو حيوانية */
-function osmosisSVG(value,type){
-const plant=type==='plant',shrink=value<30,swollen=value>70;
-const inner=shrink?'.55':swollen?'.9':'.72';
-let dots='';
-for(let i=0;i<18;i++){
-const x=30+(i*67)%535,y=35+(i*43)%230;
-dots+=`<circle class="particle" cx="${x}" cy="${y}" r="3.5" fill="#8edcf1" opacity=".8" style="animation-delay:${i*.1}s"/>`;
-}
-return `<svg viewBox="0 0 600 310" role="img" aria-label="خلية في تجربة الأسموزية">
-<defs><radialGradient id="osmWater"><stop stop-color="#287d91" stop-opacity=".32"/><stop offset="1" stop-color="#071c20" stop-opacity=".7"/></radialGradient><linearGradient id="cellFill" x2="1" y2="1"><stop stop-color="#9edc91" stop-opacity=".35"/><stop offset="1" stop-color="#347f63" stop-opacity=".5"/></linearGradient></defs>
-<rect x="12" y="12" width="576" height="275" rx="22" fill="url(#osmWater)" stroke="#2c6470"/>
-${dots}
-${plant?`<rect x="165" y="54" width="270" height="190" rx="20" fill="#8fbf70" fill-opacity=".08" stroke="#b2db92" stroke-width="13"/><rect x="${shrink?245:swollen?180:200}" y="${shrink?104:swollen?67:82}" width="${shrink?110:swollen?240:205}" height="${shrink?90:swollen?160:130}" rx="14" fill="url(#cellFill)" stroke="#a8e6a0" stroke-width="3"/>`
-:`<ellipse cx="300" cy="150" rx="${shrink?65:swollen?125:100}" ry="${shrink?48:swollen?92:72}" fill="url(#cellFill)" stroke="#9ee3ed" stroke-width="5"/>`}
-<ellipse cx="300" cy="148" rx="20" ry="15" fill="#9879bd" stroke="#d8c2f6" stroke-width="3"/>
-<g stroke="#9fe8ff" stroke-width="3" fill="none">
-<path d="${swollen?'M115 150 Q150 150 180 150':'M180 150 Q145 150 115 150'}" /><path d="M115 150 l12 -8 m-12 8 l12 8"/>
-<path d="${shrink?'M480 150 Q450 150 425 150':'M425 150 Q455 150 480 150'}"/><path d="M480 150 l-12 -8 m12 8 l-12 8"/>
-</g>
-<g fill="#e9f8ed" font-size="13" text-anchor="middle"><text x="300" y="30">${plant?'خلية نباتية':'خلية حيوانية'}</text><text x="300" y="278">${swollen?'دخول صافٍ للماء':shrink?'خروج صافٍ للماء':'حركة متوازنة للماء'}</text></g>
-</svg>`;
-}
-
-/* محطة الإنزيمات */
-function enzymeSVG(value){
-const intact=value>=65;
-return `<svg viewBox="0 0 600 310" role="img" aria-label="محاكاة ارتباط الإنزيم بالركيزة">
-<defs><linearGradient id="enzymeBody" x2="1" y2="1"><stop stop-color="#e2b86d"/><stop offset="1" stop-color="#986333"/></linearGradient><linearGradient id="substrate" x2="1"><stop stop-color="#6ac4d9"/><stop offset="1" stop-color="#317b9a"/></linearGradient></defs>
-<path d="${intact?'M105 190 C55 125 105 50 190 62 C250 5 335 52 345 98 C420 65 500 120 470 190 C440 255 340 238 290 220 C210 265 130 245 105 190Z':'M105 190 C55 125 120 35 205 75 L255 45 L290 105 L350 75 L390 130 L470 110 C500 180 430 255 350 230 L290 260 L230 210 C170 250 125 235 105 190Z'}" fill="url(#enzymeBody)" stroke="#f3d39b" stroke-width="4"/>
-<path d="${intact?'M235 92 Q275 120 310 92 L330 135 Q280 160 225 135Z':'M205 90 L245 130 L280 95 L315 155 L270 185 L215 145Z'}" fill="#071610" stroke="#f6e0ae" stroke-width="3"/>
-<path d="M265 28 L290 12 L315 30 L307 62 L275 62Z" fill="url(#substrate)" stroke="#c6f1ff" stroke-width="3"/>
-<path d="M290 65V83" stroke="#b9eaff" stroke-width="3" stroke-dasharray="4 4"/>
-<g fill="#eaf7ee" font-size="14" text-anchor="middle"><text x="300" y="285">${intact?'شكل الموقع النشط ملائم نسبيًا':'تغيّر شكل الإنزيم يقلل الارتباط'}</text></g>
-<text x="300" y="300" fill="#a9c4b7" font-size="10" text-anchor="middle">نموذج مبسط لتأثير الظروف في شكل البروتين</text>
-</svg>`;
-}
-
-/* محطة النتح */
-function transpirationSVG(value){
-let vapor='';
-for(let i=0;i<Math.max(2,Math.round(value/6));i++){
-const x=190+(i%8)*28,y=130-(i%5)*20;
-vapor+=`<circle class="particle" cx="${x}" cy="${y}" r="${3+i%3}" fill="#b6eaff" style="animation-delay:${i*.13}s"/>`;
-}
-return `<svg viewBox="0 0 600 310" role="img" aria-label="محاكاة النتح من الورقة">
-<defs><linearGradient id="leafColor" x2="1"><stop stop-color="#a7d67a"/><stop offset="1" stop-color="#27794b"/></linearGradient></defs>
-<path d="M300 280 Q292 200 300 90" stroke="#8dc779" stroke-width="12" fill="none" stroke-linecap="round"/>
-<path d="M300 210 C160 200 95 80 180 45 C250 20 290 110 300 210Z" fill="url(#leafColor)" stroke="#c3e9a2" stroke-width="3"/>
-<path d="M300 210 Q205 115 180 50 M245 160 L195 90 M275 185 L250 110" stroke="#d6efb6" stroke-width="2" fill="none"/>
-<path d="M300 160 C385 35 515 65 485 135 C455 210 360 205 300 160Z" fill="url(#leafColor)" stroke="#c3e9a2" stroke-width="3"/>
-<path d="M300 160 Q405 100 480 135 M365 125 L405 75 M390 145 L450 180" stroke="#d6efb6" stroke-width="2" fill="none"/>
-${vapor}
-<g fill="#d7f3ff" font-size="14"><text x="25" y="35">بخار الماء ↑</text><text x="420" y="35">الثغور</text></g>
-<text x="300" y="295" fill="#eaf7ee" font-size="13" text-anchor="middle">مؤشر النتح النسبي: ${value}%</text>
-</svg>`;
-}
-
-/* محطة الانتشار */
-function diffusionSVG(value){
-let dots='';
-for(let i=0;i<48;i++){
-let x,y;
-if(value<50){x=25+(i*31)%190;y=45+(i*47)%180;}
-else{x=25+(i*83)%550;y=45+(i*47)%180;}
-dots+=`<circle class="molecule" cx="${x}" cy="${y}" r="${4+(i%3)}" fill="${i%2?'#7dd7ee':'#e9c47c'}" opacity=".9" style="animation-delay:${i*.04}s"/>`;
-}
-return `<svg viewBox="0 0 600 310" role="img" aria-label="انتشار الجزيئات">
-<defs><linearGradient id="diffusionBg" x2="1"><stop stop-color="#164d39"/><stop offset="1" stop-color="#0b2930"/></linearGradient></defs>
-<rect x="15" y="20" width="570" height="245" rx="18" fill="url(#diffusionBg)" stroke="#47735c" stroke-width="2"/>
-<path d="M300 20V265" stroke="#d2e9d9" stroke-dasharray="6 7" opacity=".5"/>
-${dots}
-<g fill="#f1f6e9" font-size="14" text-anchor="middle"><text x="150" y="292">تركيز مرتفع</text><text x="450" y="292">تركيز منخفض</text></g>
-</svg>`;
-}
-
-/* إعداد محطات التجارب */
-const stations={
-osmosis:{
-title:'تجربة الأسموزية',desc:'راقب انتقال الماء عبر غشاء شبه منفذ عند تغيير تركيز المحلول الخارجي.',
-hint:'ينتقل الماء من الوسط الأقل تركيزًا بالمذابات إلى الوسط الأعلى تركيزًا بالمذابات.',
-fields:[
-['outside','تركيز المحلول الخارجي',[['dilute','مخفف'],['equal','مماثل للخلية'],['concentrated','مركز']]],
-['cellType','نوع الخلية',[['plant','خلية نباتية'],['animal','خلية حيوانية']]]
-]},
-enzyme:{
-title:'نشاط الإنزيمات',desc:'اختبر كيف تؤثر درجة الحرارة ودرجة الحموضة في نشاط إنزيم افتراضي.',
-hint:'لكل إنزيم ظروف مثلى. الحرارة الشديدة أو pH غير المناسب قد يغيران شكل الموقع النشط.',
-fields:[
-['temp','درجة الحرارة',[['cold','منخفضة'],['optimal','مثلى'],['hot','مرتفعة جدًا']]],
-['ph','درجة الحموضة',[['acid','حمضية'],['neutral','متعادلـة'],['alkaline','قاعدية']]]
-]},
-transpiration:{
-title:'تجربة النتح',desc:'غيّر الضوء وحركة الهواء والرطوبة لملاحظة فقد الماء من الورقة.',
-hint:'يزداد النتح غالبًا مع الضوء والهواء الجاف وحركة الهواء، ويقل مع الرطوبة العالية.',
-fields:[
-['sun','شدة الضوء',[['bright','قوي'],['dim','ضعيف']]],
-['wind','حركة الهواء',[['windy','سريعة'],['calm','ساكنة']]],
-['humidity','رطوبة الهواء',[['low','منخفضة'],['high','مرتفعة']]]
-]},
-diffusion:{
-title:'تجربة الانتشار',desc:'راقب انتقال الجزيئات من منطقة عالية التركيز إلى منطقة أقل تركيزًا.',
-hint:'يزداد الانتشار عادةً مع ارتفاع الحرارة وزيادة فرق التركيز.',
-fields:[
-['diffTemp','درجة الحرارة',[['warm','دافئة'],['cool','باردة']]],
-['gradient','فرق التركيز',[['large','كبير'],['small','صغير']]]
-]}
-};
-
-let station='osmosis',runs=0;
-function renderStation(){
-const d=stations[station];$('labTitle').textContent=d.title;$('labDesc').textContent=d.desc;$('labHint').textContent=d.hint;
-$('labFields').innerHTML='';
-d.fields.forEach(([id,label,opts])=>{
-const wrap=document.createElement('div');wrap.className='field';
-const l=document.createElement('label');l.htmlFor='s_'+id;l.textContent=label;
-const sel=document.createElement('select');sel.id='s_'+id;
-opts.forEach(([v,t])=>{const o=document.createElement('option');o.value=v;o.textContent=t;sel.appendChild(o);});
-wrap.append(l,sel);$('labFields').appendChild(wrap);
-});
-document.querySelectorAll('[data-lab]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lab===station)));
-$('labPercent').textContent='—';$('labState').textContent='جاهز';$('labBar').style.width='0%';$('labResult').textContent='اضبط العوامل ثم شغّل التجربة.';
-$('labRuns').textContent=runs;
-$('visualLabel').textContent=d.title;
-$('labVisual').innerHTML='<span class="lab-visual-label">'+d.title+'</span>'+
-(station==='osmosis'?osmosisSVG(50,'plant'):station==='enzyme'?enzymeSVG(50):station==='transpiration'?transpirationSVG(30):diffusionSVG(30));
-$('sceneCaption').textContent='النموذج يتغير عند تشغيل التجربة.';
-}
-document.querySelectorAll('[data-lab]').forEach(b=>b.addEventListener('click',()=>{station=b.dataset.lab;renderStation();}));
-
-function runStation(){
-let value=0,desc='',state='',visual='';
-const v=id=>$('s_'+id).value;
-if(station==='osmosis'){
-if(v('outside')==='dilute'){value=85;state='دخول الماء';desc='يدخل الماء إلى الخلية. '+(v('cellType')==='plant'?'يساعد الجدار الخلوي النباتي على مقاومة زيادة الحجم.':'قد يزداد حجم الخلية الحيوانية.');}
-else if(v('outside')==='equal'){value=50;state='اتزان أسموزي';desc='حركة الماء متقاربة في الاتجاهين ولا يحدث تغير صافٍ كبير.';}
-else{value=15;state='خروج الماء';desc='يخرج الماء من الخلية. '+(v('cellType')==='plant'?'قد تحدث البلزمة.':'تنكمش الخلية الحيوانية.');}
-visual=osmosisSVG(value,v('cellType'));
-$('sceneCaption').textContent=value>70?'تمثيل دخول الماء إلى الخلية.':value<25?'تمثيل خروج الماء وانكماش الخلية.':'تمثيل حالة اتزان أسموزي.';
-}
-if(station==='enzyme'){
-value=v('temp')==='optimal'?100:v('temp')==='cold'?45:12;
-if(v('ph')!=='neutral')value=Math.round(value*.45);
-state=value>70?'نشاط مرتفع':value>30?'نشاط منخفض':'نشاط ضعيف';
-desc='النشاط النسبي التقديري '+value+'%. '+(v('temp')==='hot'?'الحرارة العالية قد تسبب تمسخ الإنزيم.':v('temp')==='cold'?'البرودة تقلل التصادمات الفعالة.':'درجة الحرارة قريبة من المجال الأمثل.')+(v('ph')==='neutral'?'':' درجة الحموضة غير المناسبة قد تغير الموقع النشط.');
-visual=enzymeSVG(value);$('sceneCaption').textContent=value>70?'شكل الموقع النشط ملائم نسبيًا للارتباط.':'تمثيل توضيحي لتغير كفاءة الموقع النشط.';
-}
-if(station==='transpiration'){
-value=(v('sun')==='bright'?35:15)+(v('wind')==='windy'?35:10)+(v('humidity')==='low'?30:5);
-state=value>70?'نتح مرتفع':value>40?'نتح متوسط':'نتح منخفض';
-desc='معدل النتح النسبي '+value+'%. '+(v('wind')==='windy'?'الهواء المتحرك يزيل طبقة الهواء الرطب قرب الورقة.':'الهواء الساكن يبطئ فقد بخار الماء.')+(v('humidity')==='high'?' الرطوبة العالية تقلل فرق تركيز بخار الماء.':' الرطوبة المنخفضة تزيد فرق التركيز.');
-visual=transpirationSVG(value);$('sceneCaption').textContent='الجزيئات الظاهرة تمثل بخار الماء الصاعد من الورقة.';
-}
-if(station==='diffusion'){
-value=(v('diffTemp')==='warm'?65:30)+(v('gradient')==='large'?35:10);
-state=value>75?'انتشار أسرع':'انتشار أبطأ';
-desc='سرعة الانتشار النسبية '+value+'%. '+(v('diffTemp')==='warm'?'الحرارة الأعلى تزيد حركة الجزيئات.':'البرودة تقلل حركة الجزيئات.')+(v('gradient')==='large'?' فرق التركيز كبير.':' فرق التركيز صغير.');
-visual=diffusionSVG(value);$('sceneCaption').textContent='توزيع الجزيئات يوضح انتقالها من المنطقة الأعلى تركيزًا.';
-}
-runs++;
-$('labVisual').innerHTML='<span class="lab-visual-label">'+stations[station].title+'</span>'+visual;
-$('labPercent').textContent=value+'%';$('labState').textContent=state;$('labRuns').textContent=runs;
-$('labBar').style.width=value+'%';$('labResult').textContent=desc;
-}
-$('runStation').addEventListener('click',runStation);
-$('resetStation').addEventListener('click',()=>{runs=0;renderStation();});
-renderStation();
-
-/* الاختبار */
-const bank={
-easy:[
-['أي عضيّة تقوم بالبناء الضوئي؟',['الميتوكوندريا','البلاستيدة الخضراء','النواة'],1,'تتم عملية البناء الضوئي في البلاستيدات الخضراء.'],
-['ما القاعدة المكملة لـ A في DNA؟',['T','G','C'],0,'A تقابل T.'],
-['ما وظيفة الريبوسومات؟',['تصنيع البروتين','تخزين الماء','إنتاج الضوء'],0,'الريبوسومات مواقع تصنيع البروتينات.']
-],
-medium:[
-['ما الشكل الشائع لجزيء DNA؟',['لولب مزدوج','سلسلة أحماض أمينية','طبقة دهنية'],0,'يتكون DNA عادة من سلسلتين ملتفتين.'],
-['أي قاعدة توجد في RNA بدل T؟',['A','U','C'],1,'RNA يحتوي على اليوراسيل U بدل الثايمين T.'],
-['ما وظيفة الميتوكوندريا؟',['إنتاج معظم ATP','صنع الكلوروفيل','تخزين الماء'],0,'تنتج الميتوكوندريا معظم ATP بالتنفس الخلوي.']
-],
-hard:[
-['إذا كانت السلسلة A-G-T-C فما المكملة؟',['T-C-A-G','A-G-T-C','C-T-A-G'],0,'A تقابل T وG تقابل C.'],
-['ماذا قد يسبب نقص CO₂؟',['زيادة البناء الضوئي دائمًا','انخفاض المعدل','لا تأثير مطلقًا'],1,'قد يصبح CO₂ عاملًا محددًا.'],
-['ما أثر الحرارة الشديدة على إنزيم؟',['قد يتمسخ','يزداد نشاطه دائمًا','يتحول إلى DNA'],0,'الحرارة الشديدة قد تغير بنية الإنزيم.']
-]
-};
-let questions=[],qi=0,score=0,locked=false;
-function bestKey(){return 'mijhar-best-'+$('level').value;}
-function updateBest(){
-try{$('best').textContent='أفضل نتيجة: '+(localStorage.getItem(bestKey())??'—');}
-catch(e){$('best').textContent='أفضل نتيجة غير متاحة';}
-}
-function drawQuestion(){
-locked=false;const q=questions[qi];
-$('question').textContent=q[0];$('qProgress').textContent='السؤال '+(qi+1)+' من '+questions.length;
-$('qScore').textContent='النتيجة: '+score;$('qFeedback').textContent='';$('answers').innerHTML='';
-q[1].forEach((t,i)=>{
-const b=document.createElement('button');b.className='answer';b.textContent=t;
-b.addEventListener('click',()=>choose(i,b));$('answers').appendChild(b);
-});
-$('qNext').disabled=true;$('qBar').style.width=(qi/questions.length*100)+'%';
-}
-function startQuiz(){questions=bank[$('level').value];qi=0;score=0;drawQuestion();updateBest();}
-function choose(i,b){
-if(locked)return;locked=true;const q=questions[qi];
-[...$('answers').children].forEach(x=>x.disabled=true);
-if(i===q[2]){score++;b.classList.add('correct');$('qFeedback').textContent='صحيح! '+q[3];}
-else{b.classList.add('wrong');$('answers').children[q[2]].classList.add('correct');$('qFeedback').textContent='الإجابة الصحيحة: '+q[1][q[2]]+'. '+q[3];}
-$('qScore').textContent='النتيجة: '+score;$('qNext').disabled=false;
-}
-$('qNext').addEventListener('click',()=>{
-if(!locked)return;
-if(qi<questions.length-1){qi++;drawQuestion();}
-else{
-$('question').textContent='انتهى الاختبار! نتيجتك '+score+' من '+questions.length;
-$('answers').innerHTML='';$('qProgress').textContent='اكتمل الاختبار';$('qBar').style.width='100%';$('qNext').disabled=true;
-try{const old=Number(localStorage.getItem(bestKey())||0);if(score>old)localStorage.setItem(bestKey(),String(score));}catch(e){}
-updateBest();
-}
-});
-$('qRestart').addEventListener('click',startQuiz);
-$('level').addEventListener('change',startQuiz);
-startQuiz();
+initLab();
+startLevel(0,document.querySelector('#levelButtons .switch'));
 </script>
 </body>
 </html>
