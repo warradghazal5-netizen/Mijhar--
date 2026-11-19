@@ -570,10 +570,34 @@ $('dnaNext').addEventListener('click',()=>{if(!answered)return;if(di<5){di++;dra
 $('dnaReset').addEventListener('click',()=>{di=0;ds=0;drawDNA()});drawDNA();
 
 /* مختبر مِجهر: مؤشرات ونتائج تفسيرية دون رسومات مجسمة */
-function renderLabBars(containerId, title, rows, explanation, status){
+function experimentIllustration(kind, data={}){
+ const common=`<defs><linearGradient id="mem" x2="0" y2="1"><stop stop-color="#b7f4d8"/><stop offset="1" stop-color="#4ba982"/></linearGradient><radialGradient id="water"><stop stop-color="#a9eaff"/><stop offset="1" stop-color="#328cc4"/></radialGradient></defs>`;
+ if(kind==='osmosis'){
+  const outside=data.outside||'equal', plant=data.cellType==='plant';
+  const scale=outside==='dilute'?1.13:outside==='concentrated'?.78:1;
+  const arrows=outside==='dilute'?'<path d="M65 125 L115 125 M105 115 L115 125 L105 135 M335 125 L285 125 M295 115 L285 125 L295 135"/>':outside==='concentrated'?'<path d="M115 125 L65 125 M75 115 L65 125 L75 135 M285 125 L335 125 M325 115 L335 125 L325 135"/>':'<path d="M65 125 L115 125 M105 115 L115 125 L105 135 M335 125 L285 125 M295 115 L285 125 L295 135" opacity=".35"/>';
+  return `<div class="lab-art"><div class="lab-art-caption">محاكاة حركة الماء عبر الغشاء شبه المنفذ</div><svg viewBox="0 0 400 230" role="img" aria-label="رسم يوضح تغير حجم الخلية حسب تركيز المحلول"><g fill="none" stroke="#7ddfba" stroke-width="4" stroke-linecap="round">${arrows}</g><g transform="translate(200 120) scale(${scale}) translate(-200 -120)"><rect x="125" y="55" width="150" height="130" rx="${plant?10:60}" fill="#173f30" stroke="#a7e8c9" stroke-width="${plant?9:5}"/><ellipse cx="200" cy="120" rx="28" ry="23" fill="#b6d98b" opacity=".85"/><circle cx="200" cy="120" r="10" fill="#436f4e"/><g fill="url(#water)"><circle cx="153" cy="88" r="7"/><circle cx="245" cy="93" r="6"/><circle cx="160" cy="151" r="5"/><circle cx="245" cy="153" r="7"/></g></g><g fill="#d9f5e8" font-size="12" text-anchor="middle"><text x="55" y="35">الوسط الخارجي</text><text x="200" y="215">${outside==='dilute'?'يدخل الماء · تنتفخ الخلية':outside==='concentrated'?'يخرج الماء · تنكمش الخلية':'اتزان أسموزي'}</text><text x="345" y="35">${plant?'خلية نباتية':'خلية حيوانية'}</text></g></svg></div>`;
+ }
+ if(kind==='enzyme'){
+  const active=data.temp==='optimal'&&data.ph==='neutral';
+  return `<div class="lab-art"><div class="lab-art-caption">ارتباط الركيزة بالموقع النشط</div><svg viewBox="0 0 400 220" role="img" aria-label="رسم تفاعلي توضيحي للإنزيم والركيزة"><path d="M95 150 C55 110 80 48 145 50 C185 20 235 48 240 85 C285 88 305 140 270 172 C220 205 130 194 95 150Z" fill="#267c59" stroke="#a7e8c9" stroke-width="4"/><path d="M165 65 Q195 95 225 65" fill="none" stroke="#071811" stroke-width="15" stroke-linecap="round"/><path d="M175 30 L195 53 L215 30 L205 16 L185 16Z" fill="#e7c77e" stroke="#fff0c8" stroke-width="2"/><g fill="#d9f5e8" font-size="12"><text x="80" y="205">الإنزيم</text><text x="230" y="27">الركيزة</text><text x="300" y="112">${active?'ملاءمة مثلى':'تغيّر الملاءمة'}</text></g><path d="M215 35 L230 55" stroke="#e7c77e" stroke-width="2"/></svg></div>`;
+ }
+ if(kind==='transpiration'){
+  const high=data.humidity==='low'&&data.wind==='windy';
+  return `<div class="lab-art"><div class="lab-art-caption">فقد بخار الماء من الورقة عبر الثغور</div><svg viewBox="0 0 400 220" role="img" aria-label="رسم يوضح النتح وخروج بخار الماء"><path d="M190 175 C75 145 95 40 200 35 C305 40 325 145 210 175Z" fill="#267c59" stroke="#a7e8c9" stroke-width="3"/><path d="M200 175 Q195 105 200 42 M200 110 L140 75 M200 125 L260 80" fill="none" stroke="#bce8a5" stroke-width="4"/><g fill="#9edfff" stroke="#d8f5ff" stroke-width="1"><circle cx="160" cy="25" r="5"/><circle cx="200" cy="12" r="6"/><circle cx="240" cy="25" r="5"/></g><g stroke="#9edfff" stroke-width="3" fill="none" stroke-linecap="round"><path d="M160 55 Q145 35 160 18 M200 45 Q185 25 200 5 M240 55 Q255 35 240 18"/></g><g fill="#d9f5e8" font-size="12" text-anchor="middle"><text x="200" y="205">${high?'نتح مرتفع':'معدل النتح يتغير حسب العوامل'}</text></g></svg></div>`;
+ }
+ if(kind==='diffusion'){
+  const fast=data.diffTemp==='warm'&&data.gradient==='large';
+  const left=Array.from({length:12},(_,i)=>`<circle cx="${45+(i%4)*19}" cy="${65+Math.floor(i/4)*35}" r="5" fill="#e6c77f"/>`).join('');
+  const right=Array.from({length:12},(_,i)=>`<circle cx="${265+(i%4)*19}" cy="${65+Math.floor(i/4)*35}" r="5" fill="#e6c77f" opacity=".45"/>`).join('');
+  return `<div class="lab-art"><div class="lab-art-caption">انتشار الجزيئات من التركيز الأعلى إلى الأقل</div><svg viewBox="0 0 400 220" role="img" aria-label="رسم يوضح انتشار الجزيئات"><rect x="25" y="35" width="350" height="140" rx="18" fill="#102d23" stroke="#6cbb96" stroke-width="2"/><path d="M200 38 V172" stroke="#6cbb96" stroke-dasharray="5 6"/><g>${left}${right}</g><path d="M150 110 H250 M238 98 L250 110 L238 122" fill="none" stroke="#a7e8c9" stroke-width="4" stroke-linecap="round"/><g fill="#d9f5e8" font-size="12" text-anchor="middle"><text x="100" y="195">تركيز أعلى</text><text x="300" y="195">تركيز أقل</text><text x="200" y="20">${fast?'انتشار أسرع':'انتشار أبطأ'}</text></g></svg></div>`;
+ }
+ return '';
+}
+function renderLabBars(containerId, title, rows, explanation, status, art=''){
  const host=$(containerId);
  const bars=rows.map(([label,value])=>`<div class="lab-indicator"><div class="lab-indicator-top"><span>${label}</span><strong>${value}%</strong></div><div class="lab-track"><i style="width:${Math.max(0,Math.min(100,value))}%"></i></div></div>`).join('');
- host.innerHTML=`<div class="lab-output-head"><strong>${title}</strong><span class="lab-status">${status}</span></div>${bars}<div class="lab-explain">${explanation}</div>`;
+ host.innerHTML=`<div class="lab-output-head"><strong>${title}</strong><span class="lab-status">${status}</span></div>${art}${bars}<div class="lab-explain">${explanation}</div>`;
 }
 function runPhoto(){
  const l=$('light').value,w=$('water').value,c=$('co2').value;
@@ -635,7 +659,7 @@ function runStation(){
   rows=[['سرعة الانتشار',value],['أثر الحرارة',v('diffTemp')==='warm'?90:35],['أثر فرق التركيز',v('gradient')==='large'?100:30]];
  }
  runs++;$('labPercent').textContent=value+'%';$('labState').textContent=state;$('labRuns').textContent=runs;
- renderLabBars('labVisual',stations[station].title,rows,desc,state);
+ renderLabBars('labVisual',stations[station].title,rows,desc,state,experimentIllustration(station,Object.fromEntries(stations[station].fields.map(([id])=>[id,v(id)]))));
  $('labResult').textContent=desc;
 }
 $('runStation').addEventListener('click',runStation);
