@@ -155,6 +155,23 @@ footer{text-align:center;padding:35px 20px;border-top:1px solid var(--border)}
 @media(max-width:560px){.grid,.two{grid-template-columns:1fr}.compare-table th,.compare-table td{padding:9px 7px;font-size:12px}}
 @media print{header,.actions,.teacher-banner,.teacher-panel,.lab-actions,.btn{display:none!important}body{background:white;color:#111}.panel,.card{break-inside:avoid}}
 
+
+/* Scientific experiment illustrations */
+.lab-figure{margin:8px 0 16px;padding:12px;border:1px solid #315b45;border-radius:14px;background:radial-gradient(circle at 50% 45%,#153b2a,#07140f 78%);overflow:hidden}
+.lab-figure svg{display:block;width:100%;max-height:245px}
+.lab-figure figcaption{font-size:11px;color:#c3dfd0;text-align:center;margin-top:5px}
+.lab-figure .flow{stroke-dasharray:7 7;animation:flowDash 1.2s linear infinite}
+.lab-figure .particle{animation:particleFloat 2.6s ease-in-out infinite alternate}
+.lab-figure .particle:nth-of-type(2n){animation-delay:.4s}
+@keyframes flowDash{to{stroke-dashoffset:-28}}
+@keyframes particleFloat{to{transform:translate(5px,-4px)}}
+.lab-figure .cell-outline{fill:#a3e6b51a;stroke:#a6e8ca;stroke-width:5}
+.lab-figure .membrane{stroke:#e8d39b;stroke-width:3;stroke-dasharray:4 4}
+.lab-figure .water{fill:#65c9ff;stroke:#b9eaff;stroke-width:1}
+.lab-figure .solute{fill:#e8d39b}
+.lab-figure .enzyme{fill:#4d9b76;stroke:#a6e8ca;stroke-width:3}
+.lab-figure .substrate{fill:#e8d39b;stroke:#fff0c9;stroke-width:2}
+
 </style>
 </head>
 <body>
@@ -368,7 +385,7 @@ footer{text-align:center;padding:35px 20px;border-top:1px solid var(--border)}
 </div></section>
 
 <section id="quiz"><div class="inner">
-<div class="head"><div class="kicker">11 / KNOWLEDGE CHECK</div><h2>اختبر نفسك</h2><p>ثلاثة مستويات مع تفسير الإجابات وحفظ أفضل نتيجة على جهازك.</p></div>
+<div class="head"><div class="kicker">11 / KNOWLEDGE CHECK</div><h2>اختبر نفسك</h2><p>ثلاثة مستويات متدرجة بأسئلة حفظ وفهم وتطبيق وتحليل، مع تفسير الإجابات وحفظ أفضل نتيجة على جهازك.</p></div>
 <div class="panel">
 <div class="field"><label for="level">مستوى الاختبار</label><select id="level"><option value="easy">سهل</option><option value="medium" selected>متوسط</option><option value="hard">متقدم</option></select></div>
 <div class="stats"><span id="qProgress">السؤال 1</span><span id="qScore">النتيجة: 0</span><span id="best">أفضل نتيجة: —</span></div><div class="progress"><i id="qBar"></i></div>
@@ -570,34 +587,42 @@ $('dnaNext').addEventListener('click',()=>{if(!answered)return;if(di<5){di++;dra
 $('dnaReset').addEventListener('click',()=>{di=0;ds=0;drawDNA()});drawDNA();
 
 /* مختبر مِجهر: مؤشرات ونتائج تفسيرية دون رسومات مجسمة */
-function experimentIllustration(kind, data={}){
- const common=`<defs><linearGradient id="mem" x2="0" y2="1"><stop stop-color="#b7f4d8"/><stop offset="1" stop-color="#4ba982"/></linearGradient><radialGradient id="water"><stop stop-color="#a9eaff"/><stop offset="1" stop-color="#328cc4"/></radialGradient></defs>`;
+function experimentFigure(kind, state={}){
+ const wrap=(svg,caption)=>`<figure class="lab-figure">${svg}<figcaption>${caption}</figcaption></figure>`;
  if(kind==='osmosis'){
-  const outside=data.outside||'equal', plant=data.cellType==='plant';
-  const scale=outside==='dilute'?1.13:outside==='concentrated'?.78:1;
-  const arrows=outside==='dilute'?'<path d="M65 125 L115 125 M105 115 L115 125 L105 135 M335 125 L285 125 M295 115 L285 125 L295 135"/>':outside==='concentrated'?'<path d="M115 125 L65 125 M75 115 L65 125 L75 135 M285 125 L335 125 M325 115 L335 125 L325 135"/>':'<path d="M65 125 L115 125 M105 115 L115 125 L105 135 M335 125 L285 125 M295 115 L285 125 L295 135" opacity=".35"/>';
-  return `<div class="lab-art"><div class="lab-art-caption">محاكاة حركة الماء عبر الغشاء شبه المنفذ</div><svg viewBox="0 0 400 230" role="img" aria-label="رسم يوضح تغير حجم الخلية حسب تركيز المحلول"><g fill="none" stroke="#7ddfba" stroke-width="4" stroke-linecap="round">${arrows}</g><g transform="translate(200 120) scale(${scale}) translate(-200 -120)"><rect x="125" y="55" width="150" height="130" rx="${plant?10:60}" fill="#173f30" stroke="#a7e8c9" stroke-width="${plant?9:5}"/><ellipse cx="200" cy="120" rx="28" ry="23" fill="#b6d98b" opacity=".85"/><circle cx="200" cy="120" r="10" fill="#436f4e"/><g fill="url(#water)"><circle cx="153" cy="88" r="7"/><circle cx="245" cy="93" r="6"/><circle cx="160" cy="151" r="5"/><circle cx="245" cy="153" r="7"/></g></g><g fill="#d9f5e8" font-size="12" text-anchor="middle"><text x="55" y="35">الوسط الخارجي</text><text x="200" y="215">${outside==='dilute'?'يدخل الماء · تنتفخ الخلية':outside==='concentrated'?'يخرج الماء · تنكمش الخلية':'اتزان أسموزي'}</text><text x="345" y="35">${plant?'خلية نباتية':'خلية حيوانية'}</text></g></svg></div>`;
+  const outside=state.outside||'equal', plant=state.cellType==='plant';
+  const scale=outside==='dilute'?1.12:outside==='concentrated'?.78:1;
+  const arrows=outside==='dilute'?'<path class="flow" d="M28 105 Q75 105 112 105 M28 145 Q75 145 112 145" stroke="#65c9ff" stroke-width="5" fill="none" marker-end="url(#arr)"/><path class="flow" d="M292 105 Q245 105 208 105 M292 145 Q245 145 208 145" stroke="#65c9ff" stroke-width="5" fill="none" marker-end="url(#arr)"/>':outside==='concentrated'?'<path class="flow" d="M112 105 Q75 105 28 105 M208 145 Q245 145 292 145" stroke="#65c9ff" stroke-width="5" fill="none" marker-end="url(#arr)"/>':'<path d="M35 105 H105 M285 145 H215" stroke="#65c9ff" stroke-width="3" fill="none" marker-end="url(#arr)" opacity=".55"/>';
+  const svg=`<svg viewBox="0 0 320 230" role="img" aria-label="رسم توضيحي للأسموزية"><defs><marker id="arr" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="#65c9ff"/></marker></defs><text x="160" y="20" fill="#e8d39b" text-anchor="middle" font-size="12">الوسط الخارجي</text><rect x="${160-55*scale}" y="${48-34*scale}" width="${110*scale}" height="${110*scale}" rx="${plant?8:48}" class="cell-outline"/><rect x="${160-48*scale}" y="${55-27*scale}" width="${96*scale}" height="${96*scale}" rx="${plant?5:42}" fill="#4d9b7622" class="membrane"/><circle cx="160" cy="105" r="17" fill="#b88bd5" opacity=".85"/><text x="160" y="190" text-anchor="middle" fill="#dff7e9" font-size="12">${plant?'خلية نباتية':'خلية حيوانية'} · ${outside==='dilute'?'دخول الماء':outside==='concentrated'?'خروج الماء':'اتزان ديناميكي'}</text>${arrows}<g fill="#65c9ff">${Array.from({length:10},(_,i)=>`<circle class="particle" cx="${20+(i*31)%280}" cy="${35+(i*19)%150}" r="3"/>`).join('')}</g><g fill="#e8d39b">${Array.from({length:outside==='concentrated'?22:outside==='dilute'?5:12},(_,i)=>`<circle cx="${18+(i*43)%284}" cy="${48+(i*29)%115}" r="2.5"/>`).join('')}</g></svg>`;
+  return wrap(svg,'الماء يعبر الغشاء شبه المنفذ؛ حجم الخلية يتغير بحسب تركيز الوسط الخارجي.');
  }
  if(kind==='enzyme'){
-  const active=data.temp==='optimal'&&data.ph==='neutral';
-  return `<div class="lab-art"><div class="lab-art-caption">ارتباط الركيزة بالموقع النشط</div><svg viewBox="0 0 400 220" role="img" aria-label="رسم تفاعلي توضيحي للإنزيم والركيزة"><path d="M95 150 C55 110 80 48 145 50 C185 20 235 48 240 85 C285 88 305 140 270 172 C220 205 130 194 95 150Z" fill="#267c59" stroke="#a7e8c9" stroke-width="4"/><path d="M165 65 Q195 95 225 65" fill="none" stroke="#071811" stroke-width="15" stroke-linecap="round"/><path d="M175 30 L195 53 L215 30 L205 16 L185 16Z" fill="#e7c77e" stroke="#fff0c8" stroke-width="2"/><g fill="#d9f5e8" font-size="12"><text x="80" y="205">الإنزيم</text><text x="230" y="27">الركيزة</text><text x="300" y="112">${active?'ملاءمة مثلى':'تغيّر الملاءمة'}</text></g><path d="M215 35 L230 55" stroke="#e7c77e" stroke-width="2"/></svg></div>`;
+  const active=state.activity>65, hot=state.temp==='hot';
+  const svg=`<svg viewBox="0 0 320 205" role="img" aria-label="رسم ارتباط الإنزيم بالركيزة"><path class="enzyme" d="M70 135 Q52 110 65 76 Q78 43 112 55 Q132 62 143 83 Q154 98 173 88 Q196 74 218 92 Q242 113 225 145 Q207 170 165 160 L105 160 Q82 159 70 135Z"/><path d="M130 83 Q145 93 160 83 Q174 74 187 88" fill="none" stroke="#071311" stroke-width="9" stroke-linecap="round"/><path class="substrate" d="M145 30 L165 30 L165 62 L155 73 L145 62Z"/><path d="M155 73 L155 84" stroke="#e8d39b" stroke-width="2" stroke-dasharray="3 3"/><text x="155" y="18" text-anchor="middle" fill="#e8d39b" font-size="11">الركيزة</text><text x="150" y="190" text-anchor="middle" fill="#dff7e9" font-size="12">${hot?'تغيّر شكل الموقع النشط':active?'ارتباط مناسب بالموقع النشط':'ارتباط أقل كفاءة'}</text>${hot?'<path d="M45 45 l12 -10 M250 48 l15 -12 M45 160 l-12 10" stroke="#e99b9b" stroke-width="3"/>':''}</svg>`;
+  return wrap(svg,'تعتمد كفاءة التفاعل على توافق الركيزة مع الموقع النشط وظروف عمل الإنزيم.');
  }
  if(kind==='transpiration'){
-  const high=data.humidity==='low'&&data.wind==='windy';
-  return `<div class="lab-art"><div class="lab-art-caption">فقد بخار الماء من الورقة عبر الثغور</div><svg viewBox="0 0 400 220" role="img" aria-label="رسم يوضح النتح وخروج بخار الماء"><path d="M190 175 C75 145 95 40 200 35 C305 40 325 145 210 175Z" fill="#267c59" stroke="#a7e8c9" stroke-width="3"/><path d="M200 175 Q195 105 200 42 M200 110 L140 75 M200 125 L260 80" fill="none" stroke="#bce8a5" stroke-width="4"/><g fill="#9edfff" stroke="#d8f5ff" stroke-width="1"><circle cx="160" cy="25" r="5"/><circle cx="200" cy="12" r="6"/><circle cx="240" cy="25" r="5"/></g><g stroke="#9edfff" stroke-width="3" fill="none" stroke-linecap="round"><path d="M160 55 Q145 35 160 18 M200 45 Q185 25 200 5 M240 55 Q255 35 240 18"/></g><g fill="#d9f5e8" font-size="12" text-anchor="middle"><text x="200" y="205">${high?'نتح مرتفع':'معدل النتح يتغير حسب العوامل'}</text></g></svg></div>`;
+  const high=state.rate>65;
+  const svg=`<svg viewBox="0 0 320 215" role="img" aria-label="رسم النتح في الورقة"><path d="M45 135 Q85 20 235 43 Q285 58 265 105 Q220 185 75 166Z" fill="#286c4c" stroke="#a6e8ca" stroke-width="3"/><path d="M62 151 Q150 105 253 55 M130 119 L105 72 M165 104 L173 57 M195 88 L235 90" stroke="#a6e8ca" stroke-width="2" fill="none"/><path d="M55 150 Q38 173 25 187" stroke="#a6e8ca" stroke-width="4" fill="none"/>${Array.from({length:high?9:4},(_,i)=>`<path class="flow" d="M${90+i*17} 45 Q${75+i*19} 20 ${90+i*17} 5" stroke="#65c9ff" stroke-width="3" fill="none"/>`).join('')}<text x="160" y="205" text-anchor="middle" fill="#dff7e9" font-size="12">${high?'معدل فقد ماء مرتفع':'معدل فقد ماء منخفض'}</text></svg>`;
+  return wrap(svg,'يتبخر الماء من أسطح خلايا الورقة وينتشر بخار الماء عبر الثغور.');
  }
  if(kind==='diffusion'){
-  const fast=data.diffTemp==='warm'&&data.gradient==='large';
-  const left=Array.from({length:12},(_,i)=>`<circle cx="${45+(i%4)*19}" cy="${65+Math.floor(i/4)*35}" r="5" fill="#e6c77f"/>`).join('');
-  const right=Array.from({length:12},(_,i)=>`<circle cx="${265+(i%4)*19}" cy="${65+Math.floor(i/4)*35}" r="5" fill="#e6c77f" opacity=".45"/>`).join('');
-  return `<div class="lab-art"><div class="lab-art-caption">انتشار الجزيئات من التركيز الأعلى إلى الأقل</div><svg viewBox="0 0 400 220" role="img" aria-label="رسم يوضح انتشار الجزيئات"><rect x="25" y="35" width="350" height="140" rx="18" fill="#102d23" stroke="#6cbb96" stroke-width="2"/><path d="M200 38 V172" stroke="#6cbb96" stroke-dasharray="5 6"/><g>${left}${right}</g><path d="M150 110 H250 M238 98 L250 110 L238 122" fill="none" stroke="#a7e8c9" stroke-width="4" stroke-linecap="round"/><g fill="#d9f5e8" font-size="12" text-anchor="middle"><text x="100" y="195">تركيز أعلى</text><text x="300" y="195">تركيز أقل</text><text x="200" y="20">${fast?'انتشار أسرع':'انتشار أبطأ'}</text></g></svg></div>`;
+  const many=state.rate>65;
+  const dots=Array.from({length:26},(_,i)=>{const x=i<19?25+(i*19)%115:180+((i*23)%110),y=40+(i*31)%115;return `<circle class="particle" cx="${x}" cy="${y}" r="4" fill="${i<19?'#e8d39b':'#65c9ff'}"/>`}).join('');
+  const svg=`<svg viewBox="0 0 320 200" role="img" aria-label="رسم انتشار الجزيئات"><rect x="15" y="28" width="290" height="132" rx="12" fill="#dff7e908" stroke="#a6e8ca" stroke-width="2"/><path d="M160 30 V158" stroke="#e8d39b" stroke-dasharray="5 5"/><text x="85" y="18" text-anchor="middle" fill="#e8d39b" font-size="11">تركيز أعلى</text><text x="235" y="18" text-anchor="middle" fill="#65c9ff" font-size="11">تركيز أقل</text>${dots}<path class="flow" d="M118 95 H204" stroke="#a6e8ca" stroke-width="4" fill="none"/><text x="160" y="187" text-anchor="middle" fill="#dff7e9" font-size="12">${many?'صافي انتقال أسرع':'صافي انتقال أبطأ'}</text></svg>`;
+  return wrap(svg,'تتحرك الجزيئات عشوائيًا، ويكون صافي الانتقال من التركيز الأعلى إلى الأقل.');
+ }
+ if(kind==='photo'){
+  const rate=state.rate??0;
+  const svg=`<svg viewBox="0 0 320 210" role="img" aria-label="رسم البناء الضوئي"><circle cx="38" cy="40" r="20" fill="#e8d39b"/><g stroke="#e8d39b" stroke-width="3">${Array.from({length:8},(_,i)=>`<path d="M38 9 L38 0 M38 71 V80 M7 40 H0 M76 40 H67 M16 18 L9 11 M60 62 L67 69 M60 18 L67 11 M16 62 L9 69"/>`).join('')}</g><path d="M145 164 Q102 91 170 56 Q240 23 270 93 Q260 170 145 164Z" fill="#286c4c" stroke="#a6e8ca" stroke-width="3"/><path d="M151 156 Q195 106 260 76" stroke="#a6e8ca" stroke-width="3" fill="none"/><path class="flow" d="M75 42 L128 72" stroke="#e8d39b" stroke-width="3"/><path class="flow" d="M40 178 L139 145" stroke="#65c9ff" stroke-width="3"/><text x="82" y="25" fill="#e8d39b" font-size="11">ضوء</text><text x="30" y="195" fill="#65c9ff" font-size="11">ماء + CO₂</text><text x="245" y="35" fill="#a6e8ca" font-size="11">O₂</text><path class="flow" d="M230 80 L286 40" stroke="#a6e8ca" stroke-width="3"/><text x="160" y="197" text-anchor="middle" fill="#dff7e9" font-size="12">نشاط نسبي: ${rate}%</text></svg>`;
+  return wrap(svg,'مدخلات البناء الضوئي: الضوء والماء وثاني أكسيد الكربون؛ ومن نواتجه الأكسجين والمركبات العضوية.');
  }
  return '';
 }
-function renderLabBars(containerId, title, rows, explanation, status, art=''){
+function renderLabBars(containerId, title, rows, explanation, status, figure=''){
  const host=$(containerId);
  const bars=rows.map(([label,value])=>`<div class="lab-indicator"><div class="lab-indicator-top"><span>${label}</span><strong>${value}%</strong></div><div class="lab-track"><i style="width:${Math.max(0,Math.min(100,value))}%"></i></div></div>`).join('');
- host.innerHTML=`<div class="lab-output-head"><strong>${title}</strong><span class="lab-status">${status}</span></div>${art}${bars}<div class="lab-explain">${explanation}</div>`;
+ host.innerHTML=`<div class="lab-output-head"><strong>${title}</strong><span class="lab-status">${status}</span></div>${figure}${bars}<div class="lab-explain">${explanation}</div>`;
 }
 function runPhoto(){
  const l=$('light').value,w=$('water').value,c=$('co2').value;
@@ -611,7 +636,7 @@ function runPhoto(){
  const oxygen=rate===0?'متوقف تقريبًا':rate<50?'منخفض':'مرتبط بمعدل النشاط';
  const status=rate===100?'ظروف مناسبة':rate===0?'توقف التفاعلات الضوئية':'عامل محدِّد موجود';
  const explanation=rate===100?'العوامل المختارة متاحة بمستوى مناسب في هذا النموذج. قارني بتجربة تقللين فيها عاملًا واحدًا.':'العامل/العوامل المحدِّدة: '+limiting.join('، ')+'. يقل معدل البناء الضوئي عندما يصبح أحد المتطلبات الأساسية محدودًا.';
- renderLabBars('plant','قراءة نتائج البناء الضوئي',[['النشاط النسبي',rate],['توفر الضوء',l==='none'?0:l==='low'?45:100],['توفر الماء',w==='low'?35:100],['توفر CO₂',c==='low'?45:100]],explanation,status);
+ renderLabBars('plant','قراءة نتائج البناء الضوئي',[['النشاط النسبي',rate],['توفر الضوء',l==='none'?0:l==='low'?45:100],['توفر الماء',w==='low'?35:100],['توفر CO₂',c==='low'?45:100]],explanation,status,experimentFigure('photo',{rate}));
  $('photoRate').textContent=rate+'%';$('photoOxygen').textContent=oxygen;$('photoStatus').textContent=status;
  $('photoResult').textContent='نتيجة المحاكاة: '+rate+'%. '+explanation;
 }
@@ -659,7 +684,8 @@ function runStation(){
   rows=[['سرعة الانتشار',value],['أثر الحرارة',v('diffTemp')==='warm'?90:35],['أثر فرق التركيز',v('gradient')==='large'?100:30]];
  }
  runs++;$('labPercent').textContent=value+'%';$('labState').textContent=state;$('labRuns').textContent=runs;
- renderLabBars('labVisual',stations[station].title,rows,desc,state,experimentIllustration(station,Object.fromEntries(stations[station].fields.map(([id])=>[id,v(id)]))));
+ const figState=station==='osmosis'?{outside:v('outside'),cellType:v('cellType')}:station==='enzyme'?{temp:v('temp'),activity:value}:station==='transpiration'?{rate:value}: {rate:value};
+ renderLabBars('labVisual',stations[station].title,rows,desc,state,experimentFigure(station,figState));
  $('labResult').textContent=desc;
 }
 $('runStation').addEventListener('click',runStation);
@@ -669,18 +695,35 @@ renderStation();
 /* الاختبار */
 const bank={
 easy:[
-['أي عضيّة تقوم بالبناء الضوئي؟',['الميتوكوندريا','البلاستيدة الخضراء','النواة'],1,'تتم عملية البناء الضوئي في البلاستيدات الخضراء.'],
-['ما القاعدة المكملة لـ A في DNA؟',['T','G','C'],0,'A تقابل T.'],
-['ما وظيفة الريبوسومات؟',['تصنيع البروتين','تخزين الماء','إنتاج الضوء'],0,'الريبوسومات مواقع تصنيع البروتينات.']],
+['أي عضيّة تقوم بالبناء الضوئي؟',['الميتوكوندريا','البلاستيدة الخضراء','النواة'],1,'تتم عملية البناء الضوئي في البلاستيدات الخضراء لاحتوائها على الكلوروفيل.'],
+['ما القاعدة المكملة لـ A في DNA؟',['T','G','C'],0,'ترتبط A مع T في DNA.'],
+['ما وظيفة الريبوسومات؟',['تصنيع البروتين','تخزين الماء','إنتاج الضوء'],0,'الريبوسومات مواقع بناء البروتينات.'],
+['أي تركيب يحيط بالخلية النباتية ويوفر لها الدعامة؟',['الجدار الخلوي','النوية','الغلاف النووي'],0,'الجدار الخلوي يمنح الخلية النباتية الدعم ويساعد في تثبيت شكلها.'],
+['أين توجد معظم المادة الوراثية في الخلية حقيقية النواة؟',['النواة','الفجوة','الجدار الخلوي'],0,'توجد معظم المادة الوراثية داخل النواة.'],
+['ما وظيفة الفجوة العصارية في الخلية النباتية؟',['تخزين مواد والمساعدة في ضغط الامتلاء','تصنيع البروتين','إنتاج ATP'],0,'تخزن الماء ومواد مختلفة وتسهم في الحفاظ على ضغط الامتلاء.'],
+['أي مما يأتي يُعد ناتجًا من عملية البناء الضوئي؟',['الأكسجين','النيتروجين','الأمونيا'],0,'ينطلق الأكسجين خلال عملية البناء الضوئي.'],
+['ما المقصود بالانتشار؟',['انتقال صافٍ من تركيز أعلى إلى أقل','انتقال الماء فقط','استهلاك ATP دائمًا'],0,'الانتشار حركة صافية للجزيئات مع تدرج التركيز.']
+],
 medium:[
-['ما الشكل الشائع لجزيء DNA؟',['لولب مزدوج','سلسلة أحماض أمينية','طبقة دهنية'],0,'يتكون DNA عادة من سلسلتين ملتفتين.'],
-['أي قاعدة توجد في RNA بدل T؟',['A','U','C'],1,'RNA يحتوي على اليوراسيل U بدل الثايمين T.'],
-['ما وظيفة الميتوكوندريا؟',['إنتاج معظم ATP','صنع الكلوروفيل','تخزين الماء'],0,'تنتج الميتوكوندريا معظم ATP بالتنفس الخلوي.']],
+['ما الشكل الشائع لجزيء DNA؟',['لولب مزدوج','سلسلة أحماض أمينية','طبقة دهنية'],0,'يتكون DNA عادة من سلسلتين ملتفتين حول بعضهما.'],
+['أي قاعدة توجد في RNA بدل T؟',['A','U','C'],1,'يحتوي RNA على اليوراسيل U بدل الثايمين T.'],
+['ما وظيفة الميتوكوندريا؟',['إنتاج معظم ATP','صنع الكلوروفيل','تخزين الماء'],0,'تنتج الميتوكوندريا معظم ATP القابل للاستخدام بالتنفس الخلوي.'],
+['وضعت خلية في محلول أعلى تركيزًا بالمذابات من داخلها. ما المتوقع؟',['خروج الماء من الخلية','دخول الماء بكثرة','توقف حركة الماء تمامًا'],0,'ينتقل الماء أسموزيًا نحو الوسط الأعلى تركيزًا بالمذابات.'],
+['لماذا قد يقل نشاط إنزيم عند درجة حرارة مرتفعة جدًا؟',['قد يتغير شكل الموقع النشط','تزداد كمية الركيزة تلقائيًا','يتحول الإنزيم إلى دهون'],0,'الحرارة الشديدة قد تسبب تمسخ البروتين وتغير شكل الموقع النشط.'],
+['إذا زادت شدة الضوء مع ثبات العوامل الأخرى وكان الضوء عاملًا محددًا، فما المتوقع؟',['زيادة معدل البناء الضوئي حتى حد معين','انعدام البناء الضوئي','تحول الأكسجين إلى CO₂'],0,'رفع العامل المحدد قد يزيد المعدل، لكن الزيادة ليست بلا حدود.'],
+['أي عبارة تصف الأسموزية بدقة؟',['انتقال الماء عبر غشاء شبه منفذ','انتقال البروتينات عبر الجدار','انتقال المذابات عكس التدرج دائمًا'],0,'الأسموزية انتقال الماء عبر غشاء شبه منفذ تبعًا لاختلاف تركيز المذابات.'],
+['ما أثر زيادة حركة الهواء حول الورقة غالبًا؟',['زيادة النتح','إيقاف النتح','منع تبخر الماء'],0,'تزيل حركة الهواء طبقة الهواء الرطب قرب سطح الورقة فتزيد فقد بخار الماء.']
+],
 hard:[
-['إذا كانت السلسلة A-G-T-C فما المكملة؟',['T-C-A-G','A-G-T-C','C-T-A-G'],0,'A تقابل T وG تقابل C.'],
-['ماذا قد يسبب نقص CO₂؟',['زيادة البناء الضوئي دائمًا','انخفاض المعدل','لا تأثير مطلقًا'],1,'قد يصبح CO₂ عاملًا محددًا.'],
-['ما أثر الحرارة الشديدة على إنزيم؟',['قد يتمسخ','يزداد نشاطه دائمًا','يتحول إلى DNA'],0,'الحرارة الشديدة قد تغير بنية الإنزيم.']]
-};
+['إذا كانت السلسلة A-G-T-C فما السلسلة المكملة؟',['T-C-A-G','A-G-T-C','C-T-A-G'],0,'تطبيق قواعد التكامل: A تقابل T، وG تقابل C.'],
+['في تجربة بناء ضوئي كانت شدة الضوء عالية والماء كافيًا، لكن CO₂ منخفض. ما الاستنتاج الأدق؟',['قد يكون CO₂ العامل المحدد','الضوء هو العامل المحدد حتمًا','لن تتأثر العملية'],0,'عندما تتوفر بقية العوامل ويقل CO₂ يمكن أن يحد من معدل البناء الضوئي.'],
+['خلية نباتية في محلول مركز فقدت جزءًا من حجم محتواها وابتعد الغشاء عن الجدار. ما التفسير؟',['خروج الماء وحدوث البلزمة','دخول الماء وحدوث الامتلاء','انقسام النواة'],0,'خروج الماء أسموزيًا من الخلية النباتية يؤدي إلى انكماش المحتوى وابتعاد الغشاء عن الجدار.'],
+['إنزيم عمل بكفاءة عند pH معين ثم انخفض نشاطه بشدة عند pH مختلف. أي تفسير أفضل؟',['تغير الشحنات/البنية في الموقع النشط','اختفاء الركيزة من الطبيعة','تحول الإنزيم إلى DNA'],0,'تغير pH قد يؤثر في الروابط والشحنات التي تحفظ البنية الفراغية للإنزيم.'],
+['في تجربة انتشار، تضاعف فرق التركيز مع ثبات درجة الحرارة. ما المتوقع عادة؟',['يزداد صافي معدل الانتشار','يتوقف الانتشار','تتحرك الجزيئات من الأقل إلى الأعلى تلقائيًا'],0,'زيادة تدرج التركيز تزيد عادة صافي الانتقال من المنطقة الأعلى تركيزًا إلى الأقل.'],
+['إذا أُغلقت معظم ثغور الورقة في يوم حار، فما النتيجة المباشرة المتوقعة؟',['انخفاض فقد الماء وقد يقل دخول CO₂','زيادة النتح ودخول CO₂','توقف التنفس الخلوي حتمًا'],0,'إغلاق الثغور يقلل خروج بخار الماء، لكنه يحد أيضًا من تبادل الغازات ودخول CO₂.'],
+['عُزلت الميتوكوندريا عن خلية نشطة. أي عملية تتأثر مباشرة أكثر؟',['إنتاج معظم ATP بالتنفس الخلوي','تضاعف DNA داخل النواة فقط','تخزين الماء في الفجوة'],0,'الميتوكوندريا موقع رئيسي لإنتاج ATP بالتنفس الخلوي؛ وقد تتأثر العمليات المعتمدة على الطاقة.'],
+['نتيجتان لتجربتين: (أ) إنزيم بارد ونشاطه منخفض، (ب) إنزيم ساخن جدًا ونشاطه منخفض. ما الفرق المحتمل؟',['البرودة تبطئ التصادمات، والحرارة الشديدة قد تمسخ الإنزيم','الحالتان تعنيان تمسخًا حتميًا','البرودة تكسر DNA والحرارة تصنعه'],0,'البرودة غالبًا تقلل سرعة التصادمات، أما الحرارة الشديدة فقد تغير بنية الإنزيم.']
+]};
 let questions=[],qi=0,score=0,locked=false;
 function bestKey(){return 'mijhar-best-'+$('level').value}
 function updateBest(){try{$('best').textContent='أفضل نتيجة: '+(localStorage.getItem(bestKey())??'—')}catch(e){$('best').textContent='أفضل نتيجة غير متاحة'}}
@@ -698,7 +741,7 @@ function choose(i,b){
 }
 $('qNext').addEventListener('click',()=>{
  if(!locked)return;if(qi<questions.length-1){qi++;drawQuestion()}
- else{$('question').textContent='انتهى الاختبار! نتيجتك '+score+' من '+questions.length;$('answers').innerHTML='';$('qProgress').textContent='اكتمل الاختبار';$('qBar').style.width='100%';$('qNext').disabled=true;
+ else{$('question').textContent='انتهى الاختبار! نتيجتك '+score+' من '+questions.length+' ('+Math.round(score/questions.length*100)+'%).';$('answers').innerHTML='';$('qProgress').textContent='اكتمل الاختبار';$('qBar').style.width='100%';$('qNext').disabled=true;
   try{const old=Number(localStorage.getItem(bestKey())||0);if(score>old)localStorage.setItem(bestKey(),String(score))}catch(e){}updateBest()}
 });
 $('qRestart').addEventListener('click',startQuiz);$('level').addEventListener('change',startQuiz);startQuiz();
